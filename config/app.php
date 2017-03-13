@@ -167,6 +167,8 @@ return [
          * Package Service Providers...
          */
         Laravel\Tinker\TinkerServiceProvider::class,
+        Laravel\Passport\PassportServiceProvider::class,
+        Zizaco\Entrust\EntrustServiceProvider::class,
 
         /*
          * Application Service Providers...

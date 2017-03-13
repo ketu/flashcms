@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersTable extends Migration
+class CreateProductVideoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('user', function (Blueprint $table) {
+        //create table product video
+        Schema::create('product_video', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->rememberToken();
-            $table->timestamps();
+            $table->string('url');
+            $table->integer('sort_order')->default(0);
+            $table->integer('product_id')->foreign('product_id')->references('id')->on('product')->onDelete('cascade');
         });
     }
 
@@ -30,6 +30,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_profile');
+        //drop table product video
     }
 }
