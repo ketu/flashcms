@@ -17,7 +17,7 @@ class CreateProductAttributeTable extends Migration
         Schema::create('product_attribute', function (Blueprint $table) {
             $table->increments('id');
             $table->string('value');
-            $table->boolean('is_multiple');
+            $table->boolean('is_option_value');
             $table->integer('product_id')->foreign('product_id')->references('id')->on('product')->onDelete('cascade');
             $table->integer('attribute_id')->foreign('attribute_id')->references('id')->on('attribute')->onDelete('cascade');
         });

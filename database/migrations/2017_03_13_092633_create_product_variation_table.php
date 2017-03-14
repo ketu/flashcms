@@ -19,9 +19,7 @@ class CreateProductVariationTable extends Migration
             $table->string('sku')->unique();
             $table->string('variation_name');
             $table->string('variation_data');
-
         });
-
     }
 
     /**
@@ -32,5 +30,6 @@ class CreateProductVariationTable extends Migration
     public function down()
     {
         //
+        Schema::dropIfExists('product_variation');
     }
 }

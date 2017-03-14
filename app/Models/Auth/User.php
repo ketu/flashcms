@@ -5,11 +5,15 @@ namespace App\Models\Auth;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Passport\HasApiTokens;
+use Zizaco\Entrust\Traits\EntrustUserTrait;
 
 class User extends Authenticatable
 {
     use Notifiable;
     use HasApiTokens;
+    use EntrustUserTrait;
+
+    protected $table = 'users';
 
     /**
      * The attributes that are mass assignable.
@@ -28,4 +32,20 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * User group relations
+     */
+    public function groups()
+    {
+        return $this->belongsToMany('App\Models\Auth\Group');
+    }
+
+    /**
+     * User roles relations
+     */
+    public function roles()
+    {
+        return $this->belongsToMany('App\Models\Auth\Role');
+    }
 }
