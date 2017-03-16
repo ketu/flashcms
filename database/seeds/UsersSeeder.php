@@ -39,21 +39,17 @@ class UsersSeeder extends Seeder
         }
         DB::table('users')->insert($insertData);
 
-        $groupIds = \App\Models\Auth\Group::query('id')->toArray();
-        $userIds = \App\Models\Auth\User::query('id')->toArray();
-
-        Flight::chunk(200, function ($flights) {
-            foreach ($flights as $flight) {
-                //
+        $groups = \App\Models\Auth\Group::all();
+        $insertData = [];
+        \App\Models\Auth\User::chunk(200, function ($users) use ($faker, $groups, &$insertData) {
+            foreach($users as $user) {
+                $group = $groups->random(); //$faker->randomElement($groups->toArray());
+                $insertData[] = [
+                    'user_id'=> $user->id,
+                    'group_id'=> $group->id,
+                ];
             }
         });
-        $insertData = [];
-        foreach($userIds as $id) {
-            $insertData[] = [
-                'user_id'=> $id,
-                'group_id'=> $faker->randomElement($groupIds)
-            ];
-        }
 
         DB::table('user_group_idx')->insert($insertData);
     }
