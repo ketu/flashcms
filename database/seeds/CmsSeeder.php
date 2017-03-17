@@ -12,6 +12,7 @@ class CmsSeeder extends Seeder
      */
     public function run()
     {
+
         $faker = Faker\Factory::create();
         $users = \App\Models\Auth\User::all();
         $pages = [
@@ -26,33 +27,35 @@ class CmsSeeder extends Seeder
             '403'
         ];
         $insertData = [];
-        foreach($pages as $page) {
+        foreach ($pages as $page) {
             $insertData[] = [
-                'name'=>  $faker->word,
-                'slug'=> $page,
-                'content'=> $faker->text,
-                'first_create_user'=> $users->random()->id,
-                'last_update_user'=> $users->random()->id,
-                'created_at'=> $faker->dateTime
+                'name' => $faker->word,
+                'slug' => $page,
+                'content' => $faker->text,
+                'first_create_user' => $users->random()->id,
+                'last_update_user' => $users->random()->id,
+                'created_at' => $faker->dateTime
 
             ];
         }
 
-       DB::table('cms_page')->insert($insertData);
+        DB::table('cms_page')->truncate();
+        DB::table('cms_page')->insert($insertData);
 
         $insertData = [];
-        foreach(range(0, 100) as $key=> $value) {
+        foreach (range(0, 100) as $key => $value) {
             $insertData[] = [
-                'name'=> $faker->word,
-                'slug'=> $faker->slug,
-                'content'=> $faker->text,
-                'status'=> $faker->boolean,
-                'first_create_user'=> $users->random()->id,
-                'last_update_user'=> $users->random()->id,
-                'created_at'=> $faker->dateTime
+                'name' => $faker->word,
+                'slug' => $faker->slug,
+                'content' => $faker->text,
+                'status' => $faker->boolean,
+                'first_create_user' => $users->random()->id,
+                'last_update_user' => $users->random()->id,
+                'created_at' => $faker->dateTime
             ];
 
         }
+        DB::table('cms_block')->truncate();
         DB::table('cms_block')->insert($insertData);
     }
 }
