@@ -1,0 +1,42 @@
+{
+  "name": "legitripple",
+  "description": "Material Design ripples with jQuery",
+  "main": [
+    "dist/ripple.min.js",
+    "dist/ripple.min.css"
+  ],
+  "dependencies": {
+    "jquery": "latest"
+  },
+  "authors": [
+    "Matthias Vogt"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "ripple",
+    "material",
+    "design",
+    "jQuery",
+    "plugin"
+  ],
+  "homepage": "https://github.com/matthias-vogt/legitRipple.js",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "version": "1.1.0",
+  "_release": "1.1.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.1.0",
+    "commit": "0cb1f3bbd5c264b83d9f8698d427349f6e266282"
+  },
+  "_source": "https://github.com/matthias-vogt/legitRipple.js.git",
+  "_target": "^1.1.0",
+  "_originalSource": "legitripple",
+  "_direct": true
+}

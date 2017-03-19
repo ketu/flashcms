@@ -168,7 +168,13 @@ return [
          */
         Laravel\Tinker\TinkerServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
-        Zizaco\Entrust\EntrustServiceProvider::class,
+        //Zizaco\Entrust\EntrustServiceProvider::class,
+
+
+        /**
+         * Custom Providers...
+         */
+        App\Providers\ViewVariableProvider::class,
 
         /*
          * Application Service Providers...
