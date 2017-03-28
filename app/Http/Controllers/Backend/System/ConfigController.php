@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Backend\System;
 
-
 use App\Http\Controllers\Backend\BackendController;
 use App\Models\System\Config;
 use Illuminate\Http\Request;

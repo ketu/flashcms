@@ -213,7 +213,7 @@
                 .navbar-brand {
                     padding-left: 0;
                     padding-right: 0;
-                    background: url(../images/logo_icon_light.png) no-repeat center center;
+                    background: url(../../images/logo_icon_light.png) no-repeat center center;
                     background-size: auto 16px;
                     float: none;
                     display: block;
@@ -1107,7 +1107,8 @@
                 }
 
                 // Links color
-                a:not(.label-flat):not(.badge-flat):not(.disabled > a) {
+                a:not(.label-flat):not(.badge-flat):not(.disabled a) {
+                //a:not(.label-flat):not(.badge-flat):not(.disabled > a) {
                     color: @navbar-inverse-link-color;
                 }
 
@@ -1779,7 +1780,7 @@
 
     // Use another icon in header
     .dd-header .dd-icon:after {
-        content: '\e9c5';
+        content: @icon-angle-down;
     }
 }
 

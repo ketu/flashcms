@@ -22,21 +22,41 @@ var paths = {
  * backend assets
  */
 elixir(function (mix) {
-    mix.less(['font-awesome/less/font-awesome.less'], 'public/assets/backend/css/font-awesome.css', paths.bower)
+    mix.less(
+        [
+            'font-awesome/less/font-awesome.less',
+            //'PACE/themes/black/pace-theme-loading-bar.css'
+
+        ],
+        'public/assets/backend/css/third.css',
+        paths.bower
+    )
         .less(['less/*.less'], 'public/assets/backend/css/app.css', paths.backend)
-        .combine(['public/assets/backend/css/font-awesome.css', 'public/assets/backend/css/app.css'], 'public/assets/backend/css/app.min.css');
+        .combine(['public/assets/backend/css/third.css', 'public/assets/backend/css/app.css'], 'public/assets/backend/css/app.min.css');
 
 
     mix.scripts(
-        ['jquery/dist/jquery.js',
+        [
+            'PACE/pace.min.js',
+            'jquery/dist/jquery.js',
             'bootstrap/dist/js/bootstrap.js',
             'jquery.nicescroll/dist/jquery.nicescroll.min.js',
-            'legitripple/dist/ripple.min.js'],
+            'datatables.net/js/jquery.dataTables.min.js',
+            'datatables.net-responsive/js/dataTables.responsive.min.js',
+            'select2/dist/js/select2.js',
+            'summernote/dist/summernote.js',
+            'jquery-validation/dist/jquery.validate.js',
+            'jquery-validation/dist/additional-methods.js',
+            'jquery.uniform/dist/js/jquery.uniform.standalone.js'
+
+
+        ],
         'public/assets/backend/js/third.js',
         paths.bower
     ).scripts([
             'js/app.js',
             'js/layout/*.js',
+            'js/plugins/*.js',
             'js/page/*.js'
         ],
         'public/assets/backend/js/app.js',
@@ -47,7 +67,9 @@ elixir(function (mix) {
     mix.copy(
         paths.bower + 'font-awesome/fonts',
         'public/assets/backend/fonts'
-    ).copy(   paths.backend + 'images',
-        'public/assets/backend/images');
+    ).copy(paths.bower + 'summernote/dist/font/',
+        'public/assets/backend/fonts/summernote/')
+        .copy(paths.backend + 'images',
+            'public/assets/backend/images');
 
 });

@@ -23,4 +23,8 @@ Route::group(['prefix' => $backendPrefix, 'namespace'=> 'Backend'], function () 
         Route::get('/', 'ConfigController@index')->name('system.config');
     });
 
+    Route::group(['prefix' => 'cms', 'namespace'=> 'Cms'], function () {
+        Route::get('/page', 'PageController@index')->name('cms.page');
+        Route::get('/page/{id}', 'PageController@edit')->name('cms.page.edit');
+    });
 });

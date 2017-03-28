@@ -102,9 +102,24 @@
                         @section('navigation')
                         <ul class="navigation navigation-main navigation-accordion">
 
-                            <li><a href="{{route('dashboard')}}"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
+                            <li><a href="{{route('dashboard')}}"><i class="fa fa-home"></i> <span>Dashboard</span></a></li>
                             <li>
-                                <a href="#"><i class="icon-stack"></i> <span>Starter kit</span></a>
+                                <a href="#"><i class="fa fa-s15"></i> <span>CMS</span></a>
+                                <ul>
+                                    <li><a href="{{route('cms.page')}}">Page</a></li>
+                                    <li><a href="horizontal_nav.html">Block</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-user"></i> <span>Users</span></a>
+                                <ul>
+                                    <li><a href="horizontal_nav.html">Users</a></li>
+                                    <li><a href="horizontal_nav.html">User Group</a></li>
+                                    <li><a href="horizontal_nav.html">User Role</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-gear"></i><span>System</span></a>
                                 <ul>
                                     <li><a href="horizontal_nav.html">Horizontal navigation</a></li></ul>
                             </li>

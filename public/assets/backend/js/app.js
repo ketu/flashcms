@@ -32,8 +32,8 @@ $(function() {
 
     // Calculate min height
     function containerHeight() {
-        var availableHeight = $(window).height() - $('.page-container').offset().top - $('.navbar-fixed-bottom').outerHeight();
-
+        var availableHeight = $(window).height() - $('.page-container').offset().top;// - $('.navbar-fixed-top').outerHeight();
+        //console.log(availableHeight);
         $('.page-container').attr('style', 'min-height:' + availableHeight + 'px');
     }
 
@@ -731,6 +731,122 @@ $(function() {
             }
         }, 100);
     }).resize();
+
+});
+
+/* ------------------------------------------------------------------------------
+ *
+ *  # Responsive extension for Datatables
+ *
+ *  Specific JS code additions for datatable_responsive.html page
+ *
+ *  Version: 1.0
+ *  Latest update: Aug 1, 2015
+ *
+ * ---------------------------------------------------------------------------- */
+
+
+
+
+// Table setup
+// ------------------------------
+
+// Setting datatable defaults
+$.extend(true, $.fn.dataTable.defaults, {
+    autoWidth: true,
+    responsive: true,
+    dom: '<"datatable-header"fl><"datatable-scroll-wrap"t><"datatable-footer"ip>',
+    language: {
+        search: '<span>Filter:</span> _INPUT_',
+        lengthMenu: '<span>Show:</span> _MENU_',
+        paginate: {'first': 'First', 'last': 'Last', 'next': '&rarr;', 'previous': '&larr;'}
+    },
+    drawCallback: function () {
+        $(this).find('tbody tr').slice(-3).find('.dropdown, .btn-group').addClass('dropup');
+    },
+    preDrawCallback: function () {
+        $(this).find('tbody tr').slice(-3).find('.dropdown, .btn-group').removeClass('dropup');
+    }
+});
+
+
+$(function () {
+    // External table additions
+    // ------------------------------
+    // Add placeholder to the datatable filter option
+    $('.dataTables_filter input[type=search]').attr('placeholder', 'Type to filter...');
+
+    // Enable Select2 select for the length option
+    $('.dataTables_length select').select2({
+        minimumResultsForSearch: Infinity,
+        width: 'auto'
+    });
+
+});
+
+/* ------------------------------------------------------------------------------
+*
+*  # Summernote editor
+*
+*  Specific JS code additions for editor_summernote.html page
+*
+*  Version: 1.0
+*  Latest update: Aug 1, 2015
+*
+* ---------------------------------------------------------------------------- */
+
+$(function() {
+
+
+    // Basic editors
+    // ------------------------------
+
+    // Default initialization
+    $('.summernote').summernote();
+
+
+    // Control editor height
+    $('.summernote-height').summernote({
+        height: 400
+    });
+
+
+    // Air mode
+    $('.summernote-airmode').summernote({
+        airMode: true
+    });
+
+
+
+    // Click to edit
+    // ------------------------------
+
+    // Edit
+    $('#edit').on('click', function() {
+        $('.click2edit').summernote({focus: true});
+    })
+
+    // Save
+    $('#save').on('click', function() {
+        var aHTML = $('.click2edit').code(); //save HTML If you need(aHTML: array).
+        $('.click2edit').destroy();
+    })
+
+
+
+    // Related form components
+    // ------------------------------
+
+    // Styled checkboxes/radios
+    $(".link-dialog input[type=checkbox], .note-modal-form input[type=radio]").uniform({
+        radioClass: 'choice'
+    });
+
+
+    // Styled file input
+    $(".note-image-input").uniform({
+        fileButtonClass: 'action btn bg-warning-400'
+    });
 
 });
 
