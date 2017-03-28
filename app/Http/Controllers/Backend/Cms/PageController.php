@@ -30,9 +30,12 @@ class PageController extends BackendController
     
     public function save(Request $request)
     {
+
     }
 
     public function delete(Request $request, $id)
     {
+        $page = Page::findOrFail($id);
+        $page->delete();
     }
 }
