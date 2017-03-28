@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Backend;
 
-
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Config;
 
@@ -25,8 +24,7 @@ class BackendController extends Controller
         $backendViewFolder = Config::get('route.backend.view');
 
 
-        if ($viewParts[0] != $backendViewFolder)
-        {
+        if ($viewParts[0] != $backendViewFolder) {
             array_unshift($viewParts, $backendViewFolder);
         }
 

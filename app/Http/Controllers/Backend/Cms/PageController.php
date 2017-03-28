@@ -22,7 +22,7 @@ class PageController extends BackendController
     {
         $page = Page::findOrFail($id);
 
-        return $this->render('cms.page.edit',[
+        return $this->render('cms.page.edit', [
             'page'=> $page
         ]);
     }
@@ -30,11 +30,9 @@ class PageController extends BackendController
     
     public function save(Request $request)
     {
-
     }
 
     public function delete(Request $request, $id)
     {
-        
     }
 }
