@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Backend\Auth;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Backend\BackendController;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
-class ResetPasswordController extends Controller
+class ResetPasswordController extends BackendController
 {
     /*
     |--------------------------------------------------------------------------
@@ -48,8 +48,17 @@ class ResetPasswordController extends Controller
      */
     public function showResetForm(Request $request, $token = null)
     {
-        return view('backend.auth.passwords.reset')->with(
+        return $this->render('auth.passwords.reset')->with(
             ['token' => $token, 'email' => $request->email]
         );
+    }
+
+
+    /**
+     * redirect to after success login
+     */
+    protected function redirectTo()
+    {
+        return route('dashboard');
     }
 }

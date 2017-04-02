@@ -15,36 +15,10 @@ $(function() {
     // Basic editors
     // ------------------------------
 
-    // Default initialization
-    $('.summernote').summernote();
 
-
-    // Control editor height
-    $('.summernote-height').summernote({
-        height: 400
+    $('.summernote, .summernote-height').each( function() {
+        $(this).val($(this).summernote('code'));
     });
-
-
-    // Air mode
-    $('.summernote-airmode').summernote({
-        airMode: true
-    });
-
-
-
-    // Click to edit
-    // ------------------------------
-
-    // Edit
-    $('#edit').on('click', function() {
-        $('.click2edit').summernote({focus: true});
-    })
-
-    // Save
-    $('#save').on('click', function() {
-        var aHTML = $('.click2edit').code(); //save HTML If you need(aHTML: array).
-        $('.click2edit').destroy();
-    })
 
 
 

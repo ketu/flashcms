@@ -64,7 +64,7 @@ test('white space is trimmed by default', function (assert) {
   });
 });
 
-test('does not trigger for additional pages', function (assert) {
+test('does not trigger for additional page', function (assert) {
   var data = new SelectTags($('#qunit-fixture .single'), options);
 
   data.query({

@@ -5,13 +5,13 @@ namespace App\Models\Auth;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Passport\HasApiTokens;
-//use Zizaco\Entrust\Traits\EntrustUserTrait;
+use Zizaco\Entrust\Traits\EntrustUserTrait;
 
 class User extends Authenticatable
 {
     use Notifiable;
     use HasApiTokens;
-    //use EntrustUserTrait;
+    use EntrustUserTrait;
 
     protected $table = 'users';
 
@@ -21,7 +21,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'nickname', 'status', 'password',
     ];
 
     /**
@@ -33,13 +33,6 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    /**
-     * User group relations
-     */
-    public function groups()
-    {
-        return $this->belongsToMany('App\Models\Auth\Group');
-    }
 
     /**
      * User roles relations

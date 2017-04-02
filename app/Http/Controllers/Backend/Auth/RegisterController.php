@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Backend\Auth;
 
+use App\Http\Controllers\Backend\BackendController;
 use App\Models\Auth\User;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
-class RegisterController extends Controller
+class RegisterController extends BackendController
 {
     /*
     |--------------------------------------------------------------------------
@@ -46,7 +46,7 @@ class RegisterController extends Controller
      */
     public function showRegistrationForm()
     {
-        return view('backend.auth.register');
+        return $this->render('auth.register');
     }
 
     /**
@@ -77,5 +77,13 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+    /**
+     * redirect to after success login
+     */
+    protected function redirectTo()
+    {
+        return route('dashboard');
     }
 }

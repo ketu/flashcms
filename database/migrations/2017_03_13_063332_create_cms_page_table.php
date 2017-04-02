@@ -16,14 +16,26 @@ class CreateCmsPageTable extends Migration
         // create table cms_page
         Schema::create('cms_page', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            //$table->string('name');
             $table->string('slug')->unique();
-            $table->text('content')->nullable(true);
+           // $table->text('content')->nullable(true);
             $table->integer('first_create_user')->foreign('first_create_user')->references('id')->on('users');
-            $table->integer('last_update_user')->foreign('last_update_user')->references('id')->on('users');
+            $table->integer('last_update_user')->nullalbe();
+            $table->foreign('last_update_user')->references('id')->on('users');
             $table->boolean('status')->default(true);
             $table->timestamps();
             //$table->softDeletes();
+        });
+
+        Schema::create('cms_page_translations', function(Blueprint $table)
+        {
+            $table->increments('id');
+            $table->integer('page_id')->unsigned();
+            $table->string('name');
+            $table->text('content');
+            $table->string('locale')->index();
+            $table->unique(['page_id','locale']);
+            $table->foreign('page_id')->references('id')->on('cms_page')->onDelete('cascade');
         });
 
     }
@@ -36,6 +48,9 @@ class CreateCmsPageTable extends Migration
     public function down()
     {
         //drop table cms_page
+
         Schema::dropIfExists('cms_page');
+        Schema::dropIfExists('cms_page_translations');
+
     }
 }

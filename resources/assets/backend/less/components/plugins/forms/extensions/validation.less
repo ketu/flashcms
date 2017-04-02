@@ -37,7 +37,7 @@
 .validation-error-label,
 .validation-valid-label {
 	&:before {
-		font-family: 'icomoon';
+		font-family: @icon-font-family;
 		position: absolute;
 		top: ((@line-height-computed - @icon-font-size) / 2);
 		left: 0;
@@ -56,10 +56,10 @@
 
 // Error icon
 .validation-error-label:before {
-	content: '\ed63';
+	content: @validation-error-label-before-content;
 }
 
 // Valid icon
 .validation-valid-label:before {
-	content: '\ee73';
+	content: @validation-valid-label-before-content;
 }

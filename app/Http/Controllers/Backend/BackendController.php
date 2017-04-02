@@ -31,4 +31,10 @@ class BackendController extends Controller
         $view = join($splitter, $viewParts);
         return view($view, $data, $mergeData);
     }
+
+
+    protected function getBackendRoutePrefix()
+    {
+        return Config::get('route.backend.prefix');
+    }
 }

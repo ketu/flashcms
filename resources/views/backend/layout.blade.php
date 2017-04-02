@@ -33,24 +33,26 @@
             <li><a class="sidebar-control sidebar-main-toggle hidden-xs"><i class="fa  fa-align-justify"></i></a></li>
         </ul>
 
+
         <ul class="nav navbar-nav navbar-right">
 
 
             <li class="dropdown dropdown-user">
                 <a class="dropdown-toggle" data-toggle="dropdown">
-                    <img src="assets/images/image.png" alt="">
-                    <span>Victoria</span>
+
+                    <span>{{ LaravelLocalization::getCurrentLocaleNative() }}</span>
                     <i class="caret"></i>
                 </a>
 
                 <ul class="dropdown-menu dropdown-menu-right">
-                    <li><a href="#"><i class="icon-user-plus"></i> My profile</a></li>
-                    <li><a href="#"><i class="icon-coins"></i> My balance</a></li>
-                    <li><a href="#"><span class="badge badge-warning pull-right">58</span> <i
-                                    class="icon-comment-discussion"></i> Messages</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#"><i class="icon-cog5"></i> Account settings</a></li>
-                    <li><a href="#"><i class="icon-switch2"></i> Logout</a></li>
+                    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                        <li>
+                            <a rel="alternate" hreflang="{{$localeCode}}" href="{{Request::fullUrlWithQuery(['locale'=> $localeCode])}}">
+                                {{ $properties['native'] }}
+                            </a>
+                        </li>
+                    @endforeach
+
                 </ul>
             </li>
         </ul>
@@ -107,15 +109,14 @@
                                 <a href="#"><i class="fa fa-s15"></i> <span>CMS</span></a>
                                 <ul>
                                     <li><a href="{{route('cms.page')}}">Page</a></li>
-                                    <li><a href="horizontal_nav.html">Block</a></li>
+                                    <li><a href="{{route('cms.block')}}">Block</a></li>
                                 </ul>
                             </li>
                             <li>
                                 <a href="#"><i class="fa fa-user"></i> <span>Users</span></a>
                                 <ul>
-                                    <li><a href="horizontal_nav.html">Users</a></li>
-                                    <li><a href="horizontal_nav.html">User Group</a></li>
-                                    <li><a href="horizontal_nav.html">User Role</a></li>
+                                    <li><a href="{{route('user')}}">Users</a></li>
+                                    <li><a href="user.role">User Role</a></li>
                                 </ul>
                             </li>
                             <li>
@@ -177,10 +178,14 @@
                             - Fixed Layout</h4>
                     </div>
                     @show
-     {{--               <div class="heading-elements">
-                        <a href="#" class="btn btn-labeled btn-labeled-right bg-blue heading-btn">Button <b><i
-                                        class="fa fa-bars"></i></b></a>
-                    </div>--}}
+                    @section('page.button')
+                    @show
+                        @if (Session::has('success'))
+                            {{ Session::get('success') }}
+                        @endif
+                        @if (Session::has('failed'))
+                            {{ Session::get('failed') }}
+                        @endif
                 </div>
 
                 <div class="breadcrumb-line breadcrumb-line-component">
@@ -205,7 +210,7 @@
                 <!-- Footer -->
                 <div class="footer text-muted">
                     @section('footer')
-                    &copy; 2017. <a href="#">FlashCMS</a> by <a href="http://themeforest.net/user/Kopyov"
+                    &copy; 2017. <a href="#">FlashCMS</a> by <a href="#"
                                                                 target="_blank">Kakuer CO.,Ltd</a>
                     @show
                 </div>
@@ -228,6 +233,9 @@
 <script type="text/javascript" src="{{ asset('assets/backend/js/app.min.js')}}"></script>
 <!-- /theme JS files -->
     @show
+@section('footer.scripts.additional')
+
+@show
 @show
 </body>
 </html>

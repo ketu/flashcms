@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Backend\Auth;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Backend\BackendController;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
-class LoginController extends Controller
+class LoginController extends BackendController
 {
     /*
     |--------------------------------------------------------------------------
@@ -20,7 +20,7 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
-    protected $redirectTo ='backend';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -39,7 +39,7 @@ class LoginController extends Controller
      */
     public function showLoginForm()
     {
-        return view('backend.auth.login');
+        return $this->render('auth.login');
     }
 
     /**

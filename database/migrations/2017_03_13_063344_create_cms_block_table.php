@@ -16,15 +16,25 @@ class CreateCmsBlockTable extends Migration
         // create table cms_block
         Schema::create('cms_block', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
             $table->string('slug')->unique();
-            $table->text('content')->nullable(true);
             $table->boolean('status')->default(true);
             $table->integer('first_create_user')->foreign('first_create_user')->references('id')->on('users');
-            $table->integer('last_update_user')->foreign('last_update_user')->references('id')->on('users');
+            $table->integer('last_update_user')->nullalbe();
+            $table->foreign('last_update_user')->references('id')->on('users');
             $table->integer('sort_order')->default(0);
             $table->timestamps();
             //$table->softDeletes();
+        });
+
+        Schema::create('cms_block_translations', function(Blueprint $table)
+        {
+            $table->increments('id');
+            $table->integer('block_id')->unsigned();
+            $table->string('name');
+            $table->text('content');
+            $table->string('locale')->index();
+            $table->unique(['block_id','locale']);
+            $table->foreign('block_id')->references('id')->on('cms_block')->onDelete('cascade');
         });
     }
 
@@ -36,7 +46,10 @@ class CreateCmsBlockTable extends Migration
     public function down()
     {
         //
+
         Schema::dropIfExists('cms_block');
+        Schema::dropIfExists('cms_block_translations');
+
 
     }
 }

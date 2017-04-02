@@ -77,7 +77,7 @@ return [
     |
     */
 
-    'locale' => 'zh_CN',
+    'locale' => 'en',
 
     /*
     |--------------------------------------------------------------------------
@@ -168,7 +168,11 @@ return [
          */
         Laravel\Tinker\TinkerServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
-        //Zizaco\Entrust\EntrustServiceProvider::class,
+        Dimsav\Translatable\TranslatableServiceProvider::class,
+        Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class,
+
+        Zizaco\Entrust\EntrustServiceProvider::class,
+
 
 
         /**
@@ -233,6 +237,9 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'LaravelLocalization'	=> Mcamara\LaravelLocalization\Facades\LaravelLocalization::class,
+        'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
+
 
     ],
 

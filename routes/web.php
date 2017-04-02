@@ -11,20 +11,3 @@
 |
 */
 
-$backendPrefix = Config::get('route.backend.prefix');
-
-Route::group(['prefix' => $backendPrefix, 'namespace'=> 'Backend'], function () {
-
-    Auth::routes();
-
-    Route::get('/', 'DashboardController@dashboard')->name('dashboard');
-
-    Route::group(['prefix' => 'system', 'namespace'=> 'System'], function () {
-        Route::get('/', 'ConfigController@index')->name('system.config');
-    });
-
-    Route::group(['prefix' => 'cms', 'namespace'=> 'Cms'], function () {
-        Route::get('/page', 'PageController@index')->name('cms.page');
-        Route::get('/page/{id}', 'PageController@edit')->name('cms.page.edit');
-    });
-});

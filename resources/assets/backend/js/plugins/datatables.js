@@ -40,10 +40,12 @@ $(function () {
     // Add placeholder to the datatable filter option
     $('.dataTables_filter input[type=search]').attr('placeholder', 'Type to filter...');
 
-    // Enable Select2 select for the length option
+
+    // Select2 select
+
     $('.dataTables_length select').select2({
         minimumResultsForSearch: Infinity,
-        width: 'auto'
+        // dropdownAutoWidth : true,
+        width:'auto'
     });
-
 });

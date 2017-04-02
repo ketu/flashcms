@@ -172,7 +172,7 @@ module.exports = function (grunt) {
       options: {
         base: 'docs',
         branch: 'master',
-        clone: 'node_modules/grunt-gh-pages/repo',
+        clone: 'node_modules/grunt-gh-page/repo',
         message: 'Updated docs with master',
         push: true,
         repo: 'git@github.com:select2/select2.github.io.git'
@@ -334,7 +334,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
-  grunt.loadNpmTasks('grunt-gh-pages');
+  grunt.loadNpmTasks('grunt-gh-page');
   grunt.loadNpmTasks('grunt-jekyll');
   grunt.loadNpmTasks('grunt-saucelabs');
   grunt.loadNpmTasks('grunt-sass');

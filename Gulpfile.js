@@ -24,7 +24,7 @@ var paths = {
 elixir(function (mix) {
     mix.less(
         [
-            'font-awesome/less/font-awesome.less',
+            'font-awesome/less/font-awesome.less'
             //'PACE/themes/black/pace-theme-loading-bar.css'
 
         ],
@@ -47,8 +47,10 @@ elixir(function (mix) {
             'summernote/dist/summernote.js',
             'jquery-validation/dist/jquery.validate.js',
             'jquery-validation/dist/additional-methods.js',
-            'jquery.uniform/dist/js/jquery.uniform.standalone.js'
-
+            'jquery.uniform/dist/js/jquery.uniform.standalone.js',
+            'bootstrap-switch/dist/js/bootstrap-switch.js',
+            'bootstrap-multiselect/dist/js/bootstrap-multiselect.js',
+            'bootstrap-touchspin/dist/jquery.bootstrap-touchspin.js'
 
         ],
         'public/assets/backend/js/third.js',
