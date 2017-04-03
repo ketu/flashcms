@@ -4,7 +4,7 @@
  * Date: 17-3-26
  */
 
-namespace App\Models\Cms;
+namespace App\Models\Attribute;
 
 use Illuminate\Database\Eloquent\Model;
 

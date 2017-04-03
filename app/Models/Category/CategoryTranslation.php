@@ -11,10 +11,10 @@ use Illuminate\Database\Eloquent\Model;
 class CategoryTranslation extends Model
 {
     //table name
-    protected $table = 'attribute_translations';
+    protected $table = 'category_translations';
 
     public $timestamps = false;
 
-    protected $fillable = ['name', 'value', 'locale'];
+    protected $fillable = ['name', 'locale'];
 
 }

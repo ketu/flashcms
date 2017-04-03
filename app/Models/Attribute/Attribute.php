@@ -25,7 +25,7 @@ class Attribute extends Model
 
     public function options()
     {
-        return $this->hasMany('attribute_option', 'attribute_id', 'id');
+        return $this->hasMany('AttributeOption');
         // return $this->belongsToMany(Config::get('auth.model'), Config::get('entrust.role_user_table'));
     }
 }

@@ -4,7 +4,7 @@
  * Date: 17-3-26
  */
 
-namespace App\Models\Cms;
+namespace App\Models\Attribute;
 
 use Dimsav\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Model;
@@ -23,4 +23,8 @@ class AttributeOption extends Model
     public $translatedAttributes = ['label'];
 
 
+    public function attribute()
+    {
+        $this->belongsTo('Attribute');
+    }
 }

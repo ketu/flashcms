@@ -8,7 +8,18 @@ namespace App\Models\Category;
 
 use Dimsav\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Model;
-class Category
+
+class Category extends Model
 {
+    use Translatable;
+
+    //table name
+    protected $table = 'category';
+
+    protected $fillable = ['status'];
+
+    public $translationModel = 'App\Models\Category\CategoryTranslation';
+
+    public $translatedAttributes = ['name'];
 
 }
