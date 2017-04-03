@@ -9,7 +9,7 @@ namespace App\Models\Cms;
 use Dimsav\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Model;
 
-class Page extends Model
+class AttributeOption extends Model
 {
     use Translatable;
 

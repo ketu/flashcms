@@ -13,7 +13,6 @@ class Attribute extends Model
 {
     use Translatable;
 
-
     //table name
     protected $table = 'attribute';
 
@@ -24,4 +23,9 @@ class Attribute extends Model
     public $translatedAttributes = ['name', 'value'];
 
 
+    public function options()
+    {
+        return $this->hasMany('attribute_option', 'attribute_id', 'id');
+        // return $this->belongsToMany(Config::get('auth.model'), Config::get('entrust.role_user_table'));
+    }
 }
