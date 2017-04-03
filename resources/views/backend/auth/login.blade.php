@@ -21,14 +21,12 @@
                             <div class="text-center">
                                 <div class="icon-object border-slate-300 text-slate-300"><i class="fa fa-hand-o-up"></i>
                                 </div>
-                                <h5 class="content-group">L{{'backend.auth.login_to_your account'}}
-
-                                </h5>
+                                <h5 class="content-group">{{__('auth.login_to_your_account')}}</h5>
                             </div>
 
                             <div class="form-group has-feedback has-feedback-left">
                                 <input class="form-control" type="text" id="login-username"
-                                       name="email" placeholder="{{__('backend.auth.email')}}">
+                                       name="email" placeholder="{{__('auth.email')}}">
                                 <div class="form-control-feedback">
                                     <i class="fa fa-user text-muted"></i>
                                 </div>
@@ -41,7 +39,7 @@
 
                             <div class="form-group has-feedback has-feedback-left">
                                 <input class="form-control" type="password" id="login-password"
-                                       placeholder="{{__('backend.auth.password')}}"
+                                       placeholder="{{__('auth.password')}}"
                                        name="password">
                                 <div class="form-control-feedback">
                                     <i class="fa fa-lock text-muted"></i>
@@ -58,24 +56,25 @@
                                     <div class="col-sm-6">
                                         <label class="checkbox-inline">
                                             <input type="checkbox" class="styled"
-                                                   name="remember" {{ old('remember') ? 'checked' : '' }}> {{__('backend.auth.remember_me')}}
+                                                   name="remember" {{ old('remember') ? 'checked' : '' }}> {{__('auth.remember_me')}}
                                         </label>
                                     </div>
 
                                     <div class="col-sm-6 text-right">
-                                        <a href="{{ route('password.request') }}">{{__('backend.auth.forgot_password')}}</a>
+                                        <a href="{{ route('password.request') }}">{{__('auth.forgot_password')}}</a>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <button type="submit" class="btn bg-pink-400 btn-block">{{__('backend.button.login')}} <i
+                                <button type="submit" class="btn bg-pink-400 btn-block">{{__('button.login')}} <i
                                             class="icon-arrow-right14 position-right"></i></button>
                             </div>
 
 
-                            <div class="content-divider text-muted form-group"><span>Don't have an account?</span></div>
-                            <a href="{{route('register')}}" class="btn btn-default btn-block content-group">{{__('backend.button.signup')}}</a>
+                            <div class="content-divider text-muted form-group"><span>{{__('auth.do_not_have_account')
+                            }}</span></div>
+                            <a href="{{route('register')}}" class="btn btn-default btn-block content-group">{{__('button.signup')}}</a>
 
                         </div>
                     </form>

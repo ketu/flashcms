@@ -32,7 +32,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/create', 'PageController@create')->name('cms.page.create');
             Route::post('/save', 'PageController@save')->name('cms.page.save');
             Route::get('/edit/{id}', 'PageController@edit')->name('cms.page.edit');
-            Route::post('/update/{id}', 'PageController@update')->name('cms.page.update');
+            Route::post('/update', 'PageController@update')->name('cms.page.update');
             Route::get('/delete/{id}', 'PageController@delete')->name('cms.page.delete');
         });
         // block router
@@ -41,7 +41,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/create', 'BlockController@create')->name('cms.block.create');
             Route::post('/save', 'BlockController@save')->name('cms.block.save');
             Route::get('/edit/{id}', 'BlockController@edit')->name('cms.block.edit');
-            Route::post('/update/{id}', 'BlockController@update')->name('cms.block.update');
+            Route::post('/update', 'BlockController@update')->name('cms.block.update');
             Route::get('/delete/{id}', 'BlockController@delete')->name('cms.block.delete');
         });
     });
@@ -52,18 +52,26 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/create', 'UserController@create')->name('user.create');
         Route::post('/save', 'UserController@save')->name('user.save');
         Route::get('/edit/{id}', 'UserController@edit')->name('user.edit');
-        Route::post('/update/{id}', 'UserController@update')->name('user.update');
+        Route::post('/update', 'UserController@update')->name('user.update');
         Route::get('/delete/{id}', 'UserController@delete')->name('user.delete');
     });
 
     // user role router
     Route::group(['prefix' => 'role', 'namespace' => 'User'], function () {
-        Route::get('/', 'UserController@index')->name('user');
-        Route::get('/create', 'UserController@create')->name('user.create');
-        Route::post('/save', 'UserController@save')->name('user.save');
-        Route::get('/edit/{id}', 'UserController@edit')->name('user.edit');
-        Route::post('/update/{id}', 'UserController@update')->name('user.update');
-        Route::get('/delete/{id}', 'UserController@delete')->name('user.delete');
+        Route::get('/', 'RoleController@index')->name('role');
+        Route::get('/create', 'RoleController@create')->name('role.create');
+        Route::post('/save', 'RoleController@save')->name('role.save');
+        Route::get('/edit/{id}', 'RoleController@edit')->name('role.edit');
+        Route::post('/update', 'RoleController@update')->name('role.update');
+        Route::get('/delete/{id}', 'RoleController@delete')->name('role.delete');
     });
-
+    // user permission router
+    Route::group(['prefix' => 'permission', 'namespace' => 'User'], function () {
+        Route::get('/', 'PermissionController@index')->name('permission');
+        Route::get('/create', 'PermissionController@create')->name('permission.create');
+        Route::post('/save', 'PermissionController@save')->name('permission.save');
+        Route::get('/edit/{id}', 'PermissionController@edit')->name('permission.edit');
+        Route::post('/update', 'PermissionController@update')->name('permission.update');
+        Route::get('/delete/{id}', 'PermissionController@delete')->name('permission.delete');
+    });
 });

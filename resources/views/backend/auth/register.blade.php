@@ -21,11 +21,12 @@
                             <div class="text-center">
                                 <div class="icon-object border-slate-300 text-slate-300"><i class="fa fa-hand-o-up"></i>
                                 </div>
-                                <h5 class="content-group">{{'backend.auth.register'}}</h5>
+                                <h5 class="content-group">{{__('auth.signup_an_account')}}</h5>
                             </div>
 
                             <div class="form-group has-feedback has-feedback-left">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="{{__('backend.auth.username')}}" required autofocus>
+                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}"
+                                       placeholder="{{__('auth.username')}}" required autofocus>
 
                                 <div class="form-control-feedback">
                                     <i class="fa fa-user text-muted"></i>
@@ -37,7 +38,8 @@
                                 @endif
                             </div>
                             <div class="form-group has-feedback has-feedback-left">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}"    placeholder="{{__('backend.auth.email')}}" required>
+                                <input id="email" type="email" class="form-control" name="email"
+                                       value="{{ old('email') }}" placeholder="{{__('auth.email')}}" required>
 
                                 <div class="form-control-feedback">
                                     <i class="fa fa-envelope text-muted"></i>
@@ -52,7 +54,7 @@
 
                             <div class="form-group has-feedback has-feedback-left">
                                 <input class="form-control" type="password" id="login-password"
-                                       placeholder="{{__('backend.auth.password')}}"
+                                       placeholder="{{__('auth.password')}}"
                                        name="password">
                                 <div class="form-control-feedback">
                                     <i class="fa fa-lock text-muted"></i>
@@ -65,7 +67,9 @@
                             </div>
 
                             <div class="form-group has-feedback has-feedback-left">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation"   placeholder="{{__('backend.auth.password_confirmation')}}" required>
+                                <input id="password-confirm" type="password" class="form-control"
+                                       name="password_confirmation"
+                                       placeholder="{{__('auth.password_confirmation')}}" required>
 
 
                                 <div class="form-control-feedback">
@@ -76,14 +80,15 @@
 
 
                             <div class="form-group">
-                                <button type="submit" class="btn bg-pink-400 btn-block">{{__('backend.button.signup')}}
+                                <button type="submit" class="btn bg-pink-400 btn-block">{{__('button.signup')}}
                                     <i class="fa fa-arrow-right position-right"></i></button>
                             </div>
 
 
-                            <div class="content-divider text-muted form-group"><span>Have an account?</span></div>
+                            <div class="content-divider text-muted form-group"><span>{{__('auth.have_an_account')
+                            }}</span></div>
                             <a href="{{route('login')}}"
-                               class="btn btn-default btn-block content-group">{{__('backend.button.login')}}</a>
+                               class="btn btn-default btn-block content-group">{{__('button.login')}}</a>
 
                         </div>
                     </form>

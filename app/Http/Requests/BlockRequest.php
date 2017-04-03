@@ -13,7 +13,7 @@ class BlockRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,9 +23,15 @@ class BlockRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'name' => 'required|max:255|min:5',
-            'slug' => 'required|alpha_dash|max:255|unique:cms_block,slug',
+            'slug' => 'required|alpha_dash|max:255|unique:cms_block',
         ];
+
+        if ($this->getMethod() == self::METHOD_POST && $this->get('id')) {
+            $rules['id'] = 'required|integer';
+            $rules['slug'] .= ',id,'.$this->get('id');
+        }
+        return $rules;
     }
 }

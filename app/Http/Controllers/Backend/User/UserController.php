@@ -75,10 +75,10 @@ class UserController extends BackendController
 
     }
 
-    public function update(UserRequest $request, $id)
+    public function update(UserRequest $request)
     {
         try {
-
+            $id = $request->get('id');
             $user = User::findOrFail($id);
             $user->name = $request->get('name');
             $user->nickname = $request->get('nickname');
@@ -95,8 +95,18 @@ class UserController extends BackendController
 
         }
 
-
     }
 
+    public function delete(Request $request, $id)
+    {
+        try{
+            $user = User::findOrFail($id);
+            $user->delete();
+            return redirect()->route('user')->with('success', 'notice.success');
+
+        }catch (\Exception $e) {
+            return redirect()->back()->with('failed', $e->getMessage());
+        }
+    }
 
 }

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', 'FlashCMS')</title>
     <!-- Global stylesheets -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet"
+    <link href="https://fonts.geekzu.org/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet"
           type="text/css">
     <!-- <link href="assets/css/app.min.css" rel="stylesheet" type="text/css"> -->
     <link href="{{asset('assets/backend/css/app.min.css')}}" rel="stylesheet" type="text/css">
@@ -108,19 +108,20 @@
                             <li>
                                 <a href="#"><i class="fa fa-s15"></i> <span>CMS</span></a>
                                 <ul>
-                                    <li><a href="{{route('cms.page')}}">Page</a></li>
-                                    <li><a href="{{route('cms.block')}}">Block</a></li>
+                                    <li><a href="{{route('cms.page')}}">{{__('nav.page')}}</a></li>
+                                    <li><a href="{{route('cms.block')}}">{{__('nav.block')}}</a></li>
                                 </ul>
                             </li>
                             <li>
-                                <a href="#"><i class="fa fa-user"></i> <span>Users</span></a>
+                                <a href="#"><i class="fa fa-user"></i> <span>{{__('nav.users')}}</span></a>
                                 <ul>
-                                    <li><a href="{{route('user')}}">Users</a></li>
-                                    <li><a href="user.role">User Role</a></li>
+                                    <li><a href="{{route('user')}}">{{__('nav.users')}}</a></li>
+                                    <li><a href="{{route('role')}}">{{__('nav.user.role')}}</a></li>
+                                    <li><a href="{{route('permission')}}">{{__('nav.user.permission')}}</a></li>
                                 </ul>
                             </li>
                             <li>
-                                <a href="#"><i class="fa fa-gear"></i><span>System</span></a>
+                                <a href="#"><i class="fa fa-gear"></i><span>{{__('nav.system')}}</span></a>
                                 <ul>
                                     <li><a href="horizontal_nav.html">Horizontal navigation</a></li></ul>
                             </li>

@@ -18,6 +18,10 @@
                         <div class="col-lg-9">
                             <input type="text" name="name" class="form-control" required="required" value="{{Request::old('name')}}"
                                    placeholder="{{ __('block.title') }}">
+                            @if ($errors->first('name'))
+                                <label id="name-error" class="validation-error-label"
+                                       for="name">{{$errors->first('name')}}</label>
+                            @endif
                         </div>
                     </div>
                     <!-- /basic text input -->
@@ -30,9 +34,10 @@
                         <div class="col-lg-9">
                             <input type="text" name="slug" class="form-control" required="required" value="{{Request::old('slug')}}"
                                    placeholder="{{ __('block.slug') }}">
-                            <div class="form-control-feedback">
-                                <i class="fa fa-user"></i>
-                            </div>
+                            @if ($errors->first('slug'))
+                                <label id="slug-error" class="validation-error-label"
+                                       for="slug">{{$errors->first('slug')}}</label>
+                            @endif
                         </div>
                     </div>
                     <!-- /input with icons -->

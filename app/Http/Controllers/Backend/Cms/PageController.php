@@ -29,9 +29,7 @@ class PageController extends BackendController
     {
         try {
             $currentLocale = app()->getLocale();
-
             $page = new Page();
-
             $page->slug = $request->get('slug');
             $page->status = $request->get('status', false);
             $page->translateOrNew($currentLocale)->name = $request->get('name');
@@ -57,13 +55,11 @@ class PageController extends BackendController
     }
 
 
-    public function update(PageRequest $request, $id)
+    public function update(PageRequest $request)
     {
-
         try {
+            $id = $request->get('id');
             $page = Page::findOrFail($id);
-
-
             $currentLocale = app()->getLocale();
             $page->slug = $request->request->get('slug');
             $page->status = $request->request->get('status', false);
@@ -75,6 +71,8 @@ class PageController extends BackendController
             return redirect()->route('cms.page')->with('success', 'notice.success');
 
         }catch (\Exception $e) {
+            echo $e->getMessage();
+            exit();
             return redirect()->back()->withInput()->with('failed', 'not success');
 
         }

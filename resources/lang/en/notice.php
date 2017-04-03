@@ -16,13 +16,8 @@ return [
     | these language lines according to your application's requirements.
     |
     */
-    'action'=> 'Action',
-    'add' => 'Add',
-    'save' => 'Save',
-    'delete'=> 'Delete',
-    'edit'=> 'Edit',
-    'submit'=> 'Submit',
-    'login'=> 'Login',
-    'signup'=> 'Sign Up'
+    'success' => 'Successful',
+    'failed' => 'Failed'
+
 
 ];

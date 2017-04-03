@@ -56,10 +56,10 @@ class BlockController extends BackendController
     }
 
 
-    public function update(BlockRequest $request, $id)
+    public function update(BlockRequest $request)
     {
-
         try {
+            $id = $request->get('id');
             $block = Block::findOrFail($id);
             $currentLocale = app()->getLocale();
             $block->slug = $request->get('slug');
@@ -69,7 +69,7 @@ class BlockController extends BackendController
             $block->last_update_user = Auth::id();
             $block->save();
 
-            return redirect()->route('cms.block.edit', ['id' => $block->id])->with('success', 'notice.success');
+            return redirect()->route('cms.block')->with('success', 'notice.success');
         }catch (\Exception $e) {
             return redirect()->back()->withInput()->with('failed', $e->getMessage());
 
