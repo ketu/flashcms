@@ -19,7 +19,7 @@ class CreateCmsBlockTable extends Migration
             $table->string('slug')->unique();
             $table->boolean('status')->default(true);
             $table->integer('first_create_user')->unsigned()->foreign('first_create_user')->references('id')->on('users');
-            $table->integer('last_update_user')->unsigned()->nullable(true)->foreign('last_update_user')->references
+            $table->integer('last_update_user')->unsigned()->nullable()->foreign('last_update_user')->references
             ('id')->on
             ('users');
             $table->integer('sort_order')->default(0);

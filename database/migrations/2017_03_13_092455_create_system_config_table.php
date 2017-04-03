@@ -17,7 +17,7 @@ class CreateSystemConfigTable extends Migration
         Schema::create('system_config', function (Blueprint $table) {
             $table->increments('id');
             $table->string('path');
-            $table->text('value')->nullable(true);
+            $table->text('value')->nullable();
             $table->string('group');
             $table->unique(['path', 'group']);
         });

@@ -16,10 +16,20 @@ class CreateCategoryTable extends Migration
         //create product category table
         Schema::create('category', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            //$table->string('name');
             $table->integer('lft');
             $table->integer('rgt');
             $table->boolean('status')->default(true);
+        });
+
+        Schema::create('category_translations', function(Blueprint $table)
+        {
+            $table->increments('id');
+            $table->integer('category_id')->unsigned();
+            $table->string('name');
+            $table->string('locale')->index();
+            $table->unique(['category_id','locale']);
+            $table->foreign('category_id')->references('id')->on('category')->onDelete('cascade');
         });
     }
 
@@ -32,5 +42,7 @@ class CreateCategoryTable extends Migration
     {
         //drop product categroy table
         Schema::dropIfExists('category');
+        Schema::dropIfExists('category_translations');
+
     }
 }

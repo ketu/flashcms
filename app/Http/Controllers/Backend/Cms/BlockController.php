@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend\Cms;
 
 use App\Http\Controllers\Backend\BackendController;
+use App\Http\Requests\BlockRequest;
 use App\Models\Cms\Block;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,13 +24,12 @@ class BlockController extends BackendController
         return $this->render('cms.block.create');
     }
 
-    public function save(Request $request, $id = null)
+    public function save(BlockRequest $request, $id = null)
     {
         try {
             $currentLocale = app()->getLocale();
 
             $block = new Block();
-
             $block->slug = $request->get('slug');
             $block->status = $request->get('status', false);
             $block->translateOrNew($currentLocale)->name = $request->get('name');
@@ -56,15 +56,12 @@ class BlockController extends BackendController
     }
 
 
-    public function update(Request $request, $id)
+    public function update(BlockRequest $request, $id)
     {
 
         try {
-            echo  $currentLocale = app()->getLocale();
-
             $block = Block::findOrFail($id);
-
-
+            $currentLocale = app()->getLocale();
             $block->slug = $request->get('slug');
             $block->status = $request->get('status', false);
             $block->translateOrNew($currentLocale)->name = $request->get('name');
@@ -82,9 +79,13 @@ class BlockController extends BackendController
 
     public function delete(Request $request, $id)
     {
-        $block = Block::findOrFail($id);
-        $block->delete();
-        return redirect()->route('cms.block')->with('success', 'notice.success');
+        try {
+            $block = Block::findOrFail($id);
+            $block->delete();
+            return redirect()->route('cms.block')->with('success', 'notice.success');
+        }catch (\Exception $e) {
+            return redirect()->back()->with('failed', $e->getMessage());
+        }
 
     }
 }

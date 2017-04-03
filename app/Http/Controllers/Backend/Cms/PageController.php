@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend\Cms;
 
 use App\Http\Controllers\Backend\BackendController;
+use App\Http\Requests\PageRequest;
 use App\Models\Cms\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,7 +25,7 @@ class PageController extends BackendController
         return $this->render('cms.page.create');
     }
 
-    public function save(Request $request)
+    public function save(PageRequest $request)
     {
         try {
             $currentLocale = app()->getLocale();
@@ -56,7 +57,7 @@ class PageController extends BackendController
     }
 
 
-    public function update(Request $request, $id)
+    public function update(PageRequest $request, $id)
     {
 
         try {
@@ -84,9 +85,13 @@ class PageController extends BackendController
 
     public function delete(Request $request, $id)
     {
-        $page = Page::findOrFail($id);
-        $page->delete();
-        return redirect()->route('cms.page')->with('success', 'notice.success');
+        try {
+            $page = Page::findOrFail($id);
+            $page->delete();
+            return redirect()->route('cms.page')->with('success', 'notice.success');
+        }catch (\Exception $e) {
+            return redirect()->back()->with('failed', $e->getMessage());
+        }
 
     }
 }
