@@ -22,7 +22,7 @@ class RequestLocaleRedirect
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (!app('request')->is(Config::get('route.backend.prefix') . '/*')) {
+        if (!app('request')->is(Config::get('flashcms.backend.prefix') . '/*')) {
             return $next($request);
         }
 

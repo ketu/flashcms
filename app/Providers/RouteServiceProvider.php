@@ -67,7 +67,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapBackendRoutes()
     {
-        $backendPrefix = Config::get('route.backend.prefix');
+        $backendPrefix = Config::get('flashcms.backend.prefix');
         $namespace = $this->namespace . '\Backend';
 
         Route::prefix($backendPrefix)->middleware('web')

@@ -16,8 +16,18 @@ class CreateAttributeOptionTable extends Migration
         //create table attribute
         Schema::create('attribute_option', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
             $table->integer('attribute_id')->foreign('attribute_id')->references('id')->on('attribute')->onDelete('cascade');
+        });
+
+
+        Schema::create('attribute_option_translations', function(Blueprint $table)
+        {
+            $table->increments('id');
+            $table->integer('option_id')->unsigned();
+            $table->string('label');
+            $table->string('locale')->index();
+            $table->unique(['option_id','locale']);
+            $table->foreign('option_id')->references('id')->on('attribute_option')->onDelete('cascade');
         });
     }
 
@@ -30,5 +40,6 @@ class CreateAttributeOptionTable extends Migration
     {
         //drop table attribute
         Schema::dropIfExists('attribute_option');
+        Schema::dropIfExists('attribute_option_translations');
     }
 }

@@ -52,7 +52,6 @@
                             </a>
                         </li>
                     @endforeach
-
                 </ul>
             </li>
         </ul>
@@ -75,12 +74,11 @@
                 <div class="sidebar-user">
                     <div class="category-content">
                         <div class="media">
-                            <a href="#" class="media-left"><img src="assets/images/image.png" class="img-circle img-sm"
-                                                                alt=""></a>
+
                             <div class="media-body">
-                                <span class="media-heading text-semibold">Victoria Baker</span>
+                                <span class="media-heading text-semibold">{{Auth::user()->name}}</span>
                                 <div class="text-size-mini text-muted">
-                                    <i class="fa fa-map-pin text-size-small"></i> &nbsp;Santa Ana, CA
+                                   {{Auth::user()->nickname}}
                                 </div>
                             </div>
 
@@ -104,9 +102,10 @@
                         @section('navigation')
                         <ul class="navigation navigation-main navigation-accordion">
 
-                            <li><a href="{{route('dashboard')}}"><i class="fa fa-home"></i> <span>Dashboard</span></a></li>
+                            <li><a href="{{route('dashboard')}}"><i class="fa fa-home"></i> <span>{{__
+                            ('nav.dashboard')}}</span></a></li>
                             <li>
-                                <a href="#"><i class="fa fa-s15"></i> <span>CMS</span></a>
+                                <a href="#"><i class="fa fa-s15"></i> <span>{{__('nav.cms')}}</span></a>
                                 <ul>
                                     <li><a href="{{route('cms.page')}}">{{__('nav.page')}}</a></li>
                                     <li><a href="{{route('cms.block')}}">{{__('nav.block')}}</a></li>

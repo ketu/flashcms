@@ -16,10 +16,21 @@ class CreateAttributeTable extends Migration
         //create table attribute
         Schema::create('attribute', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
             $table->string('code')->unique();
-            $table->string('value')->nullable(true);
+            $table->boolean('status')->default(true);
             $table->string('type');
+        });
+
+
+        Schema::create('attribute_translations', function(Blueprint $table)
+        {
+            $table->increments('id');
+            $table->integer('attribute_id')->unsigned();
+            $table->string('name');
+            $table->string('value')->nullable();
+            $table->string('locale')->index();
+            $table->unique(['attribute_id','locale']);
+            $table->foreign('attribute_id')->references('id')->on('attribute')->onDelete('cascade');
         });
     }
 
@@ -32,5 +43,6 @@ class CreateAttributeTable extends Migration
     {
         //drop table attribute
         Schema::dropIfExists('attribute');
+        Schema::dropIfExists('attribute_translations');
     }
 }

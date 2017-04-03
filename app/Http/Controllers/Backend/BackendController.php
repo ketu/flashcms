@@ -21,7 +21,7 @@ class BackendController extends Controller
             $viewParts = explode('/', $view);
         }
 
-        $backendViewFolder = Config::get('route.backend.view');
+        $backendViewFolder = Config::get('flashcms.backend.view');
 
 
         if ($viewParts[0] != $backendViewFolder) {
@@ -35,6 +35,6 @@ class BackendController extends Controller
 
     protected function getBackendRoutePrefix()
     {
-        return Config::get('route.backend.prefix');
+        return Config::get('flashcms.backend.prefix');
     }
 }
