@@ -19,9 +19,10 @@ class CreateCmsPageTable extends Migration
             //$table->string('name');
             $table->string('slug')->unique();
            // $table->text('content')->nullable(true);
-            $table->integer('first_create_user')->foreign('first_create_user')->references('id')->on('users');
-            $table->integer('last_update_user')->nullalbe();
-            $table->foreign('last_update_user')->references('id')->on('users');
+            $table->integer('first_create_user')->unsigned()->foreign('first_create_user')->references('id')->on('users');
+            $table->integer('last_update_user')->unsigned()->nullable(true)->foreign('last_update_user')->references
+            ('id')->on
+            ('users');
             $table->boolean('status')->default(true);
             $table->timestamps();
             //$table->softDeletes();

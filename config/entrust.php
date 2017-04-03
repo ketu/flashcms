@@ -62,7 +62,7 @@ return [
     | between permissions and roles to the database.
     |
     */
-    'permission_role_table' => 'permission_role',
+    'permission_role_table' => 'role_permissions',
 
     /*
     |--------------------------------------------------------------------------

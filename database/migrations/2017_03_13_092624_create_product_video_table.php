@@ -31,5 +31,7 @@ class CreateProductVideoTable extends Migration
     public function down()
     {
         //drop table product video
+        Schema::dropIfExists('product_video');
+
     }
 }
