@@ -25,16 +25,16 @@ class UserRequest extends FormRequest
     {
 
         $rules =  [
-            'name' => 'required|max:255|min:5|unique:users',
-            'email' => 'required|email|max:255|unique:users',
+            'name' => 'required|unique:users',
+            'email' => 'required|email|unique:users',
             'password' => 'required|min:6|confirmed',
-            'groups.*'=> 'required'
+            'roles.*'=> 'required'
         ];
 
         if ($this->isMethod(self::METHOD_POST) && $this->get('id')) {
             $rules['id'] = 'required|integer';
-            $rules['name'] .= ',name,'.$this->get('name');
-            $rules['email'] .= ',email,'.$this->get('email');
+            $rules['name'] .= ',id,'.$this->get('id');
+            $rules['email'] .= ',id,'.$this->get('id');
             unset($rules['password']);
         }
         return $rules;

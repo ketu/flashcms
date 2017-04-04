@@ -24,7 +24,7 @@ class UserController extends BackendController
     {
 
         $roles = Role::all();
-        return $this->render('user.create', ['roles'=> $roles]);
+        return $this->render('user.create', ['roles' => $roles]);
     }
 
     public function save(UserRequest $request)
@@ -52,7 +52,7 @@ class UserController extends BackendController
 
             return redirect()->route('user.edit', ['id' => $user->id])->with('success', 'notice.success');
 
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
 
             DB::rollBack();
 
@@ -69,8 +69,8 @@ class UserController extends BackendController
 
         $roles = Role::all();
         return $this->render('user.edit', [
-            'user'=> $user,
-            'roles'=> $roles
+            'user' => $user,
+            'roles' => $roles
         ]);
 
     }
@@ -85,12 +85,21 @@ class UserController extends BackendController
             $user->email = $request->get('email');
             $user->status = $request->get('status', false);
             $user->password = bcrypt($request->get('password'));
+
+
+            DB::beginTransaction();
+
             $user->roles()->attach($request->get('roles'));
+
             $user->save();
+
+            DB::commit();
+
 
             return redirect()->route('user')->with('success', 'notice.success');
 
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
+            DB::rollBack();
             return redirect()->back()->withInput()->with('failed', $e->getMessage());
 
         }
@@ -99,12 +108,12 @@ class UserController extends BackendController
 
     public function delete(Request $request, $id)
     {
-        try{
+        try {
             $user = User::findOrFail($id);
             $user->delete();
             return redirect()->route('user')->with('success', 'notice.success');
 
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
             return redirect()->back()->with('failed', $e->getMessage());
         }
     }

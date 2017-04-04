@@ -33,12 +33,4 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-
-    /**
-     * User roles relations
-     */
-    public function roles()
-    {
-        return $this->belongsToMany('App\Models\Auth\Role');
-    }
 }

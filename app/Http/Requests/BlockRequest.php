@@ -24,7 +24,7 @@ class BlockRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'name' => 'required|max:255|min:5',
+            'name' => 'required',
             'slug' => 'required|alpha_dash|max:255|unique:cms_block',
         ];
 

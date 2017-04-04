@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Attribute;
 
 use App\Http\Controllers\Backend\BackendController;
 use App\Http\Requests\AttributeRequest;
+use App\Models\Attribute\Attribute;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 
@@ -21,10 +22,11 @@ class AttributeController extends BackendController
     {
 
         $attributeTypes = Config::get('flashcms.attribute.type');
-
+        $attributeTypeHasOption = Config::get('flashcms.attribute.hasOption');
         return $this->render('attribute.create',
             [
-                'attributeTypes'=> $attributeTypes
+                'attributeTypes'=> $attributeTypes,
+                'attributeTypeHasOption'=> \json_encode($attributeTypeHasOption)
             ]);
     }
 

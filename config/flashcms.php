@@ -10,6 +10,11 @@ return [
             'textarea'=> 'Textarea',
             'select'=> 'Select',
             'checkbox'=> 'Checkbox'
+        ],
+        'hasOption'=> [
+            'select',
+            'checkbox'
         ]
+
     ]
 ];

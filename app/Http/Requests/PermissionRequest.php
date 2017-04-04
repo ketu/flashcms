@@ -25,7 +25,7 @@ class PermissionRequest extends FormRequest
     {
         $rules = [
             //
-            'name' => 'required|max:255|min:5|unique:permissions',
+            'name' => 'required|unique:permissions',
             'display_name' => 'required'
         ];
 

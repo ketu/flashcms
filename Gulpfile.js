@@ -50,7 +50,8 @@ elixir(function (mix) {
             'jquery.uniform/dist/js/jquery.uniform.standalone.js',
             'bootstrap-switch/dist/js/bootstrap-switch.js',
             'bootstrap-multiselect/dist/js/bootstrap-multiselect.js',
-            'bootstrap-touchspin/dist/jquery.bootstrap-touchspin.js'
+            'bootstrap-touchspin/dist/jquery.bootstrap-touchspin.js',
+            'bootstrap-duallistbox/dist/jquery.bootstrap-duallistbox.js'
 
         ],
         'public/assets/backend/js/third.js',
@@ -66,11 +67,12 @@ elixir(function (mix) {
     )
         .combine(['public/assets/backend/js/third.js', 'public/assets/backend/js/app.js'], 'public/assets//backend/js/app.min.js');
 
-    mix.copy(
-        paths.bower + 'font-awesome/fonts',
-        'public/assets/backend/fonts'
-    ).copy(paths.bower + 'summernote/dist/font/',
-        'public/assets/backend/fonts/summernote/')
+    mix.copy(paths.bower + 'font-awesome/fonts',
+            'public/assets/backend/fonts')
+        .copy(paths.bower + 'summernote/dist/font/',
+            'public/assets/backend/fonts/summernote/')
+        .copy(paths.bower + 'bootstrap/fonts',
+            'public/assets/backend/fonts/glyphicons/')
         .copy(paths.backend + 'images',
             'public/assets/backend/images');
 

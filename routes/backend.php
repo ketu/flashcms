@@ -24,6 +24,29 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'system', 'namespace' => 'System'], function () {
         Route::get('/', 'ConfigController@index')->name('system.config');
     });
+
+
+    // attribute router
+
+    Route::group(['prefix' => 'attribute', 'namespace' => 'Attribute'], function () {
+        Route::get('/', 'AttributeController@index')->name('attribute');
+        Route::get('/create', 'AttributeController@create')->name('attribute.create');
+        Route::post('/save', 'AttributeController@save')->name('attribute.save');
+        Route::get('/edit/{id}', 'AttributeController@edit')->name('attribute.edit');
+        Route::post('/update', 'AttributeController@update')->name('attribute.update');
+        Route::get('/delete/{id}', 'AttributeController@delete')->name('attribute.delete');
+
+        Route::group(['prefix' => 'option'], function () {
+            Route::get('/', 'OptionController@index')->name('attribute.option');
+            Route::get('/create', 'OptionController@create')->name('attribute.option.create');
+            Route::post('/save', 'OptionController@save')->name('attribute.option.save');
+            Route::get('/edit/{id}', 'OptionController@edit')->name('attribute.option.edit');
+            Route::post('/update', 'OptionController@update')->name('attribute.option.update');
+            Route::get('/delete/{id}', 'OptionController@delete')->name('attribute.option.delete');
+        });
+
+    });
+
     // cms router
     Route::group(['prefix' => 'cms', 'namespace' => 'Cms'], function () {
         // page router

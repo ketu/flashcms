@@ -25,8 +25,9 @@ class RoleRequest extends FormRequest
     {
         $rules = [
             //
-            'name' => 'required|max:255|min:5|unique:permissions',
-            'display_name' => 'required'
+            'name' => 'required|unique:permissions',
+            'display_name' => 'required',
+            'permission.*'=> 'required|integer'
         ];
 
         if ($this->isMethod(self::METHOD_POST) && $this->get('id')) {

@@ -6,8 +6,9 @@
 
 
         <div class="panel-body">
-            <form class="form-horizontal form-validate-jquery" method="POST" action="{{route('user.update', ['id'=> $user->id])}}">
+            <form class="form-horizontal form-validate-jquery" method="POST" action="{{route('user.update')}}">
                 {{ csrf_field() }}
+                <input type="hidden" name="id" value="{{$user->id}}">
                 <fieldset class="content-group">
                     <legend class="text-bold">Basic inputs</legend>
 
@@ -80,13 +81,13 @@
                         <label class="control-label col-lg-3">{{__('user.roles')}}<span
                                     class="text-danger">*</span></label>
                         <div class="col-lg-9">
-                             <select multiple name="groups[]" data-placeholder="{{__('user.please_select_roles')}}" class="select2" required>
+                             <select multiple name="roles[]" data-placeholder="{{__('user.please_select_roles')}}" class="select2" required>
                                  @foreach($roles as $role)
                                     <option value="{{$role->id}}" @if ($user->roles->contains($role)) selected @endif>{{$role->display_name}}</option>
                                      @endforeach
                              </select>
-                            @if ($errors->first('groups'))
-                                <label id="groups[]-error" class="validation-error-label" for="groups[]">{{$errors->first('groups')}}</label>
+                            @if ($errors->first('roles'))
+                                <label id="roles[]-error" class="validation-error-label" for="roles[]">{{$errors->first('roles')}}</label>
                             @endif
                         </div>
                     </div>
@@ -139,7 +140,7 @@
                         email: true
                     },
                     name: {
-                        minlength: 5
+                        minlength: 4
                     }
                 }
             });

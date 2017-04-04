@@ -89,13 +89,13 @@
                         <label class="control-label col-lg-3">{{__('user.roles')}}<span
                                     class="text-danger">*</span></label>
                         <div class="col-lg-9">
-                             <select multiple name="groups[]" data-placeholder="{{__('user.please_select_roles')}}" class="select2" required>
+                             <select multiple name="roles[]" data-placeholder="{{__('user.please_select_roles')}}" class="select2" required>
                                  @foreach($roles as $role)
                                     <option value="{{$role->id}}" @if ( Request::old('roles') && in_array($role->id, Request::old('roles'))) selected @endif>{{$role->display_name}}</option>
                                      @endforeach
                              </select>
-                            @if ($errors->first('groups'))
-                                <label id="groups[]-error" class="validation-error-label" for="groups[]">{{$errors->first('groups')}}</label>
+                            @if ($errors->first('roles'))
+                                <label id="roles[]-error" class="validation-error-label" for="roles[]">{{$errors->first('roles')}}</label>
                             @endif
                         </div>
                     </div>
@@ -145,7 +145,7 @@
             var validator = $(".form-validate-jquery").validate({
                 rules: {
                     password: {
-                        minlength: 5
+                        minlength: 6
                     },
                     password_confirmation: {
                         equalTo: "#password"
@@ -154,7 +154,7 @@
                         email: true
                     },
                     name: {
-                        minlength: 5
+                        minlength: 4
                     }
                 }
             });

@@ -47,7 +47,7 @@
                         <label class="control-label col-lg-3">{{ __('role.permissions') }}<span
                                     class="text-danger">*</span></label>
                         <div class="col-lg-9">
-                            <select multiple="multiple" name="permission[]" class="form-control listbox" required>
+                            <select multiple="multiple" name="permission[]" class="form-control listbox">
                                 @foreach($permissions as $permission)
                                     <option value="{{$permission->id }}"
                                             @if($role->perms->contains($permission)) selected @endif>{{$permission->display_name}}</option>
@@ -91,7 +91,6 @@
 
 @section('footer.scripts.additional')
     <script>
-
         $(document).ready(function () {
 
             // Basic example
