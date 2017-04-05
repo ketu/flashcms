@@ -21,6 +21,7 @@
                 <th>{{__('attribute.name')}}</th>
                 <th>{{__('attribute.created_at')}}</th>
                 <th>{{__('attribute.updated_at')}}</th>
+                <th>{{__('attribute.status')}}</th>
                 <th class="text-center">{{__('button.action')}}</th>
 
             </tr>
@@ -33,6 +34,7 @@
                     <td>{{$attribute->name}}</td>
                     <td>{{$attribute->created_at}}</td>
                     <td>{{$attribute->updated_at}}</td>
+                    <td><span class="label label-success">{{$attribute->status}}</span></td>
                     <td class="text-center">
                         <ul class="icons-list">
                             <li><a href="{{route('attribute.edit', ['id'=> $attribute->id])}}"> <i class="fa fa-edit"></i></a>

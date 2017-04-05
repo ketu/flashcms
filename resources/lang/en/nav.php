@@ -15,5 +15,7 @@ return [
         'permission'=> 'Permission'
     ],
     'system'=> 'System',
+    'system.config'=> 'System Config',
+    'attribute'=> 'Attribute'
 
 ];

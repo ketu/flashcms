@@ -103,7 +103,18 @@
                         </div>
                     </div>
                     <!-- /inline switch group -->
-
+                    <!-- Inline switch group -->
+                    <div class="form-group">
+                        <label class="control-label col-lg-3">{{__('attribute.is_required')}}<span
+                                    class="text-danger">*</span></label>
+                        <div class="col-lg-9">
+                            <label class="checkbox-inline checkbox-switch">
+                                <input type="checkbox" name="is_required" @if(Request::old('is_required')) checked
+                                       @endif value="1" class="switch">
+                            </label>
+                        </div>
+                    </div>
+                    <!-- /inline switch group -->
                 </fieldset>
 
                 <div class="text-right">
@@ -124,8 +135,7 @@
         $(document).ready(function () {
             var attributeType = $('.select2').select2();
 
-
-            @if ($attributeTypeHasOption)
+                    @if ($attributeTypeHasOption)
 
             var attributeTypeHasOption = $.parseJSON('{!! $attributeTypeHasOption !!}');
 
@@ -135,11 +145,14 @@
 
                 if ($.inArray(selected, attributeTypeHasOption) != -1) {
                     $('.attribute-options').show();
-                    $('.btn-add-option').click();
+                    var container = $('#attribute-option-container');
+                    var children = container.find('li');
+                    if (children.length == 0) {
+                        $('.btn-add-option').click();
+                    }
                 } else {
                     $('.attribute-options').hide();
                 }
-
             });
 
             $('.btn-add-option').click(function () {
@@ -147,17 +160,19 @@
                 var prototypeTemplate = container.data('prototype');
                 prototypeTemplate = prototypeTemplate.replace('__value__', '');
                 var child = $(prototypeTemplate);
+
+                var children = container.find('li');
+
+                if (children.length == 0) {
+                    child.find('.btn-remove-option').remove();
+                }
+
                 container.append(child);
-
-
                 container.find('.btn-remove-option').click(function () {
                     $(this).parent().parent().remove();
-
                 });
 
             });
-
-
 
             @endif
             // Initialize

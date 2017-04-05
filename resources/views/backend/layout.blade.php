@@ -123,13 +123,21 @@
                                     </ul>
                                 </li>
                                 <li>
+                                    <a href="#"><i class="fa fa-user"></i> <span>{{__('nav.catalog')}}</span></a>
+                                    <ul>
+                                        <li><a href="{{route('user')}}">{{__('nav.category')}}</a></li>
+                                        <li><a href="{{route('role')}}">{{__('nav.product')}}</a></li>
+
+                                    </ul>
+                                </li>
+                                <li>
                                     <a href="#"><i class="fa fa-gear"></i><span>{{__('nav.system')}}</span></a>
                                     <ul>
                                         <li><a href="{{route('system.config')}}">{{__('nav.system.config')}}</a></li>
 
 
                                         <li><a href="{{route('attribute')}}">{{__('nav.attribute')}}</a></li>
-                                        <li><a href="{{route('attribute.option')}}">{{__('nav.attribute.option')}}</a></li>
+
                                     </ul>
                                 </li>
                             {{-- <li>

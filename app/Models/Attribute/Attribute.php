@@ -16,16 +16,17 @@ class Attribute extends Model
     //table name
     protected $table = 'attribute';
 
-    protected $fillable = ['code', 'type', 'status'];
+    protected $fillable = ['code', 'type', 'status', 'is_required'];
 
     public $translationModel = 'App\Models\Attribute\AttributeTranslation';
 
     public $translatedAttributes = ['name', 'value'];
 
+    public $timestamps = false;
 
     public function options()
     {
-        return $this->hasMany('AttributeOption');
+        return $this->hasMany('App\Models\Attribute\AttributeOption');
         // return $this->belongsToMany(Config::get('auth.model'), Config::get('entrust.role_user_table'));
     }
 }

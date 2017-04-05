@@ -18,6 +18,7 @@ class CreateAttributeTable extends Migration
             $table->increments('id');
             $table->string('code')->unique();
             $table->boolean('status')->default(true);
+            $table->boolean('is_required')->default(false);
             $table->string('type');
         });
 
@@ -27,7 +28,6 @@ class CreateAttributeTable extends Migration
             $table->increments('id');
             $table->integer('attribute_id')->unsigned();
             $table->string('name');
-            $table->string('value')->nullable();
             $table->string('locale')->index();
             $table->unique(['attribute_id','locale']);
             $table->foreign('attribute_id')->references('id')->on('attribute')->onDelete('cascade');

@@ -22,9 +22,10 @@ class AttributeOption extends Model
 
     public $translatedAttributes = ['label'];
 
+    public $timestamps = false;
 
     public function attribute()
     {
-        $this->belongsTo('Attribute');
+        $this->belongsTo('App\Models\Attribute\Attribute');
     }
 }

@@ -23,11 +23,11 @@ class CreateAttributeOptionTable extends Migration
         Schema::create('attribute_option_translations', function(Blueprint $table)
         {
             $table->increments('id');
-            $table->integer('option_id')->unsigned();
+            $table->integer('attribute_option_id')->unsigned();
             $table->string('label');
             $table->string('locale')->index();
-            $table->unique(['option_id','locale']);
-            $table->foreign('option_id')->references('id')->on('attribute_option')->onDelete('cascade');
+            $table->unique(['attribute_option_id','locale']);
+            $table->foreign('attribute_option_id')->references('id')->on('attribute_option')->onDelete('cascade');
         });
     }
 
