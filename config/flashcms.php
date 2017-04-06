@@ -1,5 +1,6 @@
 <?php
 return [
+    'installed' => env('FLASHCMS_INSTALLED', 'false'),
     'role'=> [
         'default'=> 'ROLE_USER',
         'super'=> 'ROLE_SUPER_ADMIN',
