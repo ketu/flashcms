@@ -10,4 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+// installer
+Route::group(['prefix' => 'installer', 'namespace'=> 'Installer'], function () {
+    Route::get('/', 'InstallerController@index')->name('installer');
+});
 

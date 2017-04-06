@@ -26,7 +26,7 @@
 
                             <div class="form-group has-feedback has-feedback-left">
                                 <input class="form-control" type="text" id="login-username"
-                                       name="email" placeholder="{{__('auth.email')}}">
+                                       name="email" required placeholder="{{__('auth.email')}}">
                                 <div class="form-control-feedback">
                                     <i class="fa fa-user text-muted"></i>
                                 </div>
@@ -38,7 +38,7 @@
                             </div>
 
                             <div class="form-group has-feedback has-feedback-left">
-                                <input class="form-control" type="password" id="login-password"
+                                <input class="form-control" type="password" required id="login-password"
                                        placeholder="{{__('auth.password')}}"
                                        name="password">
                                 <div class="form-control-feedback">
@@ -46,7 +46,7 @@
                                 </div>
                                 @if ($errors->has('password'))
                                     <label class="validation-error-label">
-                                        {{ $errors->first('email') }}
+                                        {{ $errors->first('password') }}
                                     </label>
                                 @endif
                             </div>

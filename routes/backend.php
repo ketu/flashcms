@@ -24,10 +24,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'system', 'namespace' => 'System'], function () {
         Route::get('/', 'ConfigController@index')->name('system.config');
     });
-
-
     // attribute router
-
     Route::group(['prefix' => 'attribute', 'namespace' => 'Attribute'], function () {
         Route::get('/', 'AttributeController@index')->name('attribute');
         Route::get('/create', 'AttributeController@create')->name('attribute.create');
