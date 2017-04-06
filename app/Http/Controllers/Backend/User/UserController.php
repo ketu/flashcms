@@ -89,7 +89,30 @@ class UserController extends BackendController
 
             DB::beginTransaction();
 
-            $user->roles()->attach($request->get('roles'));
+
+            $detachRoles = [];
+            $attachRoles = [];
+
+            foreach ($user->roles as $role ) {
+                $detachRoles[$role->id] = $role;
+            }
+
+
+            foreach($request->get('roles') as $role) {
+
+                if (isset($detachRoles[$role])) {
+                    unset($detachRoles[$role]);
+                } else {
+                    $attachRoles[] = $role;
+                }
+            }
+
+            if ($detachRoles) {
+                $user->detachRoles($detachRoles);
+            }
+            if ($attachRoles) {
+                $user->roles()->attach($attachRoles);
+            }
 
             $user->save();
 
