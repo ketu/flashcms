@@ -46,11 +46,8 @@ class InstallCommand extends Command
         $envFlag = 'FLASHCMS_INSTALLED';
         $installedConfigFlag = 'flashcms.installed';
 
-
         $installed = $this->laravel['config'][$installedConfigFlag];
-
         $forceInstall = $this->option('force');
-
         if (!$forceInstall && $installed) {
             $this->output->writeln('FlashCMS has been installed. if you need to reinstall, please use --force options');
             return true;
@@ -58,7 +55,6 @@ class InstallCommand extends Command
         if ($forceInstall) {
             $this->warn('Waring: Please backup your database, all data will be lost after reinstall.');
         }
-
 
         $defaultConnection = $this->laravel['config']['database.default'];
         $connectionDetails = $this->laravel['config']['database.connections.' . $defaultConnection];

@@ -24,6 +24,21 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'system', 'namespace' => 'System'], function () {
         Route::get('/', 'ConfigController@index')->name('system.config');
     });
+
+
+    // category router
+    Route::group(['prefix' => 'catalog', 'namespace' => 'Catalog'], function () {
+        Route::group(['prefix' => 'category'], function () {
+            Route::get('/', 'CategoryController@index')->name('category');
+            Route::get('/create', 'CategoryController@create')->name('category.create');
+            Route::post('/save', 'CategoryController@save')->name('category.save');
+            Route::get('/edit/{id}', 'CategoryController@edit')->name('category.edit');
+            Route::post('/update', 'CategoryController@update')->name('category.update');
+            Route::get('/delete/{id}', 'CategoryController@delete')->name('category.delete');
+        });
+    });
+
+
     // attribute router
     Route::group(['prefix' => 'attribute', 'namespace' => 'Attribute'], function () {
         Route::get('/', 'AttributeController@index')->name('attribute');
@@ -43,7 +58,6 @@ Route::group(['middleware' => 'auth'], function () {
         });
 
     });
-
     // cms router
     Route::group(['prefix' => 'cms', 'namespace' => 'Cms'], function () {
         // page router

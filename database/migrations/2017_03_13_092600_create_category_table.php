@@ -17,9 +17,13 @@ class CreateCategoryTable extends Migration
         Schema::create('category', function (Blueprint $table) {
             $table->increments('id');
             //$table->string('name');
+            $table->integer('parent_id')->nullable();
             $table->integer('lft');
             $table->integer('rgt');
+            $table->integer('depth')->nullable();
+            $table->string('group_name');
             $table->boolean('status')->default(true);
+            $table->timestamps();
         });
 
         Schema::create('category_translations', function(Blueprint $table)
