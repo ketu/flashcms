@@ -36,6 +36,7 @@ class RoleController extends BackendController
             $role->name = $request->get('name');
             $role->display_name = $request->get('display_name');
             $role->description = $request->get('description');
+
             DB::beginTransaction();
 
             $role->save();
