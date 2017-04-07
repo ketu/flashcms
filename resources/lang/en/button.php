@@ -23,6 +23,7 @@ return [
     'edit'=> 'Edit',
     'submit'=> 'Submit',
     'login'=> 'Login',
-    'signup'=> 'Sign Up'
+    'signup'=> 'Sign Up',
+    'please_select'=> 'Please select'
 
 ];

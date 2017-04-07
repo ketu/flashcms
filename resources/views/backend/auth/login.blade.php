@@ -54,10 +54,14 @@
                             <div class="form-group login-options">
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" class="styled"
-                                                   name="remember" {{ old('remember') ? 'checked' : '' }}> {{__('auth.remember_me')}}
-                                        </label>
+
+
+                                            <label>
+                                                <input type="checkbox" class="styled"
+                                                       class="single_basic_checkbox"
+                                                       name="remember" {{ old('remember') ? 'checked' : '' }}> {{__('auth.remember_me')}}
+                                            </label>
+
                                     </div>
 
                                     <div class="col-sm-6 text-right">
@@ -74,7 +78,8 @@
 
                             <div class="content-divider text-muted form-group"><span>{{__('auth.do_not_have_account')
                             }}</span></div>
-                            <a href="{{route('register')}}" class="btn btn-default btn-block content-group">{{__('button.signup')}}</a>
+                            <a href="{{route('register')}}"
+                               class="btn btn-default btn-block content-group">{{__('button.signup')}}</a>
 
                         </div>
                     </form>
@@ -91,6 +96,11 @@
 
     </div>
     <!-- /page container -->
-
-
+@section('footer.scripts')
+    <!-- Core JS files -->
+    <script type="text/javascript" src="{{ asset('assets/backend/js/app.min.js')}}"></script>
+    <!-- /theme JS files -->
+@show
+@section('footer.scripts.additional')
+@show
 @endsection

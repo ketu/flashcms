@@ -3,20 +3,18 @@
 namespace App\Http\Controllers\Backend\Catalog;
 
 use App\Http\Controllers\Backend\BackendController;
-use App\Http\Requests\CategoryRequest;
-use App\Models\Category\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 
-class CategoryController extends BackendController
+class ProductController extends BackendController
 {
 
     public function index(Request $request)
     {
-        $categories = Category::tree();
-        return $this->render('catalog.category.index', [
-            'categories' => $categories
+        $products = Product::all();
+        return $this->render('catalog.product.index', [
+            'products' => $products
         ]);
     }
 
@@ -24,7 +22,7 @@ class CategoryController extends BackendController
     {
         $categories = Category::tree();
 
-        return $this->render('catalog.category.create', [
+        return $this->render('catalog.product.create', [
             'categories' => $categories
         ]);
     }

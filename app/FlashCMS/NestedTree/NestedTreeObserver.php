@@ -100,42 +100,82 @@ class NestedTreeObserver
         try {
             DB::beginTransaction();
 
-            $newParent = $model->findOrFail(
-                $model->$parentColumn,
-                array_filter([
-                    $leftColumn,
-                    $rightColumn,
-                    $depthColumn,
-                    $groupColumn,
-                ])
-            );
+            $children = $cls::where($groupColumn, '=', $originalGroupName)
+                ->where($rightColumn, '<', $originalRgt)
+                ->where($leftColumn, '>', $originalLft)
+                ->get();
 
-            // update new parent path
-            $cls::where($groupColumn, '=', $newParent->$groupColumn)
-                ->where($rightColumn, '>=', $newParent->$rightColumn)
-                ->increment($rightColumn, 2 * ($originalDescendants + 1));
+            if (!is_null($originalParentId)) {
 
-            // find max sbling right
-            $currentMaxRight = $cls::where($groupColumn, '=', $newParent->$groupColumn)
-                ->where($rightColumn, '<', $newParent->$rightColumn)->max($rightColumn);
+                //update original parent path
+                $cls::where($groupColumn, '=', $originalGroupName)
+                    ->where($rightColumn, '>', $originalRgt)
+                    ->decrement($rightColumn, 2 * ($originalDescendants + 1));
 
-            $newLeft = $currentMaxRight + 1;
-            $newRight = $currentMaxRight + 2 + ($originalDescendants) * 2;
+
+                $cls::where($groupColumn, '=', $originalGroupName)
+                    ->where($leftColumn, '>', $originalRgt)
+                    ->decrement($leftColumn, 2 * ($originalDescendants + 1));
+            }
+
+
+
+
+
+            if (!is_null($model->$parentColumn)) {
+                $newParent = $model->findOrFail(
+                    $model->$parentColumn,
+                    array_filter([
+                        $leftColumn,
+                        $rightColumn,
+                        $depthColumn,
+                        $groupColumn,
+                    ])
+                );
+
+                // update new parent path
+                $cls::where($groupColumn, '=', $newParent->$groupColumn)
+                    ->where($rightColumn, '>=', $newParent->$rightColumn)
+                    ->increment($rightColumn, 2 * ($originalDescendants + 1));
+                $cls::where($groupColumn, '=', $newParent->$groupColumn)
+                    ->where($leftColumn, '>', $newParent->$rightColumn)
+                    ->increment($leftColumn, 2 * ($originalDescendants + 1));
+
+                // find max sbling right
+                /*$currentMaxRight = $cls::where($groupColumn, '=', $newParent->$groupColumn)
+                    ->where($rightColumn, '<', $newParent->$rightColumn)->max($rightColumn);*/
+
+
+                $newLeft = $newParent->$leftColumn + 1;
+                $newRight = $newParent->$leftColumn + 2 + $originalDescendants * 2;
+                $newGroupName =  $newParent->$groupColumn;
+                $newDepth = $newParent->$depthColumn + 1;
+            } else {
+                $newLeft = 1;
+                $newRight = 2 * $originalDescendants + 2;
+                $newDepth = 0;
+                if ($model->$groupColumn == $originalGroupName) {
+                    $newGroupName = Uuid::uuid4()->toString();
+                } else {
+                    $newGroupName = $model->$groupColumn;
+                }
+            }
             $model->$leftColumn = $newLeft;
             $model->$rightColumn = $newRight;
-            $model->$depthColumn = $newParent->$depthColumn + 1;
-            $model->$groupColumn = $newParent->$groupColumn;
+            $model->$depthColumn = $newDepth;
+            $model->$groupColumn = $newGroupName;
 
 
-            $children = $cls::where($groupColumn, '=', $originalGroupName)
-                ->where($rightColumn, '<', $originalRgt)->get();
+
+
+
             $cls::unguard();
             foreach ($children as $child) {
                 $originalChildDescendants = ($child->$rightColumn - $child->$leftColumn - 1) / 2;
                 $newChildLeft = $newLeft + ($originalDescendants - $originalChildDescendants) * 1;
 
                 $newChildRight = $newChildLeft + 1 + ($originalChildDescendants) * 2;
-                $newChildGroupName = $newParent->$groupColumn;
+                $newChildGroupName = $newGroupName;
                 $cls::find($child->$pkColumn)->update(
                     [
                         $depthColumn => $model->$depthColumn + $originalChildDescendants + 1,
@@ -148,10 +188,6 @@ class NestedTreeObserver
             $cls::reguard();
 
 
-            //update original parent path
-            $cls::where($groupColumn, '=', $originalGroupName)
-                ->where($rightColumn, '>', $originalRgt)
-                ->decrement($rightColumn, 2 * ($originalDescendants + 1));
             DB::commit();
 
             return true;

@@ -135,15 +135,13 @@ trait NestedTreeTrait
     public static function tree()
     {
         $instance = new self();
-        $queryBuilder = self::orderBy($instance->getGroupColumn())->orderBy($instance->getLeftColumn());
+
+        $queryBuilder = self::orderBy($instance->getLeftColumn());
+
         $queryBuilder = $instance->mergeTranslatableTranslation($queryBuilder);
 
-        return $queryBuilder;
-        foreach ($queryBuilder->get() as $node) {
-            echo $node->id;
-            echo str_repeat('...', $node->depth);
-            echo '<br>';
-        }
+        return $queryBuilder->get();
+
 
     }
 
@@ -165,6 +163,6 @@ trait NestedTreeTrait
             ->whereBetween($leftColumn, [$this->$leftColumn + $diffLft, $this->$rightColumn - $diffLft])
             ->orderBy($this->getLeftColumn());
         $queryBuilder = $this->mergeTranslatableTranslation($queryBuilder);
-        return $queryBuilder;
+        return $queryBuilder->get();
     }
 }

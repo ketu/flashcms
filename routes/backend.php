@@ -26,8 +26,20 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
 
-    // category router
+    // catalog router
     Route::group(['prefix' => 'catalog', 'namespace' => 'Catalog'], function () {
+        //product router
+        Route::group(['prefix' => 'product'], function () {
+            Route::get('/', 'ProductController@index')->name('product');
+            Route::get('/create', 'ProductController@create')->name('product.create');
+            Route::post('/save', 'ProductController@save')->name('product.save');
+            Route::get('/edit/{id}', 'ProductController@edit')->name('product.edit');
+            Route::post('/update', 'ProductController@update')->name('product.update');
+            Route::get('/delete/{id}', 'ProductController@delete')->name('product.delete');
+
+        });
+
+        //category router
         Route::group(['prefix' => 'category'], function () {
             Route::get('/', 'CategoryController@index')->name('category');
             Route::get('/create', 'CategoryController@create')->name('category.create');
@@ -35,6 +47,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/edit/{id}', 'CategoryController@edit')->name('category.edit');
             Route::post('/update', 'CategoryController@update')->name('category.update');
             Route::get('/delete/{id}', 'CategoryController@delete')->name('category.delete');
+            Route::get('/rebuild', 'CategoryController@rebuild')->name('category.rebuild');
         });
     });
 

@@ -27,5 +27,15 @@ class Category extends Model
     public $translatedAttributes = ['name'];
 
 
+    public function children()
+    {
+     return $this->hasMany('App\Models\Category\Category');
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo('App\Models\Category\Category');
+    }
+
 
 }

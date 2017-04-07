@@ -125,8 +125,8 @@
                                 <li>
                                     <a href="#"><i class="fa fa-user"></i> <span>{{__('nav.catalog')}}</span></a>
                                     <ul>
-                                        <li><a href="{{route('user')}}">{{__('nav.category')}}</a></li>
-                                        <li><a href="{{route('role')}}">{{__('nav.product')}}</a></li>
+                                        <li><a href="{{route('category')}}">{{__('nav.category')}}</a></li>
+                                        <li><a href="{{route('product')}}">{{__('nav.product')}}</a></li>
 
                                     </ul>
                                 </li>
@@ -251,7 +251,6 @@
     <!-- /theme JS files -->
 @show
 @section('footer.scripts.additional')
-
 @show
 @show
 </body>
