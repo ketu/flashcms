@@ -6,8 +6,8 @@
 
 namespace App\FlashCMS\NestedTree;
 
-use App\FlashCMS\NestedTree\NestedTreeObserver;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 
 trait NestedTreeTrait
 {
@@ -83,29 +83,85 @@ trait NestedTreeTrait
     private function mergeTranslatableTranslation(Builder $queryBuilder)
     {
         if (method_exists($this, 'scopeWithTranslation')) {
-            $queryBuilder->withTranslation();
+            return $queryBuilder->withTranslation();
         }
 
         return $queryBuilder;
     }
 
-    public static function rebuildTree()
+    /**
+     *
+     */
+    public static function rebuild()
     {
+        $instance = new self();
+
+        $pkColumn = $instance->getKeyName();
+        $leftColumn = $instance->getLeftColumn();
+        $rightColumn = $instance->getRightColumn();
+        $parentColumn = $instance->getParentColumn();
+        $depthColumn = $instance->getDepthColumn();
+        $groupColumn = $instance->getGroupColumn();
+        $nodes = self::orderBy($instance->getLeftColumn())->get();
+        //$nodes = self::orderBy($instance->getParentColumn())->get();
+
+        $rebuildData = [];
+
+        foreach ($nodes as $node) {
+            $attributes = array_diff_key($node->attributesToArray(), [$leftColumn => true, $rightColumn => true,
+                $depthColumn => true]);
+            $rebuildData[$node->$pkColumn] = $attributes;
+        }
+ 
+        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+        DB::table($instance->getTable())->truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1');
+        foreach ($rebuildData as $id => $attributes) {
+            $object = new self();
+
+            foreach ($attributes as $key=> $value) {
+                $object->$key = $value;
+            }
+            $object->save();
+        }
+
 
     }
 
+
+    /**
+     * @return Builder
+     */
+    public static function tree()
+    {
+        $instance = new self();
+        $queryBuilder = self::orderBy($instance->getGroupColumn())->orderBy($instance->getLeftColumn());
+        $queryBuilder = $instance->mergeTranslatableTranslation($queryBuilder);
+
+        return $queryBuilder;
+        foreach ($queryBuilder->get() as $node) {
+            echo $node->id;
+            echo str_repeat('...', $node->depth);
+            echo '<br>';
+        }
+
+    }
+
+    /**
+     * @param bool $onlyChild
+     * @return Builder
+     */
     public function renderTree($onlyChild = false)
     {
-
         $diffLft = 0;
         if ($onlyChild) {
             $diffLft = 1;
         }
-
+        $cls = get_class($this);
         $groupColumn = $this->getGroupColumn();
         $leftColumn = $this->getLeftColumn();
         $rightColumn = $this->getRightColumn();
-        $queryBuilder = self::where($this->getGroupColumn(), '=', $this->$groupColumn)
+        $queryBuilder = $cls::where($this->getGroupColumn(), '=', $this->$groupColumn)
             ->whereBetween($leftColumn, [$this->$leftColumn + $diffLft, $this->$rightColumn - $diffLft])
             ->orderBy($this->getLeftColumn());
         $queryBuilder = $this->mergeTranslatableTranslation($queryBuilder);

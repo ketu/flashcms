@@ -13,18 +13,11 @@ class CategoryController extends BackendController
     public function index(Request $request)
     {
 
-        $category = Category::find(63);
+        $category = Category::rebuild();
 
-        $queryBuilder = $category->renderTree();
 
-        $nodes = $queryBuilder->get();
-        foreach ($nodes as $node) {
-            echo $node->name;
-            echo '<br>';
-            echo str_repeat('...', $node->depth+1);
-            echo '<br>';
 
-        }
+
 
         /*$category = new Category();
         $category->name = '11111';

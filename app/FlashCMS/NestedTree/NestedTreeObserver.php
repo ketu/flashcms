@@ -35,7 +35,6 @@ class NestedTreeObserver
 
         } else { // parent set
 
-
             try {
 
                 DB::beginTransaction();
@@ -66,7 +65,7 @@ class NestedTreeObserver
                 DB::commit();
             } catch (\Exception $e) {
                 DB::rollback();
-                throw new \Exception('Can not insert node to parent');
+                throw $e;
             }
 
         }
