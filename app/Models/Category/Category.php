@@ -18,7 +18,9 @@ class Category extends Model
     //table name
     protected $table = 'category';
 
-    protected $fillable = ['status', 'parent_id', 'group_name'];
+    //protected $fillable = ['status', 'parent_id', 'group_name'];
+
+    protected $guarded = ['rgt', 'lft', 'depth'];
 
     public $translationModel = 'App\Models\Category\CategoryTranslation';
 

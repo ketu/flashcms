@@ -7,25 +7,29 @@
 namespace App\FlashCMS\NestedTree;
 
 use App\FlashCMS\NestedTree\NestedTreeObserver;
+use Illuminate\Database\Eloquent\Builder;
 
 trait NestedTreeTrait
 {
+
     protected $nestedTreeColumns = [
-        'left'		=> 'lft',
-        'right'		=> 'rgt',
-        'parent'	=> 'parent_id',
-        'depth'		=> 'depth',
-        'group'=> 'group_name'
+        'left' => 'lft',
+        'right' => 'rgt',
+        'parent' => 'parent_id',
+        'depth' => 'depth',
+        'group' => 'group_name'
     ];
 
     private $requiredColumns = [
         'left',
         'right',
         'parent',
-        'depth'	,
+        'depth',
         'group'
     ];
-    public static function boot() {
+
+    public static function boot()
+    {
         parent::boot();
         self::observe(new NestedTreeObserver());
     }
@@ -60,19 +64,29 @@ trait NestedTreeTrait
     {
         return $this->requiredColumns;
     }
+
     private function getColumnName($columnName)
     {
         $requiredColumns = array_diff($this->requiredColumns, array_keys($this->nestedTreeColumns));
 
-        if ($requiredColumns){
-            throw new \UnexpectedValueException(sprintf('Required column(%s) cannot be found in '.get_class($this),
+        if ($requiredColumns) {
+            throw new \UnexpectedValueException(sprintf('Required column(%s) cannot be found in ' . get_class($this),
                 \join(', ', $requiredColumns)));
         }
 
         if (!isset($this->nestedTreeColumns[$columnName])) {
-            throw new \UnexpectedValueException('"'.$columnName.'" column cannot be empty in '.get_class($this));
+            throw new \UnexpectedValueException('"' . $columnName . '" column cannot be empty in ' . get_class($this));
         }
         return $this->nestedTreeColumns[$columnName];
+    }
+
+    private function mergeTranslatableTranslation(Builder $queryBuilder)
+    {
+        if (method_exists($this, 'scopeWithTranslation')) {
+            $queryBuilder->withTranslation();
+        }
+
+        return $queryBuilder;
     }
 
     public static function rebuildTree()
@@ -80,13 +94,21 @@ trait NestedTreeTrait
 
     }
 
-    public function renderTree()
-    {   $groupColumn = $this->getGroupColumn();
+    public function renderTree($onlyChild = false)
+    {
+
+        $diffLft = 0;
+        if ($onlyChild) {
+            $diffLft = 1;
+        }
+
+        $groupColumn = $this->getGroupColumn();
         $leftColumn = $this->getLeftColumn();
         $rightColumn = $this->getRightColumn();
-
-        self::where($this->getGroupColumn(), '=', $this->$groupColumn)
-            ->where('')
-            ->order($this->getLeftColumn());
+        $queryBuilder = self::where($this->getGroupColumn(), '=', $this->$groupColumn)
+            ->whereBetween($leftColumn, [$this->$leftColumn + $diffLft, $this->$rightColumn - $diffLft])
+            ->orderBy($this->getLeftColumn());
+        $queryBuilder = $this->mergeTranslatableTranslation($queryBuilder);
+        return $queryBuilder;
     }
 }
