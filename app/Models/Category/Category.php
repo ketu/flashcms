@@ -6,7 +6,7 @@
 
 namespace App\Models\Category;
 
-use App\FlashCMS\Utils\NestedTreeTrait;
+use App\FlashCMS\NestedTree\NestedTreeTrait;
 use Dimsav\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Model;
 

@@ -4,9 +4,9 @@
  * Date: 2017/4/7 11:28
  */
 
-namespace App\FlashCMS\Utils;
+namespace App\FlashCMS\NestedTree;
 
-use App\FlashCMS\Observer\NestedTreeObserver;
+use App\FlashCMS\NestedTree\NestedTreeObserver;
 
 trait NestedTreeTrait
 {
@@ -75,4 +75,18 @@ trait NestedTreeTrait
         return $this->nestedTreeColumns[$columnName];
     }
 
+    public static function rebuildTree()
+    {
+
+    }
+
+    public function renderTree()
+    {   $groupColumn = $this->getGroupColumn();
+        $leftColumn = $this->getLeftColumn();
+        $rightColumn = $this->getRightColumn();
+
+        self::where($this->getGroupColumn(), '=', $this->$groupColumn)
+            ->where('')
+            ->order($this->getLeftColumn());
+    }
 }

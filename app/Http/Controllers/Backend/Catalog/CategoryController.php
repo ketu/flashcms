@@ -13,12 +13,9 @@ class CategoryController extends BackendController
     public function index(Request $request)
     {
 
-        $category = Category::find(61);
+        $category = Category::find(63);
 
-        $category->parent_id = 63;
-
-        $category->save();
-
+        $category->rebuildTree();
 
         /*$category = new Category();
         $category->name = '11111';
