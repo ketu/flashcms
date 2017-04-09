@@ -38,6 +38,7 @@ elixir(function (mix) {
     mix.scripts(
         [
             'PACE/pace.min.js',
+            'js-storage/js.storage.js',
             'jquery/dist/jquery.js',
             'bootstrap/dist/js/bootstrap.js',
             'jquery.nicescroll/dist/jquery.nicescroll.min.js',
@@ -51,7 +52,8 @@ elixir(function (mix) {
             'bootstrap-switch/dist/js/bootstrap-switch.js',
             'bootstrap-multiselect/dist/js/bootstrap-multiselect.js',
             'bootstrap-touchspin/dist/jquery.bootstrap-touchspin.js',
-            'bootstrap-duallistbox/dist/jquery.bootstrap-duallistbox.js'
+            'bootstrap-duallistbox/dist/jquery.bootstrap-duallistbox.js',
+            'dropzone/dist/dropzone.js'
 
         ],
         'public/assets/backend/js/third.js',

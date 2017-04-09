@@ -633,4 +633,5 @@ $(function() {
     // Tooltip
     $('[data-popup="tooltip"]').tooltip();
 
+
 });

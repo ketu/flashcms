@@ -22,6 +22,7 @@ class CreateProductTable extends Migration
             $table->string('main_image')->nullable();
             //$table->text('description')->nullable();
             $table->boolean('status')->default(true);
+            $table->timestamps();
         });
         Schema::create('product_translations', function(Blueprint $table)
         {

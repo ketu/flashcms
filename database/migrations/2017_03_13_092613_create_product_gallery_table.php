@@ -17,6 +17,7 @@ class CreateProductGalleryTable extends Migration
         Schema::create('product_gallery', function (Blueprint $table) {
             $table->increments('id');
             $table->string('image');
+            $table->timestamps();
             $table->integer('sort_order')->default(0);
             $table->integer('product_id')->foreign('product_id')->references('id')->on('product')->onDelete('cascade');
         });

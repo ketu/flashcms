@@ -172,6 +172,7 @@ return [
         Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class,
 
         Zizaco\Entrust\EntrustServiceProvider::class,
+        Folklore\Image\ImageServiceProvider::class,
 
 
 
@@ -239,7 +240,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'LaravelLocalization'	=> Mcamara\LaravelLocalization\Facades\LaravelLocalization::class,
         'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
-
+        'Image' => Folklore\Image\Facades\Image::class,
 
     ],
 

@@ -37,6 +37,10 @@ Route::group(['middleware' => 'auth'], function () {
             Route::post('/update', 'ProductController@update')->name('product.update');
             Route::get('/delete/{id}', 'ProductController@delete')->name('product.delete');
 
+
+            Route::post('/{id}/gallery/upload', 'GalleryController@upload')->name('product.gallery.upload');
+
+            Route::post('/{id}/gallery/delete', 'GalleryController@delete')->name('product.gallery.delete');
         });
 
         //category router
@@ -49,6 +53,9 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/delete/{id}', 'CategoryController@delete')->name('category.delete');
             Route::get('/rebuild', 'CategoryController@rebuild')->name('category.rebuild');
         });
+
+
+
     });
 
 

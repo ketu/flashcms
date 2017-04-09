@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers\Backend\Catalog;
 
+use App\FlashCMS\Image;
 use App\Http\Controllers\Backend\BackendController;
+use App\Http\Requests\ProductRequest;
+use App\Models\Category\Category;
+use App\Models\Product\Product;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends BackendController
 {
@@ -27,23 +33,31 @@ class ProductController extends BackendController
         ]);
     }
 
-    public function save(CategoryRequest $request)
+
+    public function save(ProductRequest $request)
     {
         try {
+
+
             $currentLocale = app()->getLocale();
-            $category = new Category();
-            $category->translateOrNew($currentLocale)->name = $request->get('name');
-            $parentId = $request->get('parent_id', null);
-            $category->status = $request->get('status', false);
+            $product = new Product();
+            $product->translateOrNew($currentLocale)->name = $request->get('name');
+            $product->translateOrNew($currentLocale)->description = $request->get('content');
+            $product->sku = $request->get('sku');
+            $product->slug = $request->get('slug');
 
-            if (!is_null($parentId)) {
-                $parent = Category::findOrFail($parentId);
-                $category->parent_id = $parent->id;
-            }
+            $categories = $request->get('categories', []);
+            $product->status = $request->get('status', false);
+            DB::beginTransaction();
+            $product->save();
 
-            $category->save();
-            return redirect()->route('category.edit', ['id' => $category->id])->with('success', 'notice.success');
+            $product->categories()->attach($categories);
+            DB::commit();
+
+
+            return redirect()->route('product.edit', ['id' => $product->id])->with('success', 'notice.success');
         } catch (\Exception $e) {
+            DB::rollBack();
             return redirect()->back()->withInput()->with('failed', $e->getMessage());
 
         }
@@ -54,25 +68,37 @@ class ProductController extends BackendController
     {
 
 
-        $category = Category::findOrFail($id);
+        $product = Product::findOrFail($id);
 
         $categories = Category::tree();
 
-        $nodes = $category->renderTree();
-        $children = [];
-        foreach ($nodes as $node) {
-            $children[] = $node->id;
+        $categoryIds = [];
+        foreach ($product->categories as $category) {
+            $categoryIds[] = $category->id;
+        }
+        $uploadedImages = [];
+
+
+        $fileSystem = new Filesystem();
+        foreach ($product->galleries as $gallery) {
+            $uploadedImages[] = [
+                "path" => $gallery->image,
+                "url" => Image::create('product')->url($gallery->image),
+                'mimeType'=> Storage::disk('product')->mimeType($gallery->image),
+                'name'=> $fileSystem->basename($gallery->image)
+            ];
         }
 
-        return $this->render('catalog.category.edit', [
-            'category' => $category,
-            'children'=>$children,
-            'categories'=> $categories
+        return $this->render('catalog.product.edit', [
+            'product' => $product,
+            'categories' => $categories,
+            'categoryIds' => $categoryIds,
+            'uploadedImages' => \json_encode($uploadedImages)
         ]);
     }
 
 
-    public function update(CategoryRequest $request)
+    public function update(ProductRequest $request)
     {
         try {
             $id = $request->get('id');
@@ -117,10 +143,10 @@ class ProductController extends BackendController
 
     public function rebuild(Request $request)
     {
-        try{
+        try {
             Category::rebuild();
             return redirect()->route('category')->with('success', 'notice.success');
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
             return redirect()->back()->with('failed', $e->getMessage());
 
         }

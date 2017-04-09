@@ -15,7 +15,8 @@
                         <label class="control-label col-lg-3">{{ __('page.title') }}<span
                                     class="text-danger">*</span></label>
                         <div class="col-lg-9">
-                            <input type="text" name="name" class="form-control" required="required" value="{{Request::old('name')}}"
+                            <input type="text" name="name" class="form-control" required="required"
+                                   value="{{Request::old('name')}}"
                                    placeholder="{{ __('page.title') }}">
                         </div>
                         @if ($errors->first('name'))
@@ -31,7 +32,8 @@
                         <label class="control-label col-lg-3">{{ __('page.slug') }}<span
                                     class="text-danger">*</span></label>
                         <div class="col-lg-9">
-                            <input type="text" name="slug" class="form-control" required="required" value="{{Request::old('slug')}}"
+                            <input type="text" name="slug" class="form-control" required="required"
+                                   value="{{Request::old('slug')}}"
                                    placeholder="{{ __('page.slug') }}">
                             @if ($errors->first('slug'))
                                 <label id="slug-error" class="validation-error-label"
@@ -52,7 +54,8 @@
                                     class="text-danger">*</span></label>
                         <div class="col-lg-9">
                             <label class="checkbox-inline checkbox-switch">
-                                <input type="checkbox" name="status" @if(Request::old('status')) checked @endif value="1" class="switch">
+                                <input type="checkbox" name="status" @if(Request::old('status')) checked
+                                       @endif value="1" class="switch">
                             </label>
                         </div>
                     </div>
@@ -80,11 +83,7 @@
         $(document).ready(function () {
 
             // Initialize
-            var validator = $(".form-validate-jquery").validate({
-
-
-
-            });
+            var validator = $(".form-validate-jquery").validate({});
 
         });
 

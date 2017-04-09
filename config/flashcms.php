@@ -20,6 +20,22 @@ return [
             'select',
             'checkbox'
         ]
-
+    ],
+    'uploader'=> [
+        'folder'=> [
+            'product'=>  'upload/product',
+        ]
+    ],
+    'image'=> [
+        'default'=> [
+            'width'=> 150,
+            'height'=> 150,
+            'watermark'=> false,
+        ],
+        'product'=> [
+            'width'=> 150,
+            'height'=> 150,
+            'watermark'=> false,
+        ],
     ]
 ];

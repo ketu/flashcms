@@ -34,8 +34,7 @@
                         <label class="control-label col-lg-3">{{ __('category.parent_id') }}<span
                                     class="text-danger">*</span></label>
                         <div class="col-lg-9">
-                            <select name="parent_id" class="form-control select2">
-                                <option value="">{{__('button.please_select')}}</option>
+                            <select name="parent_id" class="form-control select2" data-placeholder="{{__('button.please_select')}}">
                                 @foreach($categories as $category)
                                     <option value="{{$category->id}}" @if(Request::old('parent_id') == $category->id) checked
                                     @endif >{{$category->name}}</option>

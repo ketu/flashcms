@@ -81,10 +81,7 @@
                     </div>
                     <!-- /basic text input -->
 
-                </fieldset>
 
-                <hr>
-                <fieldset>
                     <div class="form-group">
                         <label class="control-label col-lg-3">{{__('user.roles')}}<span
                                     class="text-danger">*</span></label>
@@ -99,10 +96,7 @@
                             @endif
                         </div>
                     </div>
-                </fieldset>
 
-
-                <fieldset>
                     <!-- Inline switch group -->
                     <div class="form-group">
                         <label class="control-label col-lg-3">{{__('user.status')}}<span
