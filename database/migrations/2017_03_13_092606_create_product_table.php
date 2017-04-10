@@ -24,7 +24,8 @@ class CreateProductTable extends Migration
             $table->decimal('length', 10, 2)->nullable();
             $table->decimal('height', 10, 2)->nullable();
             $table->decimal('width', 10, 2)->nullable();
-            //$table->text('description')->nullable();
+            $table->integer('template_id')->unsigned();
+            $table->foreign('template_id')->references('id')->on('product_template');
             $table->boolean('status')->default(true);
             $table->timestamps();
         });

@@ -25,6 +25,11 @@ class Product extends Model
     public $translatedAttributes = ['name', 'description'];
 
 
+    public function template()
+    {
+        return $this->belongsTo('\App\Models\Product\Template', 'template_id');
+    }
+
     public function categories()
     {
         return $this->belongsToMany('\App\Models\Category\Category', 'category_product_relation');

@@ -71,6 +71,37 @@
                             <!-- /input with icons -->
 
 
+                            <!-- Input with icons -->
+                            <div class="form-group has-feedback">
+                                <label class="control-label col-lg-3">{{ __('product.price') }}<span
+                                            class="text-danger">*</span></label>
+                                <div class="col-lg-9">
+                                    <input type="text" name="price" class="form-control" required="required"
+                                           value="{{$product->price}}"
+                                           placeholder="{{ __('product.price') }}">
+                                    @if ($errors->first('price'))
+                                        <label id="price-error" class="validation-error-label"
+                                               for="price">{{$errors->first('price')}}</label>
+                                    @endif
+
+                                </div>
+                            </div>
+                            <!-- /input with icons -->
+
+                            <!-- Input with icons -->
+                            <div class="form-group has-feedback">
+                                <label class="control-label col-lg-3">{{ __('product.weight') }}</label>
+                                <div class="col-lg-9">
+                                    <input type="text" name="weight" class="form-control"
+                                           value="{{$product->weight}}"
+                                           placeholder="{{ __('product.weight') }}">
+                                    @if ($errors->first('weight'))
+                                        <label id="weight-error" class="validation-error-label"
+                                               for="weight">{{$errors->first('weight')}}</label>
+                                    @endif
+                                </div>
+                            </div>
+                            <!-- /input with icons -->
                             <!-- Basic text input -->
                             <div class="form-group">
                                 <label class="control-label col-lg-3">{{ __('product.categories') }}<span
@@ -111,19 +142,37 @@
                                     <textarea name="content" required
                                               class="summernote">{{$product->description}}</textarea>
                                 </div>
-
                             </div>
-
-
                         </div>
 
                         <div class="tab-pane" id="attribute">
-                            Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid
-                            laeggin.
+                            <div class="form-group">
+                                <label class="control-label col-lg-3">{{ __('product.template') }}</label>
+                                <div class="col-lg-9">
+                                    <select name="template" class="form-control"
+                                            id="template-attribute-select2"
+                                            data-placeholder="{{__('button.please_select')}}">
+                                        <option value="">{{__('button.please_select')}}</option>
+                                        @foreach($templates as $template)
+                                            <option value="{{$template->id}}"
+                                                    @if($product->template && $product->template->id == $template->id) selected
+                                                    @endif >{{$template->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    @if ($errors->first('template'))
+                                        <label id="template-error" class="validation-error-label"
+                                               for="template">{{$errors->first('template')}}</label>
+                                    @endif
+                                </div>
+                            </div>
+                            <hr>
+                            <div id="templateAttributes">
+                            </div>
                         </div>
                         <div class="tab-pane" id="gallery">
                             <!-- Removable thumbnails -->
-                            <div action="{{route('product.gallery.upload', ['id'=> $product->id])}}" class="dropzone" id="uploader"></div>
+                            <div action="{{route('product.gallery.upload', ['id'=> $product->id])}}" class="dropzone"
+                                 id="uploader"></div>
                             <!-- /removable thumbnails -->
 
 
@@ -147,8 +196,6 @@
 @section('footer.scripts.additional')
     <script>
         var storage = Storages.localStorage;
-
-
         var uploadedImages = '{!! $uploadedImages !!}';
         Dropzone.options.uploader = {
             paramName: "file", // The name that will be used to transfer the file
@@ -156,7 +203,7 @@
             maxFilesize: 3, // MB
             addRemoveLinks: true,
             acceptedFiles: 'image/*',
-            autoProcessQueue:true,
+            autoProcessQueue: true,
             headers: {
                 'X-CSRF-TOKEN': $('input[name="_token"]').val()
             },
@@ -168,15 +215,14 @@
                     uploadedImages = $.parseJSON(uploadedImages);
 
 
-
                     $.each(uploadedImages, function (i, f) {
                         $.ajax({
                             //dataType:'blob',
-                            type:'GET',
-                            url:f.url
-                        }).done(function(blob){
-                            var file = new File([blob], f.name, {type:f.mimeType});
-                            file.status=Dropzone.SUCCESS;
+                            type: 'GET',
+                            url: f.url
+                        }).done(function (blob) {
+                            var file = new File([blob], f.name, {type: f.mimeType});
+                            file.status = Dropzone.SUCCESS;
 
 
                             file.uploaded = {
@@ -198,16 +244,16 @@
                 } else {
                     var galleryQueue = storage.get('productGalleryQueue');
                     if (galleryQueue !== null) {
-                        $.each(galleryQueue, function (i, f){
+                        $.each(galleryQueue, function (i, f) {
                             var blob = dataURItoBlob(f.url);
-                            var file = new File([blob], f.name, {type:f.type});
+                            var file = new File([blob], f.name, {type: f.type});
                             // Call the default addedfile event handler
                             uploader.emit("addedfile", file);
                             // And optionally show the thumbnail of the file:
                             uploader.emit("thumbnail", file, f.url);
                             uploader.files.push(file);
                             uploader.uploadFile(file);
-                        } );
+                        });
                         storage.set('productGalleryQueue', null);
                     }
                 }
@@ -227,16 +273,16 @@
                     };
                 });
 
-                this.on('removedfile', function (file){
+                this.on('removedfile', function (file) {
 
                     if (file.uploaded != 'undefined') {
                         $.ajax({
                             method: 'POST',
-                            url:'{{route('product.gallery.delete', ['id'=> $product->id])}}',
+                            url: '{{route('product.gallery.delete', ['id'=> $product->id])}}',
                             data: {
                                 path: file.uploaded.path
                             },
-                            headers:{
+                            headers: {
                                 'X-CSRF-TOKEN': $('input[name="_token"]').val()
                             }
                         });
@@ -245,12 +291,101 @@
                 });
 
 
-
-
             }
         };
+        var attributeTypes = $.parseJSON('{!! $attributeTypes !!}');
+
+        var buttonSelectText = '{{__('button.please_select')}}';
         $(document).ready(function () {
-            $('.select2').select2();
+            $('.select2').select2({
+                width: '100%'
+            });
+
+            $('#template-attribute-select2').select2({
+                width: '100%'
+            }).on('select2:select', function (evt) {
+                var templateId = $(this).val();
+                if (templateId) {
+                    $.getJSON('{{route('template.attributes')}}', {
+                        id: templateId
+                    }, function (resp) {
+                        function createElementFromType(attribute) {
+                            var el;
+                            switch (attribute.type) {
+                                case attributeTypes.text:
+                                case attributeTypes.textarea:
+                                    el = createTextElement(attribute.type, null, {'class': 'form-control'});
+                                    break;
+                                case attributeTypes.select:
+                                    el = createSelect2Element(attribute.type, attribute.options, null, {'class': 'form-control'});
+                                    break;
+                                case attributeTypes.checkbox:
+                                    el = createSelect2Element(attribute.type, attribute.options, null,
+                                        {'multiple': 'multiple', 'class': 'form-control'});
+                                    break;
+                            }
+                            if (attribute.is_required) {
+                                el.attr('required', true);
+                            }
+
+                            return el;
+                        }
+
+                        function createSelect2Element(el, options, value, attrs) {
+                            var e = $('<select>');
+                            e.data('placeholder', buttonSelectText);
+                            $.each(options, function (i, o) {
+                                e.append($('<option>').val(o.id).text(o.label));
+                            });
+                            $.each(attrs, function (i, o) {
+                                e.attr(i, o);
+                            });
+                            e.val(value);
+                            e.addClass('select2');
+                            return e;
+                        }
+
+                        function createTextElement(el, value, attrs) {
+                            var e = $('<' + el + '>');
+                            $.each(attrs, function (i, v) {
+                                e.attr(i, v);
+                            });
+                            e.val(value);
+                            return e;
+                        }
+
+                        function wrapElement(el, a) {
+
+                            var attrName = 'attributes[' + a.id + ']';
+                            if (el.attr('multiple')) {
+                                attrName = 'attributes[' + a.id + '][]';
+                            }
+
+                            el.attr('name', attrName);
+                            var e = $('<div>').attr('class', 'form-group').append(
+                                $('<label>').attr('class', '"control-label col-lg-3').text(a.name)
+                            ).append(
+                                $('<div>').attr('class', 'col-lg-9').append(
+                                    el
+                                )
+                            );
+                            return e;
+                        }
+
+                        var templateAttributeContainer = $('#templateAttributes');
+                        $.each(resp.attributes, function (i, a) {
+                            var el = createElementFromType(a);
+                            el = wrapElement(el, a);
+                            templateAttributeContainer.append(el);
+                        });
+                        //tigger select2;
+                        templateAttributeContainer.find('.select2').select2({width:'100%'});
+                    });
+                }
+            });
+
+
+            $('#template-attribute-select2').trigger('select2:select');
             // Initialize
             var validator = $(".form-validate-jquery").validate();
         });

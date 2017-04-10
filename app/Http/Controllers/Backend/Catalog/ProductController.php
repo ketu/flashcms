@@ -57,6 +57,9 @@ class ProductController extends BackendController
         try {
 
             $currentLocale = app()->getLocale();
+            $templateId = $request->get('template');
+            $template = Template::findOrFail($templateId);
+
             $product = new Product();
             $product->translateOrNew($currentLocale)->name = $request->get('name');
             $product->translateOrNew($currentLocale)->description = $request->get('content');
@@ -64,6 +67,9 @@ class ProductController extends BackendController
             $product->slug = $request->get('slug');
             $product->price = $request->get('price');
             $product->weight = $request->get('weight');
+
+            $product->template_id = $template->id;
+
             $categories = $request->get('categories', []);
             $product->status = $request->get('status', false);
 
@@ -128,10 +134,19 @@ class ProductController extends BackendController
     public function edit(Request $request, $id)
     {
 
-
         $product = Product::findOrFail($id);
 
         $categories = Category::tree();
+        $templates = Template::all();
+
+        //$attributeTypes = Config::get('flashcms.attribute.type');
+        $attributeTypeHasOption = Config::get('flashcms.attribute.hasOption');
+
+        $attributeTypes = [];
+        foreach(Config::get('flashcms.attribute.type') as $type=> $name) {
+            $attributeTypes[$type] = $type;
+        }
+
 
         $categoryIds = [];
         foreach ($product->categories as $category) {
@@ -154,7 +169,10 @@ class ProductController extends BackendController
             'product' => $product,
             'categories' => $categories,
             'categoryIds' => $categoryIds,
-            'uploadedImages' => \json_encode($uploadedImages)
+            'uploadedImages' => \json_encode($uploadedImages),
+            'templates'=> $templates,
+            'attributeTypes'=> \json_encode($attributeTypes),
+            'attributeTypeHasOption'=> \json_encode($attributeTypeHasOption)
         ]);
     }
 
@@ -162,27 +180,35 @@ class ProductController extends BackendController
     public function update(ProductRequest $request)
     {
         try {
+            $templateId = $request->get('template');
+            $template = Template::findOrFail($templateId);
+
             $id = $request->get('id');
 
-            $category = Category::findOrFail($id);
+            $product = Product::findOrFail($id);
 
             $currentLocale = app()->getLocale();
 
-            $category->translateOrNew($currentLocale)->name = $request->get('name');
-            $category->status = $request->get('status', false);
+            $product->translateOrNew($currentLocale)->name = $request->get('name');
+            $product->translateOrNew($currentLocale)->description = $request->get('content');
+            $product->sku = $request->get('sku');
+            $product->slug = $request->get('slug');
+            $product->price = $request->get('price');
+            $product->weight = $request->get('weight');
 
-            $parentId = $request->get('parent_id', null);
-            if ($category->parent_id != $parentId) {
+            $product->template_id = $template->id;
 
-                $category->parent_id = $parentId;
-            }
+            $categories = $request->get('categories', []);
+            $product->status = $request->get('status', false);
 
-            $category->save();
+            $attributes = $request->get('attributes');
 
-            return redirect()->route('category')->with('success', 'notice.success');
+            $attributeTypeHasOption = Config::get('flashcms.attribute.hasOption');
+
+            return redirect()->route('product')->with('success', 'notice.success');
 
         } catch (\Exception $e) {
-
+            DB::rollback();
             return redirect()->back()->withInput()->with('failed', $e->getMessage());
 
         }

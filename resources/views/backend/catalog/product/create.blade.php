@@ -139,7 +139,7 @@
                                             class="text-danger">*</span></label>
                                 <div class="col-lg-9">
                                     <textarea name="content" required
-                                              class="summernote">{{Request::old('description')}}</textarea>
+                                              class="summernote">{{Request::old('content')}}</textarea>
                                 </div>
 
                             </div>
@@ -151,7 +151,7 @@
                             <div class="form-group">
                                 <label class="control-label col-lg-3">{{ __('product.template') }}</label>
                                 <div class="col-lg-9">
-                                    <select name="template" class="form-control select2-with-ajax"
+                                    <select name="template" class="form-control" id="template-attribute-select2"
                                             data-placeholder="{{__('button.please_select')}}">
                                         <option value="">{{__('button.please_select')}}</option>
                                         @foreach($templates as $template)
@@ -167,7 +167,7 @@
                                 </div>
                             </div>
                             <hr>
-                            <div id="templateAttributes" data-prototype=''>
+                            <div id="templateAttributes">
                             </div>
                         </div>
                         <div class="tab-pane" id="gallery">
@@ -230,7 +230,7 @@
                     width: '100%'
                 }
             );
-            $('.select2-with-ajax').select2({
+            $('#template-attribute-select2').select2({
                 width: '100%'
             }).on('select2:select', function (evt) {
                 var templateId = $(this).val();
@@ -304,15 +304,16 @@
                             templateAttributeContainer.append(el);
                         });
                         //tigger select2;
-                        templateAttributeContainer.find('.select2').select2();
+                        templateAttributeContainer.find('.select2').select2({width:'100%'});
                     });
                 }
             });
 
 
+            $('#template-attribute-select2').trigger('select2:select');
 
-           /* var selectedTemplate = $('.select2-with-ajax').val();
-            console.log(selectedTemplate);*/
+            /* var selectedTemplate = $('.select2-with-ajax').val();
+             console.log(selectedTemplate);*/
 
             // Initialize
             var validator = $(".form-validate-jquery").validate({
