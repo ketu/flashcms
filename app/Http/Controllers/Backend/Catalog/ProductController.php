@@ -243,7 +243,6 @@ class ProductController extends BackendController
                             //$productAttributeOption->product()->save($product);
                             //$productAttribute->options()->save($productAttributeOption);
                             $productAttributeOptions[] = $productAttributeOption;
-
                         }
                     }
                 } else {
@@ -265,32 +264,17 @@ class ProductController extends BackendController
         } catch (\Exception $e) {
             DB::rollback();
             return redirect()->back()->withInput()->with('failed', $e->getMessage());
-
         }
-
-
     }
 
     public function delete(Request $request, $id)
     {
         try {
-            $category = Category::findOrFail($id);
-            $category->delete();
-            return redirect()->route('category')->with('success', 'notice.success');
+            $product = Product::findOrFail($id);
+            $product->delete();
+            return redirect()->route('product')->with('success', 'notice.success');
         } catch (\Exception $e) {
             return redirect()->back()->with('failed', $e->getMessage());
-        }
-
-    }
-
-    public function rebuild(Request $request)
-    {
-        try {
-            Category::rebuild();
-            return redirect()->route('category')->with('success', 'notice.success');
-        } catch (\Exception $e) {
-            return redirect()->back()->with('failed', $e->getMessage());
-
         }
     }
 }
