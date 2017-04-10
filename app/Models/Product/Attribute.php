@@ -26,7 +26,7 @@ class Attribute extends Model
 
     public function attribute()
     {
-        return $this->hasOne('\App\Models\Attribute\Attribute', 'attribute_id');
+        return $this->belongsTo('\App\Models\Attribute\Attribute', 'attribute_id');
     }
 
     public function options()

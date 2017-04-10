@@ -294,6 +294,7 @@
             }
         };
         var attributeTypes = $.parseJSON('{!! $attributeTypes !!}');
+        var selectedAttributeValue = $.parseJSON('{!! $selectedAttribute !!}');
 
         var buttonSelectText = '{{__('button.please_select')}}';
         $(document).ready(function () {
@@ -311,16 +312,20 @@
                     }, function (resp) {
                         function createElementFromType(attribute) {
                             var el;
+                            var value = null;
+                            if (typeof selectedAttributeValue[attribute.id] != 'undefined') {
+                                value = selectedAttributeValue[attribute.id];
+                            }
                             switch (attribute.type) {
                                 case attributeTypes.text:
                                 case attributeTypes.textarea:
-                                    el = createTextElement(attribute.type, null, {'class': 'form-control'});
+                                    el = createTextElement(attribute.type, value, {'class': 'form-control'});
                                     break;
                                 case attributeTypes.select:
-                                    el = createSelect2Element(attribute.type, attribute.options, null, {'class': 'form-control'});
+                                    el = createSelect2Element(attribute.type, attribute.options, value, {'class': 'form-control'});
                                     break;
                                 case attributeTypes.checkbox:
-                                    el = createSelect2Element(attribute.type, attribute.options, null,
+                                    el = createSelect2Element(attribute.type, attribute.options, value,
                                         {'multiple': 'multiple', 'class': 'form-control'});
                                     break;
                             }
@@ -355,12 +360,10 @@
                         }
 
                         function wrapElement(el, a) {
-
                             var attrName = 'attributes[' + a.id + ']';
                             if (el.attr('multiple')) {
                                 attrName = 'attributes[' + a.id + '][]';
                             }
-
                             el.attr('name', attrName);
                             var e = $('<div>').attr('class', 'form-group').append(
                                 $('<label>').attr('class', '"control-label col-lg-3').text(a.name)
@@ -383,7 +386,6 @@
                     });
                 }
             });
-
 
             $('#template-attribute-select2').trigger('select2:select');
             // Initialize

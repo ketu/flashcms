@@ -148,6 +148,20 @@ class ProductController extends BackendController
         }
 
 
+
+        $selectedAttribute = [];
+
+        foreach($product->attributes as $attribute) {
+            if ($attribute->is_option_value && is_null($attribute->value)) {
+                foreach($attribute->options as $option) {
+                    $selectedAttribute[$attribute->attribute->id][] = $option->attribute_option_id;
+                }
+            } else {
+                $selectedAttribute[$attribute->attribute->id] = $attribute->value;
+            }
+        }
+
+
         $categoryIds = [];
         foreach ($product->categories as $category) {
             $categoryIds[] = $category->id;
@@ -172,7 +186,8 @@ class ProductController extends BackendController
             'uploadedImages' => \json_encode($uploadedImages),
             'templates'=> $templates,
             'attributeTypes'=> \json_encode($attributeTypes),
-            'attributeTypeHasOption'=> \json_encode($attributeTypeHasOption)
+            'attributeTypeHasOption'=> \json_encode($attributeTypeHasOption),
+            'selectedAttribute'=> \json_encode($selectedAttribute)
         ]);
     }
 
