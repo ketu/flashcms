@@ -5,9 +5,13 @@ namespace App\Http\Controllers\Backend\Catalog;
 use App\FlashCMS\Image;
 use App\Http\Controllers\Backend\BackendController;
 use App\Http\Requests\ProductRequest;
+use App\Models\Attribute\Attribute;
+use App\Models\Attribute\AttributeOption;
 use App\Models\Category\Category;
 use App\Models\Product\Product;
 use App\Models\Product\Template;
+use App\Models\Product\Attribute as ProductAttribute;
+use App\Models\Product\AttributeOption as ProductAttributeOption;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
@@ -52,20 +56,63 @@ class ProductController extends BackendController
     {
         try {
 
-
             $currentLocale = app()->getLocale();
             $product = new Product();
             $product->translateOrNew($currentLocale)->name = $request->get('name');
             $product->translateOrNew($currentLocale)->description = $request->get('content');
             $product->sku = $request->get('sku');
             $product->slug = $request->get('slug');
-
+            $product->price = $request->get('price');
+            $product->weight = $request->get('weight');
             $categories = $request->get('categories', []);
             $product->status = $request->get('status', false);
+
+            $attributes = $request->get('attributes');
+
+            $attributeTypeHasOption = Config::get('flashcms.attribute.hasOption');
+
             DB::beginTransaction();
+
             $product->save();
 
+            $product->categories()->detach();
             $product->categories()->attach($categories);
+
+            foreach($attributes as $id=> $values) {
+                $attribute = Attribute::findOrFail($id);
+                $productAttribute = new ProductAttribute();
+                $productAttribute->attribute_id = $attribute->id;
+                $productAttributeOptions = [];
+                if (in_array($attribute->type, $attributeTypeHasOption)) {
+                    //$values = (array) $values;
+                    $productAttribute->is_option_value = true;
+                    if (is_scalar($values)) {
+                        $option = AttributeOption::findOrFail($values);
+                        $productAttribute->value = $option->id;
+                    } else {
+                        foreach ($values as $value) {
+                            $option = AttributeOption::findOrFail($value);
+                            $productAttributeOption = new ProductAttributeOption();
+                            $productAttributeOption->attribute_option_id = $option->id;
+                            //$productAttributeOption->product()->save($product);
+                            //$productAttribute->options()->save($productAttributeOption);
+                            $productAttributeOptions[] = $productAttributeOption;
+
+                        }
+                    }
+                } else {
+                    $productAttribute->is_option_value = false;
+                    $productAttribute->value = $values;
+                }
+                $productAttribute->product_id = $product->id;
+                $productAttribute->save();
+                if ($productAttributeOptions) {
+                    $productAttribute->options()->saveMany($productAttributeOptions);
+                }
+                //$productAttributes[] = $productAttribute;
+            }
+
+
             DB::commit();
 
 

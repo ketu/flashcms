@@ -167,19 +167,14 @@
                                 </div>
                             </div>
                             <hr>
-                            <div id="templateAttributes">
-
+                            <div id="templateAttributes" data-prototype=''>
                             </div>
                         </div>
                         <div class="tab-pane" id="gallery">
                             <!-- Removable thumbnails -->
                             <div action="javascript:void(0);" class="dropzone" id="uploader"></div>
                             <!-- /removable thumbnails -->
-
-
                         </div>
-
-
                     </div>
                 </div>
                 <div class="text-right">
@@ -227,9 +222,9 @@
             }
         };
 
-        var attributeTypeHasOption = $.parseJSON('{!! $attributeTypeHasOption !!}');
         var attributeTypes = $.parseJSON('{!! $attributeTypes !!}');
 
+        var buttonSelectText = '{{__('button.please_select')}}';
         $(document).ready(function () {
             $('.select2').select2({
                     width: '100%'
@@ -243,25 +238,21 @@
                     $.getJSON('{{route('template.attributes')}}', {
                         id: templateId
                     }, function (resp) {
-
-
                         function createElementFromType(attribute) {
                             var el;
-
                             switch (attribute.type) {
                                 case attributeTypes.text:
                                 case attributeTypes.textarea:
-                                    el = createTextElement(attribute.type, null, []);
+                                    el = createTextElement(attribute.type, null, {'class':'form-control'});
                                     break;
                                 case attributeTypes.select:
-                                    el = createSelect2Element(attribute.type, attribute.options, null);
+                                    el = createSelect2Element(attribute.type, attribute.options, null, {'class':'form-control'});
                                     break;
                                 case attributeTypes.checkbox:
-                                    console.log('asfdsa');
-                                    el = createSelect2Element(attribute.type, attribute.options, null, ['multiselect']);
+                                    el = createSelect2Element(attribute.type, attribute.options, null,
+                                        {'multiple':'multiple', 'class':'form-control'});
                                     break;
                             }
-                            console.log(attribute);
                             if (attribute.is_required) {
                                 el.attr('required', true);
                             }
@@ -269,30 +260,51 @@
                             return el;
                         }
                         function createSelect2Element(el, options, value, attrs) {
-                            var e = $('<select>').attr('class','select2');
-
+                            var e = $('<select>');
+                            e.data('placeholder', buttonSelectText);
                             $.each(options, function (i, o){
                                e.append($('<option>').val(o.id).text(o.label));
                             });
+                            $.each(attrs, function (i, o){
+                                e.attr(i, o);
+                            });
+                            e.val(value);
+                            e.addClass('select2');
                             return e;
                         }
-
                         function createTextElement(el, value, attrs) {
                             var e = $('<'+el+'>');
                             $.each(attrs, function (i, v){
                                 e.attr(i, v);
                             });
-                            if (value) {
-                                e.val(value);
-                            }
+                            e.val(value);
                             return e;
                         }
+                        function wrapElement(el, a) {
 
+                            var attrName = 'attributes['+a.id+']';
+                            if (el.attr('multiple')) {
+                                attrName = 'attributes['+a.id+'][]';
+                            }
+
+                            el.attr('name', attrName);
+                            var e = $('<div>').attr('class', 'form-group').append(
+                                $('<label>').attr('class', '"control-label col-lg-3').text(a.name)
+                            ).append(
+                                $('<div>').attr('class', 'col-lg-9').append(
+                                    el
+                                )
+                            );
+                            return e;
+                        }
+                        var templateAttributeContainer = $('#templateAttributes');
                         $.each(resp.attributes, function (i, a){
                             var el = createElementFromType(a);
-                            console.log(el);
-                            $('#templateAttributes').append(el);
+                            el = wrapElement(el, a);
+                            templateAttributeContainer.append(el);
                         });
+                        //tigger select2;
+                        templateAttributeContainer.find('.select2').select2();
                     });
                 }
             });

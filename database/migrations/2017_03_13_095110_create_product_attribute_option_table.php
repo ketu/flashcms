@@ -18,7 +18,8 @@ class CreateProductAttributeOptionTable extends Migration
             $table->increments('id');
             $table->integer('attribute_option_id')->foreign('attribute_option_id')->references('id')->on('attribute_option')->onDelete('cascade');
             $table->integer('product_id')->foreign('product_id')->references('id')->on('product')->onDelete('cascade');
-            $table->integer('attribute_id')->foreign('attribute_id')->references('id')->on('attribute')->onDelete('cascade');
+            $table->integer('attribute_id')->foreign('attribute_id')->references('id')->on('product_attribute')
+                ->onDelete('cascade');
         });
     }
 
