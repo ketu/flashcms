@@ -91,8 +91,8 @@ class InstallCommand extends Command
             $this->info('drop tables...');
 
             DB::statement('SET FOREIGN_KEY_CHECKS=0');
-            //$this->call('migrate:rollback');
-
+            $this->call('migrate:refresh');
+/*
             Schema::dropIfExists('users');
 
             Schema::dropIfExists('password_resets');
@@ -155,17 +155,17 @@ class InstallCommand extends Command
             Schema::dropIfExists('oauth_personal_access_clients');
 
 
-            Schema::dropIfExists($this->laravel['config']['database.migrations']);
+            Schema::dropIfExists($this->laravel['config']['database.migrations']);*/
 
 
             DB::statement('SET FOREIGN_KEY_CHECKS=1');
         }
 
 
-        //$this->call('clear:cache'); // clear up cache
+        $this->call('cache:clear'); // clear up cache
+        $this->info('create tables...');
+
         $this->call('migrate');
-
-
         $this->call('db:seed', ['--class' => \InitSeeder::class]);
 
 

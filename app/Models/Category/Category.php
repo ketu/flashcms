@@ -39,7 +39,7 @@ class Category extends Model
 
     public function products()
     {
-        return $this->belongsToMany('\App\Models\Product\Product', 'category_product_idx');
+        return $this->belongsToMany('\App\Models\Product\Product', 'category_product_relation');
     }
 
 }

@@ -27,7 +27,7 @@ class Product extends Model
 
     public function categories()
     {
-        return $this->belongsToMany('\App\Models\Category\Category', 'category_product_idx');
+        return $this->belongsToMany('\App\Models\Category\Category', 'category_product_relation');
     }
 
 

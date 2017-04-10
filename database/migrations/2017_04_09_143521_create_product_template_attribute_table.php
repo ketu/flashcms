@@ -28,6 +28,6 @@ class CreateProductTemplateAttributeTable extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('category_product_idx');
+        Schema::dropIfExists('product_template_attribute');
     }
 }

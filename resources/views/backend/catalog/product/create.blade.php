@@ -70,7 +70,37 @@
                             </div>
                             <!-- /input with icons -->
 
+                            <!-- Input with icons -->
+                            <div class="form-group has-feedback">
+                                <label class="control-label col-lg-3">{{ __('product.price') }}<span
+                                            class="text-danger">*</span></label>
+                                <div class="col-lg-9">
+                                    <input type="text" name="price" class="form-control" required="required"
+                                           value="{{Request::old('price')}}"
+                                           placeholder="{{ __('product.price') }}">
+                                    @if ($errors->first('price'))
+                                        <label id="price-error" class="validation-error-label"
+                                               for="price">{{$errors->first('price')}}</label>
+                                    @endif
 
+                                </div>
+                            </div>
+                            <!-- /input with icons -->
+
+                            <!-- Input with icons -->
+                            <div class="form-group has-feedback">
+                                <label class="control-label col-lg-3">{{ __('product.weight') }}</label>
+                                <div class="col-lg-9">
+                                    <input type="text" name="weight" class="form-control"
+                                           value="{{Request::old('weight')}}"
+                                           placeholder="{{ __('product.weight') }}">
+                                    @if ($errors->first('weight'))
+                                        <label id="weight-error" class="validation-error-label"
+                                               for="weight">{{$errors->first('weight')}}</label>
+                                    @endif
+                                </div>
+                            </div>
+                            <!-- /input with icons -->
                             <!-- Basic text input -->
                             <div class="form-group">
                                 <label class="control-label col-lg-3">{{ __('product.categories') }}<span
@@ -118,8 +148,28 @@
                         </div>
 
                         <div class="tab-pane" id="attribute">
-                            Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid
-                            laeggin.
+                            <div class="form-group">
+                                <label class="control-label col-lg-3">{{ __('product.template') }}</label>
+                                <div class="col-lg-9">
+                                    <select name="template" class="form-control select2-with-ajax"
+                                            data-placeholder="{{__('button.please_select')}}">
+                                        <option value="">{{__('button.please_select')}}</option>
+                                        @foreach($templates as $template)
+                                            <option value="{{$template->id}}"
+                                                    @if(Request::old('template') == $template->id) selected
+                                                    @endif >{{$template->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    @if ($errors->first('template'))
+                                        <label id="template-error" class="validation-error-label"
+                                               for="template">{{$errors->first('template')}}</label>
+                                    @endif
+                                </div>
+                            </div>
+                            <hr>
+                            <div id="templateAttributes">
+
+                            </div>
                         </div>
                         <div class="tab-pane" id="gallery">
                             <!-- Removable thumbnails -->
@@ -176,14 +226,86 @@
                 });
             }
         };
+
+        var attributeTypeHasOption = $.parseJSON('{!! $attributeTypeHasOption !!}');
+        var attributeTypes = $.parseJSON('{!! $attributeTypes !!}');
+
         $(document).ready(function () {
-            $('.select2').select2();
+            $('.select2').select2({
+                    width: '100%'
+                }
+            );
+            $('.select2-with-ajax').select2({
+                width: '100%'
+            }).on('select2:select', function (evt) {
+                var templateId = $(this).val();
+                if (templateId) {
+                    $.getJSON('{{route('template.attributes')}}', {
+                        id: templateId
+                    }, function (resp) {
+
+
+                        function createElementFromType(attribute) {
+                            var el;
+
+                            switch (attribute.type) {
+                                case attributeTypes.text:
+                                case attributeTypes.textarea:
+                                    el = createTextElement(attribute.type, null, []);
+                                    break;
+                                case attributeTypes.select:
+                                    el = createSelect2Element(attribute.type, attribute.options, null);
+                                    break;
+                                case attributeTypes.checkbox:
+                                    console.log('asfdsa');
+                                    el = createSelect2Element(attribute.type, attribute.options, null, ['multiselect']);
+                                    break;
+                            }
+                            console.log(attribute);
+                            if (attribute.is_required) {
+                                el.attr('required', true);
+                            }
+
+                            return el;
+                        }
+                        function createSelect2Element(el, options, value, attrs) {
+                            var e = $('<select>').attr('class','select2');
+
+                            $.each(options, function (i, o){
+                               e.append($('<option>').val(o.id).text(o.label));
+                            });
+                            return e;
+                        }
+
+                        function createTextElement(el, value, attrs) {
+                            var e = $('<'+el+'>');
+                            $.each(attrs, function (i, v){
+                                e.attr(i, v);
+                            });
+                            if (value) {
+                                e.val(value);
+                            }
+                            return e;
+                        }
+
+                        $.each(resp.attributes, function (i, a){
+                            var el = createElementFromType(a);
+                            console.log(el);
+                            $('#templateAttributes').append(el);
+                        });
+                    });
+                }
+            });
+
+
+
+           /* var selectedTemplate = $('.select2-with-ajax').val();
+            console.log(selectedTemplate);*/
+
             // Initialize
             var validator = $(".form-validate-jquery").validate({
                 submitHandler: function (form){
-
                     var addedFiles = [];
-
                     for(var i = 0; i < galleryQueue.length; i++) {
                         addedFiles.push({
                             url: galleryQueue[i].url,
@@ -195,7 +317,6 @@
                     if (addedFiles.length > 0) {
                         storage.set('productGalleryQueue', addedFiles);
                     }
-
                     form.submit();
                 }
             });

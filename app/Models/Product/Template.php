@@ -20,7 +20,7 @@ class Template extends Model
 
     protected $guarded = [];
 
-    public $translationModel = 'App\Models\Product\ProductTemplateTranslation';
+    public $translationModel = 'App\Models\Product\TemplateTranslation';
 
     public $translatedAttributes = ['name'];
 
@@ -28,6 +28,6 @@ class Template extends Model
 
     public function attributes()
     {
-        return $this->belongsToMany('\App\Models\Product\Attribute', 'product_template_attribute');
+        return $this->belongsToMany('\App\Models\Attribute\Attribute', 'product_template_attribute');
     }
 }

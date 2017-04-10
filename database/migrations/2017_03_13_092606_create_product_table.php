@@ -19,11 +19,16 @@ class CreateProductTable extends Migration
             //$table->string('name');
             $table->string('sku')->unique();
             $table->string('slug')->unique();
-            $table->string('main_image')->nullable();
+            $table->decimal('price', 12, 2);
+            $table->decimal('weight', 10, 2);
+            $table->decimal('length', 10, 2)->nullable();
+            $table->decimal('height', 10, 2)->nullable();
+            $table->decimal('width', 10, 2)->nullable();
             //$table->text('description')->nullable();
             $table->boolean('status')->default(true);
             $table->timestamps();
         });
+
         Schema::create('product_translations', function(Blueprint $table)
         {
             $table->increments('id');

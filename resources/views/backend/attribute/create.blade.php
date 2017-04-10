@@ -135,9 +135,7 @@
         $(document).ready(function () {
             var attributeType = $('.select2').select2();
 
-                    @if ($attributeTypeHasOption)
-
-            var attributeTypeHasOption = $.parseJSON('{!! $attributeTypeHasOption !!}');
+             var attributeTypeHasOption = $.parseJSON('{!! $attributeTypeHasOption !!}');
 
             $('.select2').on('select2:select', function (evt) {
                 // Do something
@@ -166,18 +164,14 @@
                 if (children.length == 0) {
                     child.find('.btn-remove-option').remove();
                 }
-
                 container.append(child);
                 container.find('.btn-remove-option').click(function () {
                     $(this).parent().parent().remove();
                 });
-
             });
 
-            @endif
             // Initialize
             var validator = $(".form-validate-jquery").validate();
-
         });
 
     </script>

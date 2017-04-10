@@ -7,6 +7,7 @@ use App\Http\Controllers\Backend\BackendController;
 use App\Http\Requests\ProductRequest;
 use App\Models\Category\Category;
 use App\Models\Product\Product;
+use App\Models\Product\Template;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
@@ -27,9 +28,22 @@ class ProductController extends BackendController
     public function create(Request $request)
     {
         $categories = Category::tree();
+        $templates = Template::all();
+
+
+        //$attributeTypes = Config::get('flashcms.attribute.type');
+        $attributeTypeHasOption = Config::get('flashcms.attribute.hasOption');
+
+        $attributeTypes = [];
+        foreach(Config::get('flashcms.attribute.type') as $type=> $name) {
+            $attributeTypes[$type] = $type;
+        }
 
         return $this->render('catalog.product.create', [
-            'categories' => $categories
+            'categories' => $categories,
+            'templates'=> $templates,
+            'attributeTypes'=> \json_encode($attributeTypes),
+            'attributeTypeHasOption'=> \json_encode($attributeTypeHasOption)
         ]);
     }
 

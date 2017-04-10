@@ -25,6 +25,17 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/', 'ConfigController@index')->name('system.config');
     });
 
+    // newsletter subscriber router
+    Route::group(['prefix' => 'newsletter', 'namespace' => 'Newsletter'], function () {
+        Route::group(['prefix' => 'subscriber'], function () {
+            Route::get('/', 'SubscriberController@index')->name('subscriber');
+            Route::get('/create', 'SubscriberController@create')->name('subscriber.create');
+            Route::post('/save', 'SubscriberController@save')->name('subscriber.save');
+            Route::get('/edit/{id}', 'SubscriberController@edit')->name('subscriber.edit');
+            Route::post('/update', 'SubscriberController@update')->name('subscriber.update');
+            Route::get('/delete/{id}', 'SubscriberController@delete')->name('subscriber.delete');
+        });
+    });
 
     // catalog router
     Route::group(['prefix' => 'catalog', 'namespace' => 'Catalog'], function () {
@@ -37,10 +48,24 @@ Route::group(['middleware' => 'auth'], function () {
             Route::post('/update', 'ProductController@update')->name('product.update');
             Route::get('/delete/{id}', 'ProductController@delete')->name('product.delete');
 
-
+            // product gallery
             Route::post('/{id}/gallery/upload', 'GalleryController@upload')->name('product.gallery.upload');
-
             Route::post('/{id}/gallery/delete', 'GalleryController@delete')->name('product.gallery.delete');
+
+
+            // product template
+            Route::group(['prefix' => 'template'], function () {
+                Route::get('/', 'TemplateController@index')->name('template');
+                Route::get('/create', 'TemplateController@create')->name('template.create');
+                Route::post('/save', 'TemplateController@save')->name('template.save');
+                Route::get('/edit/{id}', 'TemplateController@edit')->name('template.edit');
+                Route::post('/update', 'TemplateController@update')->name('template.update');
+                Route::get('/delete/{id}', 'TemplateController@delete')->name('template.delete');
+
+
+                Route::get('/attributes', 'TemplateController@attributes')->name('template.attributes');
+
+            });
         });
 
         //category router
@@ -53,9 +78,6 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/delete/{id}', 'CategoryController@delete')->name('category.delete');
             Route::get('/rebuild', 'CategoryController@rebuild')->name('category.rebuild');
         });
-
-
-
     });
 
 

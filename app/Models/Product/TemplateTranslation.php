@@ -8,7 +8,7 @@ namespace App\Models\Product;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ProductTemplateTranslation extends Model
+class TemplateTranslation extends Model
 {
     //table name
     protected $table = 'product_template_translations';

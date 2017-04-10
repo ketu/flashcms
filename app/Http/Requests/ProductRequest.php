@@ -28,6 +28,7 @@ class ProductRequest extends FormRequest
             'name' => 'required',
             'sku' => 'required|unique:product',
             'slug' => 'required|unique:product',
+            'price'=> 'required',
             'categories'=> 'required'
         ];
 

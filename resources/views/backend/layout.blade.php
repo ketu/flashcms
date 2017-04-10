@@ -127,15 +127,23 @@
                                     <ul>
                                         <li><a href="{{route('category')}}">{{__('nav.category')}}</a></li>
                                         <li><a href="{{route('product')}}">{{__('nav.product')}}</a></li>
+                                        <li><a href="{{route('template')}}">{{__('nav.template')}}</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-gear"></i><span>{{__('nav.newsletter')}}</span></a>
+                                    <ul>
+                                        <li><a href="{{route('subscriber')}}">{{__('nav.newsletter.subscriber')
+                                        }}</a></li>
+
 
                                     </ul>
                                 </li>
+
                                 <li>
                                     <a href="#"><i class="fa fa-gear"></i><span>{{__('nav.system')}}</span></a>
                                     <ul>
                                         <li><a href="{{route('system.config')}}">{{__('nav.system.config')}}</a></li>
-
-
                                         <li><a href="{{route('attribute')}}">{{__('nav.attribute')}}</a></li>
 
                                     </ul>
