@@ -205,20 +205,60 @@ class ProductController extends BackendController
             $currentLocale = app()->getLocale();
 
             $product->translateOrNew($currentLocale)->name = $request->get('name');
+
             $product->translateOrNew($currentLocale)->description = $request->get('content');
+
             $product->sku = $request->get('sku');
             $product->slug = $request->get('slug');
             $product->price = $request->get('price');
             $product->weight = $request->get('weight');
-
             $product->template_id = $template->id;
-
-            $categories = $request->get('categories', []);
             $product->status = $request->get('status', false);
 
-            $attributes = $request->get('attributes');
+            // categories
+            $categories = $request->get('categories', []);
+            $product->categories()->detach();
+            $product->categories()->attach($categories);
 
+
+            $attributes = $request->get('attributes');
             $attributeTypeHasOption = Config::get('flashcms.attribute.hasOption');
+
+            foreach($attributes as $id=> $values) {
+                $attribute = Attribute::findOrFail($id);
+                $productAttribute = new ProductAttribute();
+                $productAttribute->attribute_id = $attribute->id;
+                $productAttributeOptions = [];
+                if (in_array($attribute->type, $attributeTypeHasOption)) {
+                    //$values = (array) $values;
+                    $productAttribute->is_option_value = true;
+                    if (is_scalar($values)) {
+                        $option = AttributeOption::findOrFail($values);
+                        $productAttribute->value = $option->id;
+                    } else {
+                        foreach ($values as $value) {
+                            $option = AttributeOption::findOrFail($value);
+                            $productAttributeOption = new ProductAttributeOption();
+                            $productAttributeOption->attribute_option_id = $option->id;
+                            //$productAttributeOption->product()->save($product);
+                            //$productAttribute->options()->save($productAttributeOption);
+                            $productAttributeOptions[] = $productAttributeOption;
+
+                        }
+                    }
+                } else {
+                    $productAttribute->is_option_value = false;
+                    $productAttribute->value = $values;
+                }
+                $productAttribute->product_id = $product->id;
+                $productAttribute->save();
+                if ($productAttributeOptions) {
+                    $productAttribute->options()->saveMany($productAttributeOptions);
+                }
+                //$productAttributes[] = $productAttribute;
+            }
+
+            $product->save();
 
             return redirect()->route('product')->with('success', 'notice.success');
 
