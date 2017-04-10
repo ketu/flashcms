@@ -133,13 +133,19 @@
                                 <li>
                                     <a href="#"><i class="fa fa-gear"></i><span>{{__('nav.newsletter')}}</span></a>
                                     <ul>
-                                        <li><a href="{{route('subscriber')}}">{{__('nav.newsletter.subscriber')
-                                        }}</a></li>
+                                        <li><a href="{{route('subscriber')}}">{{__('nav.newsletter.subscriber')}}</a></li>
 
 
                                     </ul>
                                 </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-gear"></i><span>{{__('nav.menu')}}</span></a>
+                                    <ul>
+                                        <li><a href="{{route('menu')}}">{{__('nav.menu')}}</a></li>
 
+                                        <li><a href="{{route('menu.item')}}">{{__('nav.menu.item')}}</a></li>
+                                    </ul>
+                                </li>
                                 <li>
                                     <a href="#"><i class="fa fa-gear"></i><span>{{__('nav.system')}}</span></a>
                                     <ul>
