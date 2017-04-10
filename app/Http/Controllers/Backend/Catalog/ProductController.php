@@ -221,6 +221,11 @@ class ProductController extends BackendController
             $product->categories()->attach($categories);
 
 
+
+            foreach($product->attributes as $attribute) {
+                $attribute->delete();
+            }
+
             $attributes = $request->get('attributes');
             $attributeTypeHasOption = Config::get('flashcms.attribute.hasOption');
 
