@@ -16,9 +16,9 @@
         <table class="table datatable-responsive">
             <thead>
             <tr>
-                <th>ID</th>
-                <th>{{__('menu.item.parent')}}</th>
+                <th>{{__('menu.item.id')}}</th>
                 <th>{{__('menu.item.name')}}</th>
+                <th>{{__('menu.item.parent')}}</th>
                 <th>{{__('menu.item.created_at')}}</th>
                 <th>{{__('menu.item.updated_at')}}</th>
                 <th>{{__('menu.item.status')}}</th>
@@ -30,8 +30,8 @@
             @foreach($items as $item)
                 <tr>
                     <td>{{$item->id}}</td>
-                    <td>{{$item->parent?$item->parent->name:""}}</td>
                     <td>{{str_repeat('---', $item->depth)}} {{$item->name}}</td>
+                    <td>{{$item->parent?$item->parent->name:""}}</td>
                     <td>{{$item->created_at}}</td>
                     <td>{{$item->updated_at}}</td>
                     <td><span class="label label-success">{{$item->status}}</span></td>

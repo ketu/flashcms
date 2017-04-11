@@ -27,4 +27,16 @@ class Item extends Model
     {
         return $this->belongsTo('\App\Models\Menu\Menu', 'menu_id');
     }
+
+    public function children()
+    {
+        return $this->hasMany('\App\Models\Menu\Item');
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo('\App\Models\Menu\Item');
+    }
+
+
 }

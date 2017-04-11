@@ -43,6 +43,7 @@ class ItemController extends BackendController
             $item->link = $request->get('link');
             $item->status = $request->get('status', false);
             $item->menu_id = $menu->id;
+            $item->parent_id = $request->get('parent_id');
             $item->save();
             return redirect()->route('menu.item.edit', ['id' => $item->id])->with('success', 'notice.success');
 
@@ -59,13 +60,36 @@ class ItemController extends BackendController
 
         $items = Item::tree()->where('menu_id', $item->menu->id)->get();
 
-        $children = $item->renderTree()->get();
+        $childItems = $item->renderTree()->get();
+        $children = [];
+        foreach($childItems as $child) {
+            $children[] = $child->id;
+        }
+
         return $this->render('menu.item.edit', [
             'items' => $items,
             'item'=> $item,
             'children'=> $children
         ]);
 
+    }
+
+    public function update(MenuItemRequest $request)
+    {
+        try{
+
+            $item = Item::findOrFail($request->get('id'));
+            $currentLocale = app()->getLocale();
+            $item->translateOrNew($currentLocale)->name = $request->get('name');
+            $item->link = $request->get('link');
+            $item->status = $request->get('status', false);
+            $item->parent_id = $request->get('parent_id');
+            $item->save();
+            return redirect()->route('menu.item', ['menuId'=> $item->menu->id])->with('success', 'notice.success');
+
+        }catch (\Exception $e){
+            return redirect()->back()->withInput()->with('failed', $e->getMessage());
+        }
     }
 
 
