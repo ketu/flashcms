@@ -38,8 +38,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 
         Route::group(['prefix' => 'item'], function () {
-            Route::get('/', 'ItemController@index')->name('menu.item');
-            Route::get('/create', 'ItemController@create')->name('menu.item.create');
+            Route::get('/{menuId}', 'ItemController@index')->name('menu.item');
+            Route::get('/create/{menuId}', 'ItemController@create')->name('menu.item.create');
             Route::post('/save', 'ItemController@save')->name('menu.item.save');
             Route::get('/edit/{id}', 'ItemController@edit')->name('menu.item.edit');
             Route::post('/update', 'ItemController@update')->name('menu.item.update');

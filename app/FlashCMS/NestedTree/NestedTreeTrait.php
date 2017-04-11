@@ -140,7 +140,7 @@ trait NestedTreeTrait
 
         $queryBuilder = $instance->mergeTranslatableTranslation($queryBuilder);
 
-        return $queryBuilder->get();
+        return $queryBuilder;
 
 
     }
@@ -163,6 +163,7 @@ trait NestedTreeTrait
             ->whereBetween($leftColumn, [$this->$leftColumn + $diffLft, $this->$rightColumn - $diffLft])
             ->orderBy($this->getLeftColumn());
         $queryBuilder = $this->mergeTranslatableTranslation($queryBuilder);
-        return $queryBuilder->get();
+
+        return $queryBuilder;
     }
 }

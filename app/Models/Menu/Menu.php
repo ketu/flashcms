@@ -18,6 +18,6 @@ class Menu extends Model
 
     public function items()
     {
-        return $this->hasMany('\App\Models\Menu\Item', 'menu_id');
+        return $this->hasMany('\App\Models\Menu\Item');
     }
 }

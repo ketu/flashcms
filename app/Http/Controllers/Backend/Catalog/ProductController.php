@@ -31,7 +31,7 @@ class ProductController extends BackendController
 
     public function create(Request $request)
     {
-        $categories = Category::tree();
+        $categories = Category::tree()->get();
         $templates = Template::all();
 
 
@@ -136,7 +136,7 @@ class ProductController extends BackendController
 
         $product = Product::findOrFail($id);
 
-        $categories = Category::tree();
+        $categories = Category::tree()->get();
         $templates = Template::all();
 
         //$attributeTypes = Config::get('flashcms.attribute.type');

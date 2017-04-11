@@ -14,7 +14,7 @@ class CategoryController extends BackendController
 
     public function index(Request $request)
     {
-        $categories = Category::tree();
+        $categories = Category::tree()->get();
         return $this->render('catalog.category.index', [
             'categories' => $categories
         ]);
@@ -22,7 +22,7 @@ class CategoryController extends BackendController
 
     public function create(Request $request)
     {
-        $categories = Category::tree();
+        $categories = Category::tree()->get();
 
         return $this->render('catalog.category.create', [
             'categories' => $categories
@@ -58,7 +58,7 @@ class CategoryController extends BackendController
 
         $category = Category::findOrFail($id);
 
-        $categories = Category::tree();
+        $categories = Category::tree()->get();
 
         $nodes = $category->renderTree();
         $children = [];

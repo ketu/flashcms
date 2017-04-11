@@ -6,11 +6,13 @@
 
 namespace App\Models\Menu;
 
+use App\FlashCMS\NestedTree\NestedTreeTrait;
 use Dimsav\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Model;
 
 class Item extends Model
 {
+    use NestedTreeTrait;
     use Translatable;
 
     protected $table = 'menu_item';
@@ -23,6 +25,6 @@ class Item extends Model
 
     public function menu()
     {
-        return $this->belongsTo('\App\Models\Menu\Menu');
+        return $this->belongsTo('\App\Models\Menu\Menu', 'menu_id');
     }
 }

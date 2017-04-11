@@ -2,12 +2,14 @@
 
 @section('page.button')
     <div class="heading-elements">
-        <a href="{{route('menu.create')}}"
+        <a href="{{route('menu.item.create', ['menuId'=> $menu->id])}}"
            class="btn btn-labeled btn-labeled-right bg-blue heading-btn">{{__('button.add')}} <b><i
                         class="fa fa-creative-commons"></i></b></a>
     </div>
 @endsection
 @section('content')
+
+
     <!-- Whole row as a control -->
     <div class="panel panel-flat">
 
@@ -15,38 +17,34 @@
             <thead>
             <tr>
                 <th>ID</th>
-                <th>{{__('menu.name')}}</th>
-                <th>{{__('menu.code')}}</th>
-                <th>{{__('menu.created_at')}}</th>
-                <th>{{__('menu.updated_at')}}</th>
-                <th>{{__('menu.items')}}</th>
+                <th>{{__('menu.item.parent')}}</th>
+                <th>{{__('menu.item.name')}}</th>
+                <th>{{__('menu.item.created_at')}}</th>
+                <th>{{__('menu.item.updated_at')}}</th>
+                <th>{{__('menu.item.status')}}</th>
                 <th class="text-center">{{__('button.action')}}</th>
+
             </tr>
             </thead>
             <tbody>
-            @foreach($menus as $menu)
+            @foreach($items as $item)
                 <tr>
-                    <td>{{$menu->id}}</td>
-                    <td>{{$menu->name}}</td>
-                    <td>{{$menu->code}}</td>
-                    <td>{{$menu->created_at}}</td>
-                    <td>{{$menu->updated_at}}</td>
-                    <td>{{$menu->items()->count()}}</td>
+                    <td>{{$item->id}}</td>
+                    <td>{{$item->parent?$item->parent->name:""}}</td>
+                    <td>{{str_repeat('---', $item->depth)}} {{$item->name}}</td>
+                    <td>{{$item->created_at}}</td>
+                    <td>{{$item->updated_at}}</td>
+                    <td><span class="label label-success">{{$item->status}}</span></td>
                     <td class="text-center">
                         <ul class="icons-list">
-
-                            <li><a href="{{route('menu.item', ['menuId'=> $menu->id])}}"> <i class="fa fa-male"></i></a>
+                            <li><a href="{{route('menu.item.edit', ['id'=> $item->id])}}"> <i class="fa fa-edit"></i></a>
                             </li>
-
-                            <li><a href="{{route('menu.edit', ['id'=> $menu->id])}}"> <i class="fa fa-edit"></i></a>
-                            </li>
-                            <li><a href="{{route('menu.delete', ['id'=> $menu->id])}}" class="confirm-delete-action"> <i
+                            <li><a href="{{route('menu.item.delete', ['id'=> $item->id])}}" class="confirm-delete-action"> <i
                                             class="fa fa-remove"></i></a></li>
                         </ul>
                     </td>
                 </tr>
             @endforeach
-
             </tbody>
         </table>
     </div>

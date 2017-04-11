@@ -4,21 +4,21 @@
     <!-- Form validation -->
     <div class="panel panel-flat">
         <div class="panel-body">
-            <form class="form-horizontal form-validate-jquery" method="POST" action="{{route('template.update')}}">
+            <form class="form-horizontal form-validate-jquery" method="POST" action="{{route('menu.update')}}">
                 {{ csrf_field() }}
-                <input type="hidden" value="{{$template->id}}" name="id">
+                <input type="hidden" value="{{$menu->id}}" name="id">
                 <fieldset class="content-group">
-                    <legend class="text-bold">{{__('product.template.information')}}</legend>
+                    <legend class="text-bold">{{__('menu.information')}}</legend>
 
 
                     <!-- Basic text input -->
                     <div class="form-group">
-                        <label class="control-label col-lg-3">{{ __('template.name') }}<span
+                        <label class="control-label col-lg-3">{{ __('menu.name') }}<span
                                     class="text-danger">*</span></label>
                         <div class="col-lg-9">
                             <input type="text" name="name" class="form-control" required="required"
-                                   value="{{$template->name}}"
-                                   placeholder="{{ __('template.name') }}">
+                                   value="{{$menu->name}}"
+                                   placeholder="{{ __('menu.name') }}">
                             @if ($errors->first('name'))
                                 <label id="name-error" class="validation-error-label"
                                        for="name">{{$errors->first('name')}}</label>
@@ -26,26 +26,22 @@
                         </div>
                     </div>
                     <!-- /basic text input -->
-
                     <!-- Basic text input -->
                     <div class="form-group">
-                        <label class="control-label col-lg-3">{{ __('template.attributes') }}<span
+                        <label class="control-label col-lg-3">{{ __('menu.code') }}<span
                                     class="text-danger">*</span></label>
                         <div class="col-lg-9">
-                            <select multiple="multiple" name="attributes[]" class="form-control listbox" required>
-                                @foreach($attributes as $attribute)
-                                    <option value="{{$attribute->id }}"
-                                            @if($template->attributes->contains($attribute)) selected
-                                            @endif>{{$attribute->name}}</option>
-                                @endforeach
-                            </select>
-                            @if ($errors->first('permission'))
-                                <label id="permission[]-error" class="validation-error-label"
-                                       for="permission[]">{{$errors->first('permission')}}</label>
+                            <input type="text" name="code" class="form-control" required="required"
+                                   value="{{$menu->code}}"
+                                   placeholder="{{ __('menu.code') }}">
+                            @if ($errors->first('code'))
+                                <label id="code-error" class="validation-error-label"
+                                       for="code">{{$errors->first('code')}}</label>
                             @endif
                         </div>
                     </div>
                     <!-- /basic text input -->
+
 
 
                 </fieldset>

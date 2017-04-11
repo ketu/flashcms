@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend\Menu;
 
 use App\Http\Controllers\Backend\BackendController;
+use App\Http\Requests\MenuRequest;
 use App\Models\Menu\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
@@ -25,20 +26,17 @@ class MenuController extends BackendController
         return $this->render('menu.create');
     }
 
-    public function save(TemplateReuqest $request)
+    public function save(MenuRequest $request)
     {
         try {
-            $currentLocale = app()->getLocale();
-            $template = new Template();
-            $template->translateOrNew($currentLocale)->name = $request->get('name');
-            DB::beginTransaction();
-            $template->save();
-            $template->attributes()->attach($request->get('attributes'));
-            DB::commit();
+            $menu = new Menu();
+            $menu->name = $request->get('name');
+            $menu->code = $request->get('code');
 
-            return redirect()->route('template.edit', ['id' => $template->id])->with('success', 'notice.success');
-        }catch (\Exception $e) {
-            DB::rollBack();
+            $menu->save();
+
+            return redirect()->route('menu.edit', ['id' => $menu->id])->with('success', 'notice.success');
+        } catch (\Exception $e) {
             return redirect()->back()->withInput()->with('failed', $e->getMessage());
 
         }
@@ -48,42 +46,34 @@ class MenuController extends BackendController
 
     public function edit(Request $request, $id)
     {
-        $template = Template::findOrFail($id);
+        $menu = Menu::findOrFail($id);
 
-        $attributes = Attribute::all();
-        return $this->render('catalog.template.edit', [
-            'template' => $template,
-            'attributes'=> $attributes,
+
+        return $this->render('menu.edit', [
+            'menu' => $menu
         ]);
     }
 
-    public function update(TemplateReuqest $request)
+    public function update(MenuRequest $request)
     {
         try {
             $id = $request->get('id');
-            $template = Template::findOrFail($id);
-            $currentLocale = app()->getLocale();
-            $template->translateOrNew($currentLocale)->name = $request->get('name');
-
-            DB::beginTransaction();
-            $template->save();
-            $template->attributes()->detach($request->get('attributes'));
-            $template->attributes()->attach($request->get('attributes'));
-            DB::commit();
-            return redirect()->route('template')->with('success', 'notice.success');
-        }catch (\Exception $e) {
-            DB::rollback();
+            $menu = Menu::findOrFail($id);
+            $menu->name = $request->get('name');
+            $menu->code = $request->get('code');
+            $menu->save();
+            return redirect()->route('menu')->with('success', 'notice.success');
+        } catch (\Exception $e) {
             return redirect()->back()->withInput()->with('failed', $e->getMessage());
-
         }
     }
 
     public function delete(Request $request, $id)
     {
         try {
-            $template = Template::findOrFail($id);
-            $template->delete();
-            return redirect()->route('template')->with('success', 'notice.success');
+            $menu = Menu::findOrFail($id);
+            $menu->delete();
+            return redirect()->route('menu')->with('success', 'notice.success');
         } catch (\Exception $e) {
             return redirect()->back()->with('failed', $e->getMessage());
         }

@@ -19,6 +19,13 @@ class CreateMenuItemTable extends Migration
             $table->string('link')->nullable();
             $table->integer('sort_order')->default(0);
             $table->boolean('status')->default(true);
+            $table->integer('parent_id')->nullable();
+            $table->integer('lft');
+            $table->integer('rgt');
+            $table->integer('depth')->nullable();
+            $table->string('group_name');
+            $table->integer('menu_id')->unsigned();
+            $table->foreign('menu_id')->references('id')->on('menu')->onDelete('cascade');
             $table->timestamps();
         });
 
@@ -26,11 +33,11 @@ class CreateMenuItemTable extends Migration
         Schema::create('menu_item_translations', function(Blueprint $table)
         {
             $table->increments('id');
-            $table->integer('menu_item_id')->unsigned();
+            $table->integer('item_id')->unsigned();
             $table->string('name');
             $table->string('locale')->index();
-            $table->unique(['menu_item_id','locale']);
-            $table->foreign('menu_item_id')->references('id')->on('menu_item')->onDelete('cascade');
+            $table->unique(['item_id','locale']);
+            $table->foreign('item_id')->references('id')->on('menu_item')->onDelete('cascade');
         });
     }
 

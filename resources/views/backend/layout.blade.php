@@ -142,8 +142,6 @@
                                     <a href="#"><i class="fa fa-gear"></i><span>{{__('nav.menu')}}</span></a>
                                     <ul>
                                         <li><a href="{{route('menu')}}">{{__('nav.menu')}}</a></li>
-
-                                        <li><a href="{{route('menu.item')}}">{{__('nav.menu.item')}}</a></li>
                                     </ul>
                                 </li>
                                 <li>
