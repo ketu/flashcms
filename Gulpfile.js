@@ -18,6 +18,36 @@ var paths = {
     'frontend': 'resources/assets/frontend/'
 };
 
+
+/**
+ * frontend assets
+ */
+elixir(function (mix) {
+    mix.copy(paths.frontend + 'img',
+            'public/assets/frontend/img').copy(paths.frontend + 'fonts', 'public/assets/frontend/fonts');
+
+    mix.combine([paths.frontend +'/css/*.css'], 'public/assets/frontend/css/app.min.css');
+
+    mix.scripts(
+        [
+            'jquery/dist/jquery.js',
+            'bootstrap/dist/js/bootstrap.js',
+            'bxslider-4/dist/jquery.bxslider.js'
+
+        ],
+        'public/assets/frontend/js/third.js',
+        paths.bower
+    ).scripts([
+            'js/*.js'
+
+        ],
+        'public/assets/frontend/js/app.js',
+        paths.frontend
+    )
+        .combine(['public/assets/frontend/js/third.js', 'public/assets/frontend/js/app.js'], 'public/assets//frontend/js/app.min.js');
+});
+
+
 /**
  * backend assets
  */

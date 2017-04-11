@@ -1,0 +1,63 @@
+@font-face {
+    font-family: "Myriad Pro Regular";
+    src: url("../fonts/MyriadPro-Regular.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "Myriad Pro Regular";
+    font-weight: bold;
+    src: url("../fonts/MyriadPro-Regular.otf") format("opentype");
+}
+body, h1,h2, h3,h4,h5{
+    font-family: "Myriad Pro Regular";
+}
+
+
+
+.promotion-page{ font-family: "Myriad Pro Regular";   color:#000;}
+
+
+.three-banner .play-icon{position: absolute; width: 52px;  height: 52px; background: url('../img/promotion/play_button_white.png') no-repeat;
+ top: 40%;
+  left: 45%;}
+
+   .three-banner a:hover .play-icon{background: url('../img/promotion/play_button_gray.png') no-repeat;}
+
+@media (min-width: 768px) {
+  .container {width: 1334px;}
+  .promotion-page .full-banner{
+    margin-top: 90px;
+    margin-bottom: 80px;
+  }
+
+
+  .promotion-page .media-review{ margin-bottom: 30px;}
+  .promotion-page .media-review h3.review-title{font-size: 33px;}
+  .promotion-page .review-item {margin-bottom: 20px; min-height: 220px;}
+  .promotion-page .media-review p{font-size: 17px; }
+  .promotion-page .video-container{margin-bottom: 74px;}
+
+
+  .promotion-store .title{font-size: 33px; color: #000;}
+    .promotion-store .title img{margin-bottom: 10px;}
+    .promotion-page .full-banner a{display: block; position: relative;}
+    .promotion-page .full-banner-text{ position: absolute; background: url('../img/promotion/banner_button.png') no-repeat; width: 278px;  height: 45px; top:20px; right:0;}
+
+
+    .store-container {
+      background:#fafafa; margin-top:80px;
+      padding:20px 0;
+    }
+
+        .store-container  .promotion-store{background: #fff;}
+}
+
+@media (min-width: 1500px) {
+  .promotion-page .review-item {margin-bottom: 20px; min-height: 220px;}
+}
+
+
+@media (min-width: 3800px) {
+
+    .promotion-page .review-item {min-height: 500px;}
+}
