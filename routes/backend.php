@@ -25,6 +25,28 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/', 'ConfigController@index')->name('system.config');
     });
 
+
+    // menu router
+    Route::group(['prefix' => 'menu', 'namespace' => 'Menu'], function () {
+        Route::get('/', 'MenuController@index')->name('menu');
+        Route::get('/create', 'MenuController@create')->name('menu.create');
+        Route::post('/save', 'MenuController@save')->name('menu.save');
+        Route::get('/edit/{id}', 'MenuController@edit')->name('menu.edit');
+        Route::post('/update', 'MenuController@update')->name('menu.update');
+        Route::get('/delete/{id}', 'MenuController@delete')->name('menu.delete');
+
+
+
+        Route::group(['prefix' => 'item'], function () {
+            Route::get('/', 'ItemController@index')->name('menu.item');
+            Route::get('/create', 'ItemController@create')->name('menu.item.create');
+            Route::post('/save', 'ItemController@save')->name('menu.item.save');
+            Route::get('/edit/{id}', 'ItemController@edit')->name('menu.item.edit');
+            Route::post('/update', 'ItemController@update')->name('menu.item.update');
+            Route::get('/delete/{id}', 'ItemController@delete')->name('menu.item.delete');
+        });
+    });
+
     // newsletter subscriber router
     Route::group(['prefix' => 'newsletter', 'namespace' => 'Newsletter'], function () {
         Route::group(['prefix' => 'subscriber'], function () {
