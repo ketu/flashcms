@@ -8,6 +8,7 @@
     </div>
 @endsection
 @section('content')
+
     <!-- Whole row as a control -->
     <div class="panel panel-flat">
 
@@ -51,7 +52,6 @@
         </table>
     </div>
     <!-- /whole row as a control -->
-
 @endsection
 
 @section('footer.scripts')
