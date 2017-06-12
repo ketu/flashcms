@@ -1,5 +1,8 @@
 <?php
 return [
+    'frontend'=> [
+        'view'=> 'frontend'
+    ],
     'installed' => env('FLASHCMS_INSTALLED', false),
     'role'=> [
         'default'=> 'ROLE_USER',
@@ -9,6 +12,7 @@ return [
         'prefix'=> 'backend',
         'view'=> 'backend'
     ],
+
     'attribute'=> [
         'type'=> [
             'text'=> 'Text',

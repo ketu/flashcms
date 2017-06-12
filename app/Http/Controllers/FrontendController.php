@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Backend;
+namespace App\Http\Controllers;
 
+use App\FlashCMS\Helpers\FlashCMS;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Config;
 
-class BackendController extends Controller
+class FrontendController extends Controller
 {
     protected function render($view = null, $data = [], $mergeData = [])
     {
@@ -21,7 +22,7 @@ class BackendController extends Controller
             $viewParts = explode('/', $view);
         }
 
-        $backendViewFolder = Config::get('flashcms.frontend.view');
+        $backendViewFolder = FlashCMS::getFrontendView();// Config::get('flashcms.frontend.view');
 
 
         if ($viewParts[0] != $backendViewFolder) {
@@ -33,8 +34,8 @@ class BackendController extends Controller
     }
 
 
-    protected function getBackendRoutePrefix()
+    protected function getFrontendRoutePrefix()
     {
-        return Config::get('flashcms.backend.prefix');
+        return FlashCMS::getFrontendPrefix();//Config::get('flashcms.frontend.prefix');
     }
 }

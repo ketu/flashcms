@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Backend\Catalog;
 
-use App\FlashCMS\Image;
+use App\FlashCMS\Helpers\Image;
 use App\Http\Controllers\Backend\BackendController;
 use App\Http\Requests\ProductRequest;
 use App\Models\Attribute\Attribute;

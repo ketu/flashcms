@@ -14,7 +14,7 @@
                         <label class="control-label col-lg-3">{{ __('item.name') }}<span
                                     class="text-danger">*</span></label>
                         <div class="col-lg-9">
-                            <input type="text" name="name" class="form-control" required="required"
+                            <input type="text" name="name" class="form-control" required
                                    value="{{Request::old('name')}}"
                                    placeholder="{{ __('item.name') }}">
                             @if ($errors->first('name'))
@@ -32,7 +32,7 @@
                         <label class="control-label col-lg-3">{{ __('item.link') }}</label>
                         <div class="col-lg-9">
                             <input type="text" name="link" class="form-control"
-                                   value="{{Request::old('link')}}"
+                                   value="{{Request::old('link')}}" required
                                    placeholder="{{ __('item.link') }}">
                             @if ($errors->first('link'))
                                 <label id="link-error" class="validation-error-label"
@@ -44,10 +44,12 @@
 
                     <!-- Basic text input -->
                     <div class="form-group">
-                        <label class="control-label col-lg-3">{{ __('menu.item.parent_id') }}<span
-                                    class="text-danger">*</span></label>
+                        <label class="control-label col-lg-3">{{ __('menu.item.parent_id') }}</label>
                         <div class="col-lg-9">
                             <select name="parent_id" class="form-control select2" data-placeholder="{{__('button.please_select')}}">
+                                <option value="">
+                                    {{__('button.please_select')}}
+                                </option>
                                 @foreach($items as $item)
                                     <option value="{{$item->id}}" @if(Request::old('parent_id') == $item->id) selected
                                     @endif >{{$item->name}}</option>

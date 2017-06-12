@@ -48,7 +48,9 @@
                                     class="text-danger">*</span></label>
                         <div class="col-lg-9">
                             <select name="parent_id" class="form-control select2" data-placeholder="{{__('button.please_select')}}">
-
+                                <option value="">
+                                    {{__('button.please_select')}}
+                                </option>
                                 @foreach($items as $menuItem)
                                     <option value="{{$menuItem->id}}" @if(in_array($menuItem->id, $children))
                                     disabled @endif @if($item->parent && $item->parent->id == $item->id) selected @endif >{{$menuItem->name}}</option>

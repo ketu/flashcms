@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\FlashCMS\Helpers\FlashCMS;
 use Closure;
 
 use Illuminate\Http\RedirectResponse;
@@ -22,7 +23,7 @@ class RequestLocaleRedirect
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (!app('request')->is(Config::get('flashcms.backend.prefix') . '/*')) {
+        if (!app('request')->is(FlashCMS::getBackendPrefix() . '/*')) {
             return $next($request);
         }
 

@@ -33,7 +33,9 @@
                                     class="text-danger">*</span></label>
                         <div class="col-lg-9">
                             <select name="parent_id" class="form-control select2" data-placeholder="{{__('button.please_select')}}">
-
+                                <option value="">
+                                    {{__('button.please_select')}}
+                                </option>
                                 @foreach($categories as $catalog)
                                     <option value="{{$catalog->id}}" @if(in_array($catalog->id, $children)) disabled @endif @if($category->parent && $category->parent->id == $catalog->id) selected @endif >{{$catalog->name}}</option>
                                 @endforeach

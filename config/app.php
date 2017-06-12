@@ -241,6 +241,7 @@ return [
         'LaravelLocalization'	=> Mcamara\LaravelLocalization\Facades\LaravelLocalization::class,
         'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
         'Image' => Folklore\Image\Facades\Image::class,
+        'Menu' => App\FlashCMS\Helpers\Menu::class,
 
     ],
 

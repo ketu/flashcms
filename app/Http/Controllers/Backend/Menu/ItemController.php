@@ -7,6 +7,7 @@ use App\Http\Requests\MenuItemRequest;
 use App\Models\Menu\Item;
 use App\Models\Menu\Menu;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 
 class ItemController extends BackendController
 {
@@ -36,6 +37,7 @@ class ItemController extends BackendController
     {
         try {
             $menu = Menu::findOrFail($request->get('menuId'));
+
             $item = new Item();
 
             $currentLocale = app()->getLocale();
@@ -43,7 +45,8 @@ class ItemController extends BackendController
             $item->link = $request->get('link');
             $item->status = $request->get('status', false);
             $item->menu_id = $menu->id;
-            $item->parent_id = $request->get('parent_id');
+            $item->parent_id = $request->get('parent_id', null);
+
             $item->save();
             return redirect()->route('menu.item.edit', ['id' => $item->id])->with('success', 'notice.success');
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\FlashCMS\Helpers\FlashCMS;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Config;
 
@@ -21,7 +22,7 @@ class BackendController extends Controller
             $viewParts = explode('/', $view);
         }
 
-        $backendViewFolder = Config::get('flashcms.backend.view');
+        $backendViewFolder = FlashCMS::getBackendView();// Config::get('flashcms.backend.view');
 
 
         if ($viewParts[0] != $backendViewFolder) {
@@ -35,6 +36,6 @@ class BackendController extends Controller
 
     protected function getBackendRoutePrefix()
     {
-        return Config::get('flashcms.backend.prefix');
+        return FlashCMS::getBackendPrefix();// Config::get('flashcms.backend.prefix');
     }
 }

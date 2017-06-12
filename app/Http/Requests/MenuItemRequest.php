@@ -25,7 +25,7 @@ class MenuItemRequest extends FormRequest
     {
         return [
             'name'=> 'required',
-            'link'=> 'url',
+            'link'=> 'url|required',
         ];
     }
 }

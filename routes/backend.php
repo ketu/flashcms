@@ -37,14 +37,13 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 
-        Route::group(['prefix' => 'item'], function () {
-            Route::get('/{menuId}', 'ItemController@index')->name('menu.item');
-            Route::get('/create/{menuId}', 'ItemController@create')->name('menu.item.create');
-            Route::post('/save', 'ItemController@save')->name('menu.item.save');
-            Route::get('/edit/{id}', 'ItemController@edit')->name('menu.item.edit');
-            Route::post('/update', 'ItemController@update')->name('menu.item.update');
-            Route::get('/delete/{id}', 'ItemController@delete')->name('menu.item.delete');
-        });
+
+        Route::get('/{menuId}/item', 'ItemController@index')->name('menu.item');
+        Route::get('/{menuId}/item/create', 'ItemController@create')->name('menu.item.create');
+        Route::post('/item/save', 'ItemController@save')->name('menu.item.save');
+        Route::get('/item/edit/{id}', 'ItemController@edit')->name('menu.item.edit');
+        Route::post('/item/update', 'ItemController@update')->name('menu.item.update');
+        Route::get('/item/delete/{id}', 'ItemController@delete')->name('menu.item.delete');
     });
 
     // newsletter subscriber router
@@ -75,21 +74,19 @@ Route::group(['middleware' => 'auth'], function () {
             Route::post('/{id}/gallery/delete', 'GalleryController@delete')->name('product.gallery.delete');
 
 
-            // product template
-            Route::group(['prefix' => 'template'], function () {
-                Route::get('/', 'TemplateController@index')->name('template');
-                Route::get('/create', 'TemplateController@create')->name('template.create');
-                Route::post('/save', 'TemplateController@save')->name('template.save');
-                Route::get('/edit/{id}', 'TemplateController@edit')->name('template.edit');
-                Route::post('/update', 'TemplateController@update')->name('template.update');
-                Route::get('/delete/{id}', 'TemplateController@delete')->name('template.delete');
 
-
-                Route::get('/attributes', 'TemplateController@attributes')->name('template.attributes');
-
-            });
         });
+        // product template
+        Route::group(['prefix' => 'template'], function () {
+            Route::get('/', 'TemplateController@index')->name('template');
+            Route::get('/create', 'TemplateController@create')->name('template.create');
+            Route::post('/save', 'TemplateController@save')->name('template.save');
+            Route::get('/edit/{id}', 'TemplateController@edit')->name('template.edit');
+            Route::post('/update', 'TemplateController@update')->name('template.update');
+            Route::get('/delete/{id}', 'TemplateController@delete')->name('template.delete');
+            Route::get('/attributes', 'TemplateController@attributes')->name('template.attributes');
 
+        });
         //category router
         Route::group(['prefix' => 'category'], function () {
             Route::get('/', 'CategoryController@index')->name('category');

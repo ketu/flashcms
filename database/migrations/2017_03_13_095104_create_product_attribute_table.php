@@ -18,8 +18,8 @@ class CreateProductAttributeTable extends Migration
             $table->increments('id');
             $table->string('value')->nullable();
             $table->boolean('is_option_value')->default(false);
-            //$table->integer('product_id')->foreign('product_id')->references('id')->on('product')->onDelete
-            //('cascade');
+            $table->integer('product_id')->foreign('product_id')->references('id')->on('product')->onDelete
+            ('cascade');
             $table->integer('attribute_id')->foreign('attribute_id')->references('id')->on('attribute')->onDelete('cascade');
         });
     }

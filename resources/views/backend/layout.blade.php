@@ -103,37 +103,38 @@
                 <div class="sidebar-category sidebar-category-visible">
                     <div class="category-content no-padding">
                         @section('navigation')
+
                             <ul class="navigation navigation-main navigation-accordion">
 
-                                <li><a href="{{route('dashboard')}}"><i class="fa fa-home"></i> <span>{{__
+                                <li class="{{Menu::isActive() ? 'active' : ''}}"><a href="{{route('dashboard')}}"><i class="fa fa-home"></i> <span>{{__
                             ('nav.dashboard')}}</span></a></li>
                                 <li>
                                     <a href="#"><i class="fa fa-s15"></i> <span>{{__('nav.cms')}}</span></a>
                                     <ul>
-                                        <li><a href="{{route('cms.page')}}">{{__('nav.page')}}</a></li>
-                                        <li><a href="{{route('cms.block')}}">{{__('nav.block')}}</a></li>
+                                        <li class="{{Menu::isActive('cms/page*') ? 'active' : ''}}"><a href="{{route('cms.page')}}">{{__('nav.page')}}</a></li>
+                                        <li class="{{Menu::isActive('cms/block*') ? 'active' : ''}}"><a href="{{route('cms.block')}}">{{__('nav.block')}}</a></li>
                                     </ul>
                                 </li>
                                 <li>
                                     <a href="#"><i class="fa fa-user"></i> <span>{{__('nav.users')}}</span></a>
                                     <ul>
-                                        <li><a href="{{route('user')}}">{{__('nav.users')}}</a></li>
-                                        <li><a href="{{route('role')}}">{{__('nav.user.role')}}</a></li>
-                                        <li><a href="{{route('permission')}}">{{__('nav.user.permission')}}</a></li>
+                                        <li class="{{Menu::isActive('user*') ? 'active' : ''}}"><a href="{{route('user')}}">{{__('nav.users')}}</a></li>
+                                        <li class="{{Menu::isActive('role*') ? 'active' : ''}}"><a href="{{route('role')}}">{{__('nav.user.role')}}</a></li>
+                                        <li class="{{Menu::isActive('permission*') ? 'active' : ''}}"><a href="{{route('permission')}}">{{__('nav.user.permission')}}</a></li>
                                     </ul>
                                 </li>
                                 <li>
                                     <a href="#"><i class="fa fa-user"></i> <span>{{__('nav.catalog')}}</span></a>
                                     <ul>
-                                        <li><a href="{{route('category')}}">{{__('nav.category')}}</a></li>
-                                        <li><a href="{{route('product')}}">{{__('nav.product')}}</a></li>
-                                        <li><a href="{{route('template')}}">{{__('nav.template')}}</a></li>
+                                        <li class="{{Menu::isActive('catalog/category*') ? 'active' : ''}}"><a href="{{route('category')}}">{{__('nav.category')}}</a></li>
+                                        <li class="{{Menu::isActive('catalog/product*') ? 'active' : ''}}"><a href="{{route('product')}}">{{__('nav.product')}}</a></li>
+                                        <li class="{{Menu::isActive('catalog/template*') ? 'active' : ''}}"><a href="{{route('template')}}">{{__('nav.template')}}</a></li>
                                     </ul>
                                 </li>
                                 <li>
                                     <a href="#"><i class="fa fa-gear"></i><span>{{__('nav.newsletter')}}</span></a>
                                     <ul>
-                                        <li><a href="{{route('subscriber')}}">{{__('nav.newsletter.subscriber')}}</a></li>
+                                        <li class="{{Menu::isActive('subscriber*') ? 'active' : ''}}"><a href="{{route('subscriber')}}">{{__('nav.newsletter.subscriber')}}</a></li>
 
 
                                     </ul>
@@ -141,14 +142,15 @@
                                 <li>
                                     <a href="#"><i class="fa fa-gear"></i><span>{{__('nav.menu')}}</span></a>
                                     <ul>
-                                        <li><a href="{{route('menu')}}">{{__('nav.menu')}}</a></li>
+                                        <li class="{{Menu::isActive('menu*') ? 'active' : ''}}"><a href="{{route('menu')}}">{{__('nav.menu')}}</a></li>
+
                                     </ul>
                                 </li>
                                 <li>
                                     <a href="#"><i class="fa fa-gear"></i><span>{{__('nav.system')}}</span></a>
                                     <ul>
-                                        <li><a href="{{route('system.config')}}">{{__('nav.system.config')}}</a></li>
-                                        <li><a href="{{route('attribute')}}">{{__('nav.attribute')}}</a></li>
+                                        <li class="{{Menu::isActive('system*') ? 'active' : ''}}"><a href="{{route('system.config')}}">{{__('nav.system.config')}}</a></li>
+                                        <li class="{{Menu::isActive('attribute*') ? 'active' : ''}}"><a href="{{route('attribute')}}">{{__('nav.attribute')}}</a></li>
 
                                     </ul>
                                 </li>

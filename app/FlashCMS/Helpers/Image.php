@@ -4,7 +4,7 @@
  * Date: 17-4-9
  */
 
-namespace App\FlashCMS;
+namespace App\FlashCMS\Helpers;
 
 
 

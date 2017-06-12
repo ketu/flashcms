@@ -111,7 +111,7 @@
 
                                         @foreach($categories as $category)
                                             <option value="{{$category->id}}"
-                                                    @if(Request::old('parent_id') == $category->id) checked
+                                                    @if(Request::old('parent_id') == $category->id) selected
                                                     @endif >{{str_repeat(' --- ', $category->depth)}}{{$category->name}}</option>
                                         @endforeach
                                     </select>

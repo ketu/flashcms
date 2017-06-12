@@ -24,9 +24,16 @@ var paths = {
  */
 elixir(function (mix) {
     mix.copy(paths.frontend + 'img',
-            'public/assets/frontend/img').copy(paths.frontend + 'fonts', 'public/assets/frontend/fonts');
+            'public/assets/img').copy(paths.frontend + 'fonts', 'public/assets/fonts');
 
-    mix.combine([paths.frontend +'/css/*.css'], 'public/assets/frontend/css/app.min.css');
+    mix.combine([
+
+        paths.bower + 'bootstrap/dist/css/bootstrap.css',
+        paths.bower + 'font-awesome/css/font-awesome.css',
+        paths.bower + 'bxslider-4/dist/jquery.bxslider.css',
+
+        paths.frontend +'/css/*.css'
+    ], 'public/assets/css/app.min.css');
 
     mix.scripts(
         [
@@ -35,16 +42,16 @@ elixir(function (mix) {
             'bxslider-4/dist/jquery.bxslider.js'
 
         ],
-        'public/assets/frontend/js/third.js',
+        'public/assets/js/third.js',
         paths.bower
     ).scripts([
             'js/*.js'
 
         ],
-        'public/assets/frontend/js/app.js',
+        'public/assets/js/app.js',
         paths.frontend
     )
-        .combine(['public/assets/frontend/js/third.js', 'public/assets/frontend/js/app.js'], 'public/assets//frontend/js/app.min.js');
+        .combine(['public/assets/js/third.js', 'public/assets/js/app.js'], 'public/assets/js/app.min.js');
 });
 
 
