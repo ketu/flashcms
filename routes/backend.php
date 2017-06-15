@@ -24,7 +24,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'system', 'namespace' => 'System'], function () {
         Route::get('/', 'ConfigController@index')->name('system.config');
     });
-
+    // links router
+    Route::group(['prefix' => 'links', 'namespace' => 'Link'], function () {
+        Route::get('/', 'LinkController@index')->name('links');
+        Route::get('/create', 'LinkController@create')->name('links.create');
+        Route::post('/save', 'LinkController@save')->name('links.save');
+        Route::get('/edit/{id}', 'LinkController@edit')->name('links.edit');
+        Route::post('/update', 'LinkController@update')->name('links.update');
+        Route::get('/delete/{id}', 'LinkController@delete')->name('links.delete');
+    });
 
     // menu router
     Route::group(['prefix' => 'menu', 'namespace' => 'Menu'], function () {

@@ -23,8 +23,8 @@ var paths = {
  * frontend assets
  */
 elixir(function (mix) {
-    mix.copy(paths.frontend + 'img',
-            'public/assets/img').copy(paths.frontend + 'fonts', 'public/assets/fonts');
+    mix.copy(paths.frontend + 'image',
+            'public/assets/image').copy(paths.frontend + 'fonts', 'public/assets/fonts');
 
     mix.combine([
 

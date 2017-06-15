@@ -134,7 +134,7 @@
                                 <li>
                                     <a href="#"><i class="fa fa-gear"></i><span>{{__('nav.newsletter')}}</span></a>
                                     <ul>
-                                        <li class="{{Menu::isActive('subscriber*') ? 'active' : ''}}"><a href="{{route('subscriber')}}">{{__('nav.newsletter.subscriber')}}</a></li>
+                                        <li class="{{Menu::isActive('newsletter/*') ? 'active' : ''}}"><a href="{{route('subscriber')}}">{{__('nav.newsletter.subscriber')}}</a></li>
 
 
                                     </ul>
@@ -143,6 +143,13 @@
                                     <a href="#"><i class="fa fa-gear"></i><span>{{__('nav.menu')}}</span></a>
                                     <ul>
                                         <li class="{{Menu::isActive('menu*') ? 'active' : ''}}"><a href="{{route('menu')}}">{{__('nav.menu')}}</a></li>
+
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-gear"></i><span>{{__('nav.links')}}</span></a>
+                                    <ul>
+                                        <li class="{{Menu::isActive('links*') ? 'active' : ''}}"><a href="{{route('links')}}">{{__('nav.links')}}</a></li>
 
                                     </ul>
                                 </li>

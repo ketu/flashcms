@@ -28,4 +28,9 @@ class FlashCMS
     {
         return Config::get('flashcms.frontend.view');
     }
+
+    public static function getLogoUploadFolder()
+    {
+        return Config::get('flashcms.uploader.folder.link');
+    }
 }

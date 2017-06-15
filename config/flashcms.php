@@ -28,6 +28,7 @@ return [
     'uploader'=> [
         'folder'=> [
             'product'=>  'upload/product',
+            'link'=> 'upload/link'
         ]
     ],
     'image'=> [
