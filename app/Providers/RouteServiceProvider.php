@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\FlashCMS\Helpers\FlashCMS;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
@@ -67,7 +68,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapBackendRoutes()
     {
-        $backendPrefix = Config::get('flashcms.backend.prefix');
+        $backendPrefix = FlashCMS::getBackendPrefix(); // Config::get('flashcms.backend.prefix');
         $namespace = $this->namespace . '\Backend';
 
         Route::prefix($backendPrefix)->middleware('web')

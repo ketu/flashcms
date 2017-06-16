@@ -15,7 +15,14 @@
 //backend url
 
 
-Auth::routes();
+Route::group(['namespace' => 'Auth'], function () {
+// Authentication Routes...
+    Route::get('login', 'LoginController@showLoginForm')->name("backend.login");
+    Route::post('login', 'LoginController@login')->name("backend.login");
+    Route::post('logout', 'LoginController@logout')->name('backend.logout');
+
+});
+
 
 Route::group(['middleware' => 'auth'], function () {
     // dashboard
@@ -116,15 +123,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/edit/{id}', 'AttributeController@edit')->name('attribute.edit');
         Route::post('/update', 'AttributeController@update')->name('attribute.update');
         Route::get('/delete/{id}', 'AttributeController@delete')->name('attribute.delete');
-
-        Route::group(['prefix' => 'option'], function () {
-            Route::get('/', 'OptionController@index')->name('attribute.option');
-            Route::get('/create', 'OptionController@create')->name('attribute.option.create');
-            Route::post('/save', 'OptionController@save')->name('attribute.option.save');
-            Route::get('/edit/{id}', 'OptionController@edit')->name('attribute.option.edit');
-            Route::post('/update', 'OptionController@update')->name('attribute.option.update');
-            Route::get('/delete/{id}', 'OptionController@delete')->name('attribute.option.delete');
-        });
 
     });
     // cms router

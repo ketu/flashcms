@@ -73,11 +73,13 @@
                 </ul>
 
                 <form class="navbar-form navbar-right">
-                    <p class="small account-text text-right"><a href="#" class="navbar-link">Sign in</a> or <a href="">Create an account</a> </p>
+                    <p class="small account-text text-right"><a href="{{route('login')}}" class="navbar-link">Sign in</a> or <a href="{{route('register')}}">Create
+                            an account</a></p>
                     <div class="form-group">
                         <input type="text" class="form-control top-search-input" name="q" placeholder="Search">
                     </div>
-                    <button type="submit" class="btn btn-default btn-top-search"><i class="glyphicon glyphicon-search"></i></button>
+                    <button type="submit" class="btn btn-default btn-top-search"><i
+                                class="glyphicon glyphicon-search"></i></button>
                 </form>
 
 
@@ -87,14 +89,98 @@
         </div>
         <!-- /.container -->
     </nav>
-
 @show
 <div class="container">
-@yield('content')
+    @yield('content')
 </div>
 
 @section('footer')
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2">
 
+
+                    <h4>Quick links</h4>
+
+
+                    <ul class="list-unstyled">
+
+                        <li><a href="https://yitechnology.com/aboutus/">About Us</a></li>
+
+                        <li><a href="https://yitechnology.com/press/">YI News</a></li>
+
+                        <li><a href="https://help.yitechnology.com/hc/en-us">Help Center</a></li>
+
+                    </ul>
+
+
+                </div>
+                <div class="col-md-6">
+                    <h4>Get in touch</h4>
+                    <p class="small">We believe the very best imaging and computer vision technology should be easy and
+                        accessible
+                        to everyone.&nbsp;We are YI, <em>Your Innovator</em>.&nbsp;</p>
+                    <p class="small">(U.S. Shipping Address Only)</p>
+                </div>
+                <div class="col-md-4">
+                    <h4>Newsletter</h4>
+                    <form class="form-inline" id="subscribe-form">
+                        {{ csrf_field() }}
+                        <div class="form-group">
+                            <input type="email" name="email" class="form-control" placeholder="Email address...">
+                        </div>
+                        <button type="submit" class="btn btn-default">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <hr>
+                    <ul class="list-unstyled list-inline footer-menu">
+                        <li><a href="/pages/legal-terms-of-use">Terms of Use</a></li>
+                        <li><a href="/pages/legal-privacy-policy">Privacy Policy</a></li>
+                        <li><a href="/pages/legal-limited-warranty">Limited Warranty</a></li>
+                        <li class="pull-right">
+                            <a class="icon-fallback-text" href="https://www.twitter.com/yitechnology"
+                               title="YI on Twitter">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                        </li>
+                        <li class="pull-right">
+                            <a class="icon-fallback-text" href="https://www.twitter.com/yitechnology"
+                               title="YI on Twitter">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                        </li>
+                        <li class="pull-right">
+                            <a class="icon-fallback-text" href="https://www.twitter.com/yitechnology"
+                               title="YI on Twitter">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                        </li>
+                        <li class="pull-right">
+                            <a class="icon-fallback-text" href="https://www.twitter.com/yitechnology"
+                               title="YI on Twitter">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <p>© 2017 YI Technologies, Inc.</p>
+                </div>
+                <div class="col-md-6">
+
+                </div>
+            </div>
+        </div>
+    </footer>
 @show
 @section('back_to_top')
     <!-- child of the body tag -->

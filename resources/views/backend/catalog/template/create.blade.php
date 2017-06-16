@@ -28,7 +28,7 @@
                         <label class="control-label col-lg-3">{{ __('product.template.attributes') }}<span
                                     class="text-danger">*</span></label>
                         <div class="col-lg-9">
-                            <select multiple="multiple" name="attributes[]" class="form-control listbox" required>
+                            <select multiple="multiple" name="attributes[]" class="form-control listbox">
                                 @foreach($attributes as $attribute)
                                 <option value="{{$attribute->id }}">{{$attribute->name}}</option>
                                     @endforeach

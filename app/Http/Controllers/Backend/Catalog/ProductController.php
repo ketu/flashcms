@@ -73,7 +73,7 @@ class ProductController extends BackendController
             $categories = $request->get('categories', []);
             $product->status = $request->get('status', false);
 
-            $attributes = $request->get('attributes');
+            $attributes = $request->get('attributes', []);
 
             $attributeTypeHasOption = Config::get('flashcms.attribute.hasOption');
 
@@ -226,7 +226,7 @@ class ProductController extends BackendController
                 $attribute->delete();
             }
 
-            $attributes = $request->get('attributes');
+            $attributes = $request->get('attributes', []);
             $attributeTypeHasOption = Config::get('flashcms.attribute.hasOption');
 
             foreach($attributes as $id=> $values) {

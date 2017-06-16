@@ -26,7 +26,7 @@ class TemplateReuqest extends FormRequest
         return [
             //
             'name'=> 'required',
-            'attributes'=> 'required'
+            //'attributes'=> 'required'
         ];
     }
 }
