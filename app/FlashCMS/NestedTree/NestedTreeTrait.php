@@ -83,7 +83,7 @@ trait NestedTreeTrait
     private function mergeTranslatableTranslation(Builder $queryBuilder)
     {
         if (method_exists($this, 'scopeWithTranslation')) {
-            return $queryBuilder->withTranslation();
+            return $queryBuilder->translatedIn();
         }
 
         return $queryBuilder;

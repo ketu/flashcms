@@ -1,18 +1,36 @@
 @extends('frontend.layout')
+@section("loading")	<!-- Preloader -->
+	<div id="preloader">
+			<div id="status"></div>
+		</div>
+ @stop
 @section('content')
- <!-- Heading Row -->
- <div class="row">
-  <div class="col-md-8">
-   <img class="img-responsive img-rounded" src="http://placehold.it/900x350" alt="">
-  </div>
-  <!-- /.col-md-8 -->
-  <div class="col-md-4">
-   <h1>Business Name or Tagline</h1>
-   <p>This is a template that is great for small businesses. It doesn't have too much fancy flare to it, but it makes a great use of the standard Bootstrap core components. Feel free to use this template for any project you want!</p>
-   <a class="btn btn-primary btn-lg" href="#">Call to Action!</a>
-  </div>
-  <!-- /.col-md-4 -->
- </div>
- <!-- /.row -->
+<div class="row">
+				 
+
+<div class="col-md-1 col-xs-2" style="overflow:hidden">				
+	<i class="far fa-square" style="    font-size: 140px;    color: #fff;    margin-top: 17px;"></i></div>
+					<div class="col-md-8 col-xs-10">
+	
+
+ {{Block::show("home-center")}}
+						<!-- <p class="home-info">
+							为全球行业顶尖客户<br>
+							<br>
+							<br>
+							提供洁净服务支持
+						</p>
+						<p class="home-sub-info">
+							专研洁净系统工程10余年
+						</p> -->
+					</div>
+				</div>
 
 @endsection
+@section('footer.scripts.extra')
+	<script>
+		$(document).ready(function () {
+			$.backstretch("{{asset('assets/img/bg/index.png')}}");
+		});
+	</script>
+@stop

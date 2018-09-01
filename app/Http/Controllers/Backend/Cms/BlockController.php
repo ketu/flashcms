@@ -13,7 +13,7 @@ class BlockController extends BackendController
 
     public function index(Request $request)
     {
-        $blocks = Block::all();
+        $blocks = Block::translatedIn()->get();
         return $this->render('cms.block.index', [
             'blocks' => $blocks
         ]);

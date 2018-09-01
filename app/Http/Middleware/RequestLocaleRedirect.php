@@ -23,9 +23,9 @@ class RequestLocaleRedirect
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (!app('request')->is(FlashCMS::getBackendPrefix() . '/*')) {
-            return $next($request);
-        }
+        // if (!app('request')->is(FlashCMS::getBackendPrefix() . '/*')) {
+        //     return $next($request);
+        // }
 
 
         $localeRequestParam = 'locale';

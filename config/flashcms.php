@@ -28,6 +28,8 @@ return [
     'uploader'=> [
         'folder'=> [
             'product'=>  'upload/product',
+            'blog'=> 'upload/blog',
+            'gallery'=>  'upload/gallery',
             'link'=> 'upload/link'
         ]
     ],
@@ -38,6 +40,11 @@ return [
             'watermark'=> false,
         ],
         'product'=> [
+            'width'=> 150,
+            'height'=> 150,
+            'watermark'=> false,
+        ],
+         'gallery'=> [
             'width'=> 150,
             'height'=> 150,
             'watermark'=> false,

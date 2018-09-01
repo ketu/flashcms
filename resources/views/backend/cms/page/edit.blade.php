@@ -43,7 +43,19 @@
                     </div>
                     <!-- /input with icons -->
 
-
+             <!-- Input with icons -->
+             <div class="form-group has-feedback">
+                        <label class="control-label col-lg-3">{{ __('page.template') }}</label>
+                        <div class="col-lg-9">
+                            <input type="text" name="template" class="form-control"
+                                   value="{{$page->template}}" placeholder="{{ __('page.template') }}">
+                            @if ($errors->first('template'))
+                                <label id="template-error" class="validation-error-label"
+                                       for="template">{{$errors->first('template')}}</label>
+                            @endif
+                        </div>
+                    </div>
+                    <!-- /input with icons -->
                 </fieldset>
 
 

@@ -119,26 +119,27 @@
                                     <a href="#"><i class="fa fa-user"></i> <span>{{__('nav.users')}}</span></a>
                                     <ul>
                                         <li class="{{Menu::isActive('user*') ? 'active' : ''}}"><a href="{{route('user')}}">{{__('nav.users')}}</a></li>
-                                        <li class="{{Menu::isActive('role*') ? 'active' : ''}}"><a href="{{route('role')}}">{{__('nav.user.role')}}</a></li>
+                                        <!-- <li class="{{Menu::isActive('role*') ? 'active' : ''}}"><a href="{{route('role')}}">{{__('nav.user.role')}}</a></li>
                                         <li class="{{Menu::isActive('permission*') ? 'active' : ''}}"><a href="{{route('permission')}}">{{__('nav.user.permission')}}</a></li>
-                                    </ul>
+                                     -->
+                                     </ul>
                                 </li>
-                                <li>
+                                <!-- <li>
                                     <a href="#"><i class="fa fa-user"></i> <span>{{__('nav.catalog')}}</span></a>
                                     <ul>
                                         <li class="{{Menu::isActive('catalog/category*') ? 'active' : ''}}"><a href="{{route('category')}}">{{__('nav.category')}}</a></li>
                                         <li class="{{Menu::isActive('catalog/product*') ? 'active' : ''}}"><a href="{{route('product')}}">{{__('nav.product')}}</a></li>
                                         <li class="{{Menu::isActive('catalog/template*') ? 'active' : ''}}"><a href="{{route('template')}}">{{__('nav.template')}}</a></li>
                                     </ul>
-                                </li>
-                                <li>
+                                </li> -->
+                                <!-- <li>
                                     <a href="#"><i class="fa fa-gear"></i><span>{{__('nav.newsletter')}}</span></a>
                                     <ul>
                                         <li class="{{Menu::isActive('newsletter/*') ? 'active' : ''}}"><a href="{{route('subscriber')}}">{{__('nav.newsletter.subscriber')}}</a></li>
 
 
                                     </ul>
-                                </li>
+                                </li> -->
                                 <li>
                                     <a href="#"><i class="fa fa-gear"></i><span>{{__('nav.menu')}}</span></a>
                                     <ul>
@@ -147,20 +148,35 @@
                                     </ul>
                                 </li>
                                 <li>
+                                    <a href="#"><i class="fa fa-gear"></i><span>{{__('nav.blog')}}</span></a>
+                                    <ul>
+                                        <li class="{{Menu::isActive('blog*') ? 'active' : ''}}"><a href="{{route('blog')}}">{{__('nav.blog')}}</a></li>
+                                        <li class="{{Menu::isActive('blog*') ? 'active' : ''}}"><a href="{{route('blog.category')}}">{{__('nav.blog_category')}}</a></li>
+
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-gear"></i><span>{{__('nav.gallery')}}</span></a>
+                                    <ul>
+                                        <li class="{{Menu::isActive('gallery*') ? 'active' : ''}}"><a href="{{route('gallery')}}">{{__('nav.gallery')}}</a></li>
+
+                                    </ul>
+                                </li>
+                                <!-- <li>
                                     <a href="#"><i class="fa fa-gear"></i><span>{{__('nav.links')}}</span></a>
                                     <ul>
                                         <li class="{{Menu::isActive('links*') ? 'active' : ''}}"><a href="{{route('links')}}">{{__('nav.links')}}</a></li>
 
                                     </ul>
-                                </li>
-                                <li>
+                                </li> -->
+                                <!-- <li>
                                     <a href="#"><i class="fa fa-gear"></i><span>{{__('nav.system')}}</span></a>
                                     <ul>
                                         <li class="{{Menu::isActive('system*') ? 'active' : ''}}"><a href="{{route('system.config')}}">{{__('nav.system.config')}}</a></li>
                                         <li class="{{Menu::isActive('attribute*') ? 'active' : ''}}"><a href="{{route('attribute')}}">{{__('nav.attribute')}}</a></li>
 
                                     </ul>
-                                </li>
+                                </li> -->
                             {{-- <li>
                                  <a href="#"><i class="icon-stack"></i> <span>Starter kit</span></a>
                                  <ul>
@@ -212,8 +228,7 @@
                     @section('page.title')
                         <div class="page-title">
                             <h4><i class="icon-arrow-left52 position-left"></i> <span
-                                        class="text-semibold">Starters</span>
-                                - Fixed Layout</h4>
+                                        class="text-semibold"></span></h4>
                         </div>
                     @show
                     @section('page.button')

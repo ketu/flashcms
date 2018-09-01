@@ -26,7 +26,8 @@ Route::group(['namespace' => 'Auth'], function () {
 
 Route::group(['middleware' => 'auth'], function () {
     // dashboard
-    Route::get('/', 'DashboardController@dashboard')->name('dashboard');
+    Route::get('/dashboard', 'DashboardController@dashboard')->name('dashboard');
+    Route::get('', 'DashboardController@dashboard')->name('backend');
     // system config
     Route::group(['prefix' => 'system', 'namespace' => 'System'], function () {
         Route::get('/', 'ConfigController@index')->name('system.config');
@@ -39,6 +40,26 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/edit/{id}', 'LinkController@edit')->name('links.edit');
         Route::post('/update', 'LinkController@update')->name('links.update');
         Route::get('/delete/{id}', 'LinkController@delete')->name('links.delete');
+    });
+
+
+       // gallery router
+       Route::group(['prefix' => 'gallery', 'namespace' => 'Gallery'], function () {
+        Route::get('/', 'GalleryController@index')->name('gallery');
+        Route::get('/create', 'GalleryController@create')->name('gallery.create');
+        Route::post('/save', 'GalleryController@save')->name('gallery.save');
+        Route::get('/edit/{id}', 'GalleryController@edit')->name('gallery.edit');
+        Route::post('/update', 'GalleryController@update')->name('gallery.update');
+        Route::get('/delete/{id}', 'GalleryController@delete')->name('gallery.delete');
+
+        Route::get('/{galleryId}/image', 'ImageController@index')->name('gallery.image');
+        Route::get('/{galleryId}/image/create', 'ImageController@create')->name('gallery.image.create');
+        Route::post('/image/save', 'ImageController@save')->name('gallery.image.save');
+        Route::get('/image/edit/{id}', 'ImageController@edit')->name('gallery.image.edit');
+        Route::post('/image/update', 'ImageController@update')->name('gallery.image.update');
+        Route::get('/image/delete/{id}', 'ImageController@delete')->name('gallery.image.delete');
+         
+
     });
 
     // menu router
@@ -70,6 +91,33 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/edit/{id}', 'SubscriberController@edit')->name('subscriber.edit');
             Route::post('/update', 'SubscriberController@update')->name('subscriber.update');
             Route::get('/delete/{id}', 'SubscriberController@delete')->name('subscriber.delete');
+        });
+    });
+
+
+    // blog router
+    Route::group(['prefix' => 'blog', 'namespace' => 'Blog'], function () {
+        //product router
+        Route::group(['prefix' => 'blog'], function () {
+            Route::get('/', 'BlogController@index')->name('blog');
+            Route::get('/create', 'BlogController@create')->name('blog.create');
+            Route::post('/save', 'BlogController@save')->name('blog.save');
+            Route::get('/edit/{id}', 'BlogController@edit')->name('blog.edit');
+            Route::post('/update', 'BlogController@update')->name('blog.update');
+            Route::get('/delete/{id}', 'BlogController@delete')->name('blog.delete');
+ 
+
+        });
+
+        //category router
+        Route::group(['prefix' => 'category'], function () {
+            Route::get('/', 'CategoryController@index')->name('blog.category');
+            Route::get('/create', 'CategoryController@create')->name('blog.category.create');
+            Route::post('/save', 'CategoryController@save')->name('blog.category.save');
+            Route::get('/edit/{id}', 'CategoryController@edit')->name('blog.category.edit');
+            Route::post('/update', 'CategoryController@update')->name('blog.category.update');
+            Route::get('/delete/{id}', 'CategoryController@delete')->name('blog.category.delete');
+            Route::get('/rebuild', 'CategoryController@rebuild')->name('blog.category.rebuild');
         });
     });
 

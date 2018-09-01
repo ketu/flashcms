@@ -13,7 +13,7 @@ class PageController extends BackendController
 
     public function index(Request $request)
     {
-        $pages = Page::all();
+        $pages = Page::translatedIn()->get();
         return $this->render('cms.page.index', [
             'pages' => $pages
         ]);
@@ -32,6 +32,7 @@ class PageController extends BackendController
             $page = new Page();
             $page->slug = $request->get('slug');
             $page->status = $request->get('status', false);
+            $page->template = $request->get('template');
             $page->translateOrNew($currentLocale)->name = $request->get('name');
             $page->translateOrNew($currentLocale)->content = $request->get('content');
             $page->first_create_user = Auth::id();
@@ -62,6 +63,7 @@ class PageController extends BackendController
             $page = Page::findOrFail($id);
             $currentLocale = app()->getLocale();
             $page->slug = $request->request->get('slug');
+            $page->template = $request->get('template');
             $page->status = $request->request->get('status', false);
             $page->translateOrNew($currentLocale)->name = $request->get('name');
             $page->translateOrNew($currentLocale)->content = $request->get('content');

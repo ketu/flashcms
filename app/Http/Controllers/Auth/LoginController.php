@@ -47,6 +47,6 @@ class LoginController extends FrontendController
      */
     protected function redirectTo()
     {
-        return route('home');
+        return route('dashboard');
     }
 }

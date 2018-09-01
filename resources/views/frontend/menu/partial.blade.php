@@ -1,0 +1,2 @@
+
+{{Menu::renderTree(Menu::tree())}}

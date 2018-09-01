@@ -78,7 +78,6 @@ class Image
     public function url($path)
     {
 
-
         return ImageHandler::url($path, $this->getWidth(), $this->getHeight(), $this->getOptions());
     }
 
